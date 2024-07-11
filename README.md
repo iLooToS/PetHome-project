@@ -1,0 +1,1 @@
+PetHome is a web platform that allows shelters to post ads for pets that need a new home.
