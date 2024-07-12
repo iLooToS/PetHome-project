@@ -2,43 +2,34 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('ShelterReviews', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER
       },
-      roleId: {
+      userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        defaultValue: 1,
         references: {
-          model: 'Roles',
-          key: 'id',
+          model: 'Users',
+          key: 'id'
         },
-        onUpdate: 'CASCADE',
+        onUpdate: 'CASCADE'
       },
-      name: {
+      shelterId: {
         allowNull: false,
-        type: Sequelize.TEXT,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Shelters',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE'
       },
-      lastName: {
+      text: {
         allowNull: false,
-        type: Sequelize.TEXT,
-      },
-      email: {
-        allowNull: false,
-        unique: true,
-        type: Sequelize.TEXT,
-      },
-      password: {
-        allowNull: false,
-        type: Sequelize.TEXT,
-      },
-      img: {
-        allowNull: true,
-        type: Sequelize.TEXT,
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: true,
@@ -49,10 +40,10 @@ module.exports = {
         allowNull: true,
         type: Sequelize.DATE,
         defaultValue: new Date(),
-      },
+      }
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
-  },
+    await queryInterface.dropTable('ShelterReviews');
+  }
 };
