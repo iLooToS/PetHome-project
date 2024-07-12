@@ -21,7 +21,9 @@ module.exports = (sequelize, DataTypes) => {
       references: {
         model: "Shelters",
         key: "id",
-      }
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
     },
     petType: {
       allowNull: false,

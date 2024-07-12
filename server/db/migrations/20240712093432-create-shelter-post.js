@@ -16,7 +16,8 @@ module.exports = {
           model: 'Shelters',
           key: 'id'
         },
-        onUpdate: 'CASCADE'
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       text: {
         allowNull: false,
