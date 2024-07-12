@@ -1,13 +1,22 @@
 export type User = {
-  id: number;
-  name: string;
-  email: string;
-};
+	id: number
+	roleId?: number
+	name: string
+	lastName: string
+	email: string
+	img?: string
+}
 
-export type UserId = User['id'];
+export type UserForLoga = {
+	email: string
+	password: string
+}
 
-export type UserWithoutIdwithPassword = Omit<User, 'id'> & { password: string };
+export type UserId = User['id']
 
-export type UserWithoutId = Omit<User, 'id'>;
+export type UserWithoutIdwithPassword = Omit<User, 'id'> & {
+	password: string
+	cpassword?: string
+}
 
-export type UserWithoutName = Omit<UserWithoutIdwithPassword, 'name'>;
+export type UserWithoutId = Omit<User, 'id'>
