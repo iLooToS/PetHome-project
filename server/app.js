@@ -13,5 +13,5 @@ serverConfig(app);
 app.use('/api', indexRouter);
 
 app.listen(PORT, () => {
-  console.log(`Писигры и киты говорят бабушке на порту ${PORT}`);
+  console.log(`PetHome server on port: ${PORT}`);
 });

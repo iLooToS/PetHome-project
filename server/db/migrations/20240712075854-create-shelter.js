@@ -30,6 +30,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT
       },
+      description: {
+        allowNull: false,
+        type: Sequelize.TEXT
+      },
       img: {
         allowNull: true,
         type: Sequelize.TEXT

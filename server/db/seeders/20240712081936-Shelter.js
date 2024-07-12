@@ -4,6 +4,7 @@ const shelters = [
     userId: 1,
     locationId: 1,
     name: "John Shelter",
+    description: "A family-friendly shelter for dogs.",
     img: "/img/johnShelter.jpg",
     status: true,
   },
