@@ -4,7 +4,8 @@ const shelters = [
     userId: 1,
     locationId: 1,
     name: "John Shelter",
-    img: "/img/johnShelter.jpg",
+    logo: "/img/johnShelter.jpg",
+    description: 'Крутой и классный приютик',
     status: true,
   },
 ];
