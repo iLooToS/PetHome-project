@@ -4,6 +4,7 @@ import './globals.css'
 import NavBar from '@/src/widgets/nav-bar/NavBar'
 import { SITE_NAME } from '@/constants/seo.constants'
 import { Providers } from './providers'
+import Footer from '@/src/widgets/footer/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,6 +23,7 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
 				<Providers>
 					<NavBar />
 					{children}
+					<Footer />
 				</Providers>
 			</body>
 		</html>

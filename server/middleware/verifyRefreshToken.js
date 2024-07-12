@@ -9,8 +9,9 @@ async function verifyRefreshToken(req, res, next) {
     //   where: { id: user.id },
     //   attributes: ['id', 'name', 'email'],
     // });
-
+    
     res.locals.user = user;
+    
 
     next();
   } catch (error) {

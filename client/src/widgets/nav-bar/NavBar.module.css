@@ -1,0 +1,101 @@
+/* NavBar.module.css */
+
+.navBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.navBar .menuButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.navBar .menu {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.navBar .menu.open {
+  display: flex;
+}
+
+.navBar a {
+  text-decoration: none;
+  color: #0070f3;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+}
+
+.navBar a:hover {
+  background-color: #f0f0f0;
+}
+
+.navBar p {
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+}
+
+.logoutButton {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.logoutButton:hover {
+  background-color: #005bb5;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.icon {
+  margin-right: 15px;
+}
+
+@media (min-width: 600px) {
+  .navBar {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .navBar .menuButton {
+    display: none;
+  }
+
+  .navBar .menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .navBar a, .navBar p, .logoutButton {
+    margin: 0 10px;
+    padding: 10px 20px;
+  }
+}

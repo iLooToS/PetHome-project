@@ -4,8 +4,8 @@ const shelters = [
     userId: 1,
     locationId: 1,
     name: "John Shelter",
+    logo: "/img/johnShelter.jpg",
     description: "A family-friendly shelter for dogs.",
-    img: "/img/johnShelter.jpg",
     status: true,
   },
 ];

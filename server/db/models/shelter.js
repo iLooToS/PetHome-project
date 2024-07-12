@@ -39,13 +39,13 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.TEXT,
       },
+      logo: {
+        allowNull: true,
+        type: DataTypes.TEXT
+      },
       description: {
         allowNull: false,
         type: DataTypes.TEXT
-      },
-      img: {
-        allowNull: true,
-        type: DataTypes.TEXT,
       },
       status: {
         allowNull: false,
