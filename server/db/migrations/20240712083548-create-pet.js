@@ -15,7 +15,9 @@ module.exports = {
         references: {
           model: "Shelters",
           key: "id",
-        }
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       petType: {
         allowNull: false,

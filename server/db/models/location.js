@@ -10,14 +10,26 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate({Shelter}) {
-      this.belongsTo(Shelter, { foreignKey: "locationId" });
+      this.hasOne(Shelter, { foreignKey: "locationId" });
     }
   }
   Location.init({
-    city: DataTypes.TEXT,
-    streetName: DataTypes.TEXT,
-    latitude: DataTypes.INTEGER,
-    longitude: DataTypes.INTEGER
+    city: {
+      allowNull: false,
+      type: DataTypes.TEXT
+    },
+    streetName: {
+      allowNull: false,
+      type: DataTypes.TEXT
+    },
+    latitude: {
+      allowNull: true,
+      type: DataTypes.INTEGER
+    },
+    longitude: {
+      allowNull: true,
+      type: DataTypes.INTEGER
+    },
   }, {
     sequelize,
     modelName: 'Location',

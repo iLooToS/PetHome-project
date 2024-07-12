@@ -19,10 +19,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: {
-          model: "Shelters",
-          key: "id",
+          model: 'Shelters',
+          key: 'id'
         },
-        onUpdate: "CASCADE",
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       text: {
         allowNull: false,

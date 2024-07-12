@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
         model: 'Shelters',
         key: 'id'
       },
+      onDelete: 'CASCADE',
       onUpdate: 'CASCADE'
     },
     text: {
