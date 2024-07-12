@@ -1,43 +1,26 @@
-'use strict';
+"use strict";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable("ShelterReviewImages", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      roleId: {
+      shelterReviewId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        defaultValue: 1,
         references: {
-          model: 'Roles',
-          key: 'id',
+          model: "ShelterReviews",
+          key: "id",
         },
-        onUpdate: 'CASCADE',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
-      name: {
+      url: {
         allowNull: false,
-        type: Sequelize.TEXT,
-      },
-      lastName: {
-        allowNull: false,
-        type: Sequelize.TEXT,
-      },
-      email: {
-        allowNull: false,
-        unique: true,
-        type: Sequelize.TEXT,
-      },
-      password: {
-        allowNull: false,
-        type: Sequelize.TEXT,
-      },
-      img: {
-        allowNull: true,
         type: Sequelize.TEXT,
       },
       createdAt: {
@@ -53,6 +36,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable("ShelterReviewImages");
   },
 };
