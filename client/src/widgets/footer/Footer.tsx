@@ -1,42 +1,46 @@
-'use client'
-import * as React from 'react'
-import BottomNavigation from '@mui/material/BottomNavigation'
-import BottomNavigationAction from '@mui/material/BottomNavigationAction'
-import FolderIcon from '@mui/icons-material/Folder'
-import RestoreIcon from '@mui/icons-material/Restore'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import LocationOnIcon from '@mui/icons-material/LocationOn'
+"use client";
+import * as React from "react";
+import { useRouter } from 'next/navigation'
+import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import HomeIcon from '@mui/icons-material/Home';
+import SearchIcon from '@mui/icons-material/Search';
+import ForumIcon from '@mui/icons-material/Forum';
+import "./Footer.css";
 
 export default function Footer() {
-	const [value, setValue] = React.useState('recents')
+	const router = useRouter()
+  const [value, setValue] = React.useState("recents");
 
-	const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-		setValue(newValue)
-	}
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+  };
 
-	return (
-		<div style={{ position: 'sticky', left: '0', bottom: '0' }}>
-			<BottomNavigation
-				sx={{ width: 320 }}
-				value={value}
-				onChange={handleChange}
-			>
-				<BottomNavigationAction
-					label='Favorites'
-					value='favorites'
-					icon={<FavoriteIcon />}
-				/>
-				<BottomNavigationAction
-					label='Nearby'
-					value='nearby'
-					icon={<LocationOnIcon />}
-				/>
-				<BottomNavigationAction
-					label='Folder'
-					value='folder'
-					icon={<FolderIcon />}
-				/>
-			</BottomNavigation>
-		</div>
-	)
+  return (
+    <div className="footer-container">
+      <BottomNavigation
+        className="footer-wrapper"
+        value={value}
+        onChange={handleChange}
+      >
+        <BottomNavigationAction
+          label="Home"
+          value="home"
+          icon={<HomeIcon />}
+		  onClick={()=> router.push('/')}
+        />
+        <BottomNavigationAction
+          label="Search"
+          value="search"
+          icon={<SearchIcon />}
+		  onClick={()=> router.push('/search')}
+        />
+        <BottomNavigationAction
+          label="Messages"
+          value="messages"
+          icon={<ForumIcon />}
+        />
+      </BottomNavigation>
+    </div>
+  );
 }
