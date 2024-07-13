@@ -8,11 +8,16 @@ import { useAppDispatch } from "../../app/store/store";
 import { UserWithoutIdwithPassword } from "@/src/entities/users/types/userTypes";
 import { registrationThunk } from "@/src/entities/users/authSlice";
 import { useRouter } from "next/navigation";
+import { Button, TextField } from "@mui/material";
 
 const schema = object().shape({
   name: string().nullable().trim().required("Обязательно для заполнения"),
   lastName: string().nullable().trim().required("Обязательно для заполнения"),
-  email: string().email().nullable().trim().required("Не email"),
+  email: string()
+    .email()
+    .nullable()
+    .trim()
+    .required("Необходимо указать email"),
   password: string()
     .trim()
     .required("Необходимо указать пароль")
@@ -49,37 +54,55 @@ function RegistrationPage(): JSX.Element {
     <div className="RegistrationPage-container">
       <form onSubmit={handleSubmit(onHadleSubmit)}>
         <label htmlFor="name">
-          Name:
-          <input type="text" {...register("name")} />
+          <TextField
+            id="reg-Name"
+            label="Name"
+            variant="outlined"
+            type="text"
+            {...register("name")}
+          />
           <span>{errors.name?.message}</span>
         </label>
-        <br />
         <label htmlFor="lastName">
-          lastName:
-          <input type="text" {...register("lastName")} />
+          <TextField
+            id="reg-lastName"
+            label="lastName"
+            type="text"
+            {...register("lastName")}
+          />
           <span>{errors.name?.message}</span>
         </label>
-        <br />
         <label htmlFor="email">
-          Email:
-          <input type="email" {...register("email")} />
+          <TextField
+            id="reg-Email"
+            label="Email"
+            type="email"
+            {...register("email")}
+          />
           <span>{errors.email?.message}</span>
         </label>
-        <br />
         <label htmlFor="password">
-          Password:
-          <input type="password" {...register("password")} />
+          <TextField
+            id="reg-Password"
+            label="Password"
+            type="password"
+            {...register("password")}
+          />
           <span>{errors.password?.message}</span>
         </label>
-        <br />
         <label htmlFor="cpassword">
-          Check password:
-          <input type="password" {...register("cpassword")} />
+          <TextField
+            id="reg-cpassword"
+            label="Check password"
+            type="password"
+            {...register("cpassword")}
+          />
           <span>{errors.cpassword?.message}</span>
         </label>
-        <br />
         <div className="button-container">
-          <button type="submit">Sign up</button>
+          <Button variant="contained" type="submit">
+            Sign up
+          </Button>
         </div>
       </form>
     </div>
