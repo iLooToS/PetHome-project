@@ -36,7 +36,7 @@ const PetsPage: React.FC = () => {
 	}, [search, pets, filterPets])
 
 	return (
-		<div style={{ padding: '20px' }}>
+		<div className='min-h-screen' style={{ padding: '20px' }}>
 			<div className='search-container'>
 				<label htmlFor='search-input'>Умный Поиск</label>
 				<input
