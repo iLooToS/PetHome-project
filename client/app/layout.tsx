@@ -24,7 +24,7 @@ interface RootLayoutProps {
 export default function RootLayout({children}: RootLayoutProps) {
 	return (
 		<html lang='ru'>
-			<body className={inter.className}>
+			<body className='min-h-screen'>
 				<Providers>
 					<NavBar />
 					{children}
