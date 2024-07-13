@@ -24,6 +24,11 @@ export const createShelterThunk = createAsyncThunk(
 	(body: ShelterCreateWithLocation) => ShelterApi.createShelter(body)
 )
 
+export const getShelterByIdThunk = createAsyncThunk(
+  "load/shelterById",
+  (id: Shelter["id"]) => ShelterApi.getShelterById(id)
+);
+
 const ShelterSlice = createSlice({
 	name: 'shelters',
 	initialState,
@@ -42,7 +47,18 @@ const ShelterSlice = createSlice({
 			.addCase(createShelterThunk.rejected, (state, action) => {
 				state.error = action.error.message
 				state.loading = false
-			})
+			}).addCase(getShelterByIdThunk.fulfilled, (state, action) => {
+        state.currentShelter = action.payload.shelter;
+        state.loading = false;
+        state.error = undefined;
+      })
+      .addCase(getShelterByIdThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+      })
+      .addCase(getShelterByIdThunk.pending, (state, action) => {
+        state.loading = true;
+      });
 	},
 })
-export default ShelterSlice.reducer
+export default ShelterSlice
