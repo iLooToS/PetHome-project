@@ -1,4 +1,4 @@
-const { Shelter } = require("../db/models");
+const { Shelter, Location } = require("../db/models");
 
 class ShelterServices {
   async getAllShelters() {
@@ -6,7 +6,9 @@ class ShelterServices {
   }
 
   async getShelterById(id) {
-    return Shelter.findByPk(id);
+    return Shelter.findByPk(id, {
+      include: Location,
+    });
   }
   async createShelter(body) {
     return Shelter.create(body);

@@ -17,11 +17,12 @@ exports.getAllShelters = async (req, res) => {
 exports.getShelterById = async (req, res) => {
   try {
     const { shelterId } = req.params;
+    console.log(shelterId);
     if (!shelterId) {
       res.status(400).json({ message: "Параметра нет" });
       return;
     }
-    const shelter = await MovieServices.getShelterById(+shelterId);
+    const shelter = await ShelterServices.getShelterById(+shelterId);
     if (!shelter) {
       res.status(400).json({ message: "Такого приюта нет" });
       return;
