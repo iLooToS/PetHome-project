@@ -1,10 +1,12 @@
-import authSlice from '@/src/entities/users/authSlice'
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
+import authSlice from '../../entities/users/authSlice'
+import shelterSlice from '@/src/entities/shelters/shelterSlice'
 
 const store = configureStore({
 	reducer: {
-		auth: authSlice.reducer,
+		auth: authSlice,
+		shelters: shelterSlice,
 	},
 })
 
@@ -16,6 +18,6 @@ type AppDispatch = typeof store.dispatch
 export type StoreType = typeof store
 
 // создаем типизированный хук на основе текущего dispatch
-export const useAppDispatch = () => useDispatch<AppDispatch>()
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
 
 export default store
