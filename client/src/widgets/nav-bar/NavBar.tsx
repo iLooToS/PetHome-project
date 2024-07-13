@@ -1,10 +1,10 @@
 'use client'
 import { RootState, useAppDispatch } from '@/src/app/store/store'
-import { logoutThunk } from '@/src/entities/users/authSlice'
+import { logoutThunk, refreshUser } from '@/src/entities/users/authSlice'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Loader from '../Loader/Loader'
 import styles from './NavBar.module.css'
 
@@ -13,6 +13,10 @@ const NavBar = (): JSX.Element => {
 	const dispatch = useAppDispatch()
 	const router = useRouter()
 	const [menuOpen, setMenuOpen] = useState(false)
+
+	useEffect(() => {
+    void dispatch(refreshUser());
+  }, [dispatch]);
 
 	const onHandleLogout = (e: React.MouseEvent<HTMLButtonElement>): void => {
 		e.preventDefault()

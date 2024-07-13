@@ -5,6 +5,7 @@ import NavBar from '@/src/widgets/nav-bar/NavBar'
 import { SITE_NAME } from '@/constants/seo.constants'
 import { Providers } from './providers'
 import Footer from '@/src/widgets/footer/Footer'
+import { ReactNode } from 'react'
 
 const inter = Inter({ subsets: ['greek'] })
 
@@ -16,7 +17,11 @@ export const metadata: Metadata = {
 	description: 'Pet Shelter',
 }
 
-export default function RootLayout({children}: Readonly<{children: React.ReactNode}>) {
+interface RootLayoutProps {
+  children: ReactNode;
+}
+
+export default function RootLayout({children}: RootLayoutProps) {
 	return (
 		<html lang='ru'>
 			<body className={inter.className}>

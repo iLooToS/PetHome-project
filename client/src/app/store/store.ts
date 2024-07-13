@@ -1,3 +1,4 @@
+
 import currentShelter from "@/src/entities/shelters/currentShelter";
 import { Shelter } from "@/src/entities/shelters/type/shelterTypes";
 import authSlice from "@/src/entities/users/authSlice";
@@ -5,11 +6,11 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 
 const store = configureStore({
-  reducer: {
-    auth: authSlice.reducer,
-    currentShelter: currentShelter.reducer,
-  },
-});
+	reducer: {
+		auth: authSlice,
+		shelters: shelterSlice,
+	},
+})
 
 export type RootState = ReturnType<typeof store.getState>;
 
@@ -18,7 +19,8 @@ type AppDispatch = typeof store.dispatch;
 export type StoreType = typeof store;
 
 // создаем типизированный хук на основе текущего dispatch
-export const useAppDispatch = () => useDispatch<AppDispatch>();
+
 export const useAppSelector = () => useSelector.withTypes<RootState>();
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
 
 export default store;
