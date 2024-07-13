@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 	...NO_INDEX_PAGE,
 }
 
-const page = (): JSX.Element => {
-	return <ShelterPage />
+const page = ({ params }: { params: { slug: string } }): JSX.Element => {
+	return <ShelterPage shelterId={+params.slug} />
 }
 export default page

@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { Shelter, ShelterCreateWithLocation } from "../type/shelterTypes";
+import { Shelter, ShelterCreateWithLocation, ShelterId } from "../type/shelterTypes";
 import axiosInstance from "@/src/app/services/axiosInstance";
 
 class ShelterApi {
@@ -18,7 +18,7 @@ class ShelterApi {
     }
   };
 
-  static getShelterById = async (id: Shelter['id']): Promise<{
+  static getShelterById = async (id: ShelterId): Promise<{
     message: "success";
     shelter: Shelter;
   }> => {
