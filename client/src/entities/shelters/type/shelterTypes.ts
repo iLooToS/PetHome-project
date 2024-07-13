@@ -30,3 +30,5 @@ export interface ShelterCreateWithLocation{
 	description:string
 }
 
+export type ShelterId = Shelter['id'];
+
