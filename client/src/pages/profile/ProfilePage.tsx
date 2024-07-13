@@ -30,7 +30,7 @@ const ProfilePage: React.FC = () => {
   };
 
 	return (
-		<div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
+		<div className='min-h-screen' style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
 			<main style={{ textAlign: 'center' }}>
 				<div style={{ marginBottom: '20px' }}>
 					<div
