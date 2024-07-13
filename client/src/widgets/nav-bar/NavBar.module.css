@@ -80,6 +80,7 @@
 
 @media (min-width: 600px) {
   .navBar {
+    transition: ease;
     flex-direction: row;
     justify-content: space-between;
   }

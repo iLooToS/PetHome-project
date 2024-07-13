@@ -1,6 +1,6 @@
-import PetsPage from '@/src/pages/pets/PetsPage'
+import SearchPage from "@/src/pages/search/SearchPage";
 
 const page = (): JSX.Element => {
-	return <PetsPage />
-}
-export default page
+  return <SearchPage />;
+};
+export default page;
