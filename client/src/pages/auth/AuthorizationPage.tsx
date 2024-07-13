@@ -8,9 +8,10 @@ import { authorizationThunk } from "@/src/entities/users/authSlice";
 import { UserForLoga } from "@/src/entities/users/types/userTypes";
 import { useAppDispatch } from "@/src/app/store/store";
 import { useRouter } from "next/navigation";
+import { Button, TextField } from "@mui/material";
 
 const schema = object().shape({
-  email: string().email().nullable().trim().required("Не email"),
+  email: string().email().nullable().trim().required("Необходимо указать email"),
   password: string()
     .trim()
     .required("Необходимо указать пароль")
@@ -36,19 +37,27 @@ function AuthorizationPage(): JSX.Element {
     <div className="AuthorizationPage-container">
       <form onSubmit={handleSubmit(onHadleSubmit)}>
         <label htmlFor="email">
-          Email:
-          <input type="email" {...register("email")} />
+          <TextField
+            id="auth-Email"
+            label="Email"
+            variant="outlined"
+            type="email"
+            {...register("email")}
+          />
           <span>{errors.email?.message}</span>
         </label>
-        <br />
         <label htmlFor="password">
-          Password:
-          <input type="password" {...register("password")} />
+          <TextField
+            id="auth-password"
+            label="Password"
+            variant="outlined"
+            type="password"
+            {...register("password")}
+          />
           <span>{errors.password?.message}</span>
         </label>
-        <br />
         <div className="button-container">
-          <button type="submit">Sign in</button>
+          <Button variant="contained" type="submit">Sign in</Button>
         </div>
       </form>
     </div>
