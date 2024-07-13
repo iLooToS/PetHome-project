@@ -1,3 +1,4 @@
+import PetSlice from '@/src/entities/pets/petsSlice'
 import shelterSlice from '@/src/entities/shelters/shelterSlice'
 import { Shelter } from '@/src/entities/shelters/type/shelterTypes'
 import authSlice from '@/src/entities/users/authSlice'
@@ -8,6 +9,7 @@ const store = configureStore({
 	reducer: {
 		auth: authSlice.reducer,
 		shelters: shelterSlice.reducer,
+		pets: PetSlice.reducer,
 	},
 })
 

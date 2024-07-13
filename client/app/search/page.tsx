@@ -1,10 +1,6 @@
+import PetsPage from '@/src/pages/pets/PetsPage'
 
-const page= (): JSX.Element =>{
-return (
-<div className=' page'>
-	<h1>Тут будут котики и песики</h1>
- </div>
- );
-
+const page = (): JSX.Element => {
+	return <PetsPage />
 }
 export default page
