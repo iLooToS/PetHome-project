@@ -18,19 +18,17 @@ class ShelterApi{
 		}
 	}
 // создание приюта и его локации без широты долготы
-	static createShelter = async(body:ShelterCreateWithLocation) : Promise<{
-		message: 'success';
-		shelter: Shelter;
-	}> => {
+	static createShelter = async(body:ShelterCreateWithLocation) : Promise<Shelter> => {
 		try {
 			const result : AxiosResponse<{
 				message: 'success';
 				shelter: Shelter;
 			}> = await axiosInstance.post('/shelters/',body)
-			return result.data
+			return result.data.shelter
 		} catch (error) {
 			throw new Error('Не создал приют');
 		}
 	}
-	
 }
+
+export default ShelterApi
