@@ -1,4 +1,4 @@
-import CurrentPetPage from '@/src/entities/pets/ui/CurrentPetPage'
+import CurrentPetPage from '@/src/pages/pets/CurrentPetPage'
 import React from 'react'
 
 type pageProps = {}

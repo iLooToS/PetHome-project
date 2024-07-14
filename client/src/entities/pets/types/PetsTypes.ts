@@ -2,6 +2,7 @@ import { Shelter } from '../../shelters/type/shelterTypes'
 
 export interface IPet {
 	id: number
+	shelterId: number
 	petType: 'Собака' | 'Кошка'
 	petSize: 'Маленькая' | 'Средняя' | 'Большая'
 	name: string

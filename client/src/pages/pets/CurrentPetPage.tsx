@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import './CurrentPetPage.css'
-import CurrentPetInfo from './CurrentPetInfo'
+import CurrentPetInfo from '../../entities/pets/ui/CurrentPetInfo'
 import { Button } from '@mui/material'
 
 interface ShelterPageProps {

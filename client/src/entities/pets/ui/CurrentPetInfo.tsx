@@ -1,6 +1,6 @@
 import React from 'react'
 import { IPet } from '../types/PetsTypes'
-import './CurrentPetPage.css'
+import '../../../pages/pets/CurrentPetPage'
 import { Skeleton, Typography } from '@mui/material'
 
 type CurrentPetInfoProps = {
@@ -8,8 +8,6 @@ type CurrentPetInfoProps = {
 	loading: boolean
 }
 const CurrentPetInfo = ({ pet, loading }: CurrentPetInfoProps): JSX.Element => {
-	console.log(pet)
-
 	return (
 		<div className='animal-card'>
 			{loading ? (

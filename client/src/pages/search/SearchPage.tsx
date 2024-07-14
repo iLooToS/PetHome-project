@@ -1,8 +1,6 @@
 'use client'
 import { RootState, useAppDispatch } from '@/src/app/store/store'
-import { loadAllPetsThunk } from '@/src/entities/pets/petsSlice'
 import { IPet } from '@/src/entities/pets/types/PetsTypes'
-import PetCard from '@/src/entities/pets/ui/PetCard'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import './styles/SearchPage.css'
@@ -24,10 +22,6 @@ const SearchPage: React.FC = () => {
 	const { pets } = useSelector((state: RootState) => state.pets)
 	const [filterPets, setFilterPets] = useState(pets)
 	const [search, setSearch] = useState('')
-
-	useEffect(() => {
-		void dispatch(loadAllPetsThunk())
-	}, [dispatch])
 
 	useEffect(() => {
 		const Debounce = setTimeout(() => {
@@ -63,7 +57,7 @@ const SearchPage: React.FC = () => {
 			<div
 				style={{
 					display: 'flex',
-          flexWrap: 'wrap',
+					flexWrap: 'wrap',
 					gap: '10px',
 				}}
 			>

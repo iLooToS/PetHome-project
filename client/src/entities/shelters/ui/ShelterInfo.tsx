@@ -1,11 +1,15 @@
 import { RootState } from '@/src/app/store/store'
 import Loader from '@/src/widgets/Loader/Loader'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux'
 
 const ShelterInfo = (): JSX.Element => {
 	const router = useRouter()
+	const path = usePathname()
+	
 	const { currentShelter } = useSelector((state: RootState) => state.shelters)
+	console.log(currentShelter);
+	
 	if (!currentShelter) return <Loader />
 	return (
 		<div className='shelter-content-wrapper'>
@@ -20,7 +24,7 @@ const ShelterInfo = (): JSX.Element => {
 						{currentShelter?.Location?.streetName}
 					</p>
 					<div className='shelter-button-wrapper'>
-						<button type='button'>Show pets</button>
+						<button type='button'onClick={() => router.push(`http://localhost:3001/${path}/pets`)}>Show pets</button>
 						<button type='button'>Reviews</button>
 						<button type='button'>Add pets</button>
 					</div>

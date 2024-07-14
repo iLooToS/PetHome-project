@@ -2,8 +2,8 @@
 const nextConfig = {
 	reactStrictMode: false,
 	images: {
-    domains: ['localhost'],
-  },
+		domains: ['localhost'],
+	},
 	async rewrites() {
 		return [
 			{
