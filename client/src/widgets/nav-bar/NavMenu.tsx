@@ -183,32 +183,32 @@ function NavMenu(): JSX.Element {
 							open={Boolean(anchorElUser)}
 							onClose={handleCloseUserMenu}
 						>
-							{user ? (
-								<>
-									<Typography textAlign='center'>Привет {user.name}</Typography>
-									<Link href={'/profile'}>
-										<MenuItem onClick={handleCloseUserMenu}>
-											<Typography textAlign='center'>Профиль</Typography>
-										</MenuItem>
-									</Link>
-									<MenuItem onClick={onHandleLogout}>
-										<Typography textAlign='center'>Выход</Typography>
-									</MenuItem>
-								</>
-							) : (
-								<>
-									<Link href={'/sign-up'}>
-										<MenuItem onClick={onHandleLogout}>
-											<Typography textAlign='center'>Регистрация</Typography>
-										</MenuItem>
-									</Link>
-									<Link href={'/sign-in'}>
-										<MenuItem onClick={onHandleLogout}>
-											<Typography textAlign='center'>Авторизация</Typography>
-										</MenuItem>
-									</Link>
-								</>
-							)}
+							{user
+								? [
+										<Typography key={user.id} textAlign='center'>
+											Привет {user.name}
+										</Typography>,
+										<Link key='profile' href={'/profile'}>
+											<MenuItem onClick={handleCloseUserMenu}>
+												<Typography textAlign='center'>Профиль</Typography>
+											</MenuItem>
+										</Link>,
+										<MenuItem key='logout' onClick={onHandleLogout}>
+											<Typography textAlign='center'>Выход</Typography>
+										</MenuItem>,
+								  ]
+								: [
+										<Link key='sign-up' href={'/sign-up'}>
+											<MenuItem onClick={onHandleLogout}>
+												<Typography textAlign='center'>Регистрация</Typography>
+											</MenuItem>
+										</Link>,
+										<Link key='sign-in' href={'/sign-in'}>
+											<MenuItem onClick={onHandleLogout}>
+												<Typography textAlign='center'>Авторизация</Typography>
+											</MenuItem>
+										</Link>,
+								  ]}
 						</Menu>
 					</Box>
 				</Toolbar>

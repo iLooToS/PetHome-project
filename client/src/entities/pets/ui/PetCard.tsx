@@ -6,7 +6,6 @@ interface PetCardProps {
 }
 
 export default function PetCard({ pet }: PetCardProps): JSX.Element {
-	console.log(pet.PetImages[0].url)
 
 	return (
 		<div
