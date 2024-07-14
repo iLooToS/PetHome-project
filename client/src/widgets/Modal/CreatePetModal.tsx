@@ -37,7 +37,7 @@ const schema = object().shape({
 	name: string().nullable().trim().required('Обязательно для заполнения'),
 	petType: string().nullable().trim().required('Обязательно для заполнения'),
 	petSize: string().nullable().trim().required('Обязательно для заполнения'),
-	age: string().nullable().required('Обязательно для заполнения'),
+	age: number().nullable().required('Обязательно для заполнения'),
 	isSex: string().nullable().trim().required('Обязательно для заполнения'),
 	isCastration: string()
 		.nullable()
@@ -63,8 +63,8 @@ interface ShelterPageProps {
 	shelterId: number
 }
 
-export default function CreatePetModal({shelterId}:ShelterPageProps) {
-	const dispatch = useAppDispatch();
+export default function CreatePetModal({ shelterId }: ShelterPageProps) {
+	const dispatch = useAppDispatch()
 	const [open, setOpen] = React.useState(false)
 	const handleOpen = () => setOpen(true)
 	const handleClose = () => setOpen(false)
@@ -73,10 +73,11 @@ export default function CreatePetModal({shelterId}:ShelterPageProps) {
 		handleSubmit,
 		formState: { errors },
 	} = useForm({ resolver: yupResolver(schema) })
-	const onHadleSubmit = async (pet: IPetCreate): Promise<void> => {
+	const onHandleSubmit = async (pet: IPetCreate): Promise<void> => {
 		pet.shelterId = shelterId
+		console.log(pet);
+		
 		void dispatch(createPetsThunk(pet))
-		// console.log(pet)
 		handleClose()
 	}
 
@@ -84,7 +85,7 @@ export default function CreatePetModal({shelterId}:ShelterPageProps) {
 		<div>
 			<button onClick={handleOpen}>Добавить питомца</button>
 			<Modal
-			className='p-3.5'
+				className='p-3.5'
 				open={open}
 				onClose={handleClose}
 				aria-labelledby='modal-modal-title'
@@ -93,7 +94,7 @@ export default function CreatePetModal({shelterId}:ShelterPageProps) {
 				<Box sx={style}>
 					<form
 						className='flex flex-col'
-						onSubmit={handleSubmit(onHadleSubmit)}
+						onSubmit={handleSubmit(onHandleSubmit)}
 					>
 						<div className='flex flex-row flex-wrap gap-2 '>
 							<TextField
@@ -115,7 +116,7 @@ export default function CreatePetModal({shelterId}:ShelterPageProps) {
 							<span className='w-40'>{errors.petType?.message}</span>
 
 							<TextField
-							className='w-40'
+								className='w-40'
 								label='Размер'
 								variant='outlined'
 								type='petSize'
@@ -124,7 +125,7 @@ export default function CreatePetModal({shelterId}:ShelterPageProps) {
 							<span className='w-40'>{errors.petSize?.message}</span>
 
 							<TextField
-							className='w-40'
+								className='w-40'
 								label='Возраст'
 								variant='outlined'
 								type='age'
@@ -133,7 +134,7 @@ export default function CreatePetModal({shelterId}:ShelterPageProps) {
 							<span className='w-40'>{errors.age?.message}</span>
 
 							<TextField
-							className='w-40'
+								className='w-40'
 								label='Описание'
 								variant='outlined'
 								type='description'
@@ -147,17 +148,17 @@ export default function CreatePetModal({shelterId}:ShelterPageProps) {
 								<RadioGroup
 									className='flex flex-row'
 									aria-labelledby='demo-radio-buttons-group-label'
-									defaultValue='true'
+									defaultValue={true}
 									name='radio-buttons-group'
 								>
 									<FormControlLabel
-										value='true'
+										value= {true}
 										control={<Radio />}
 										label='Мальчик'
 										{...register('isSex')}
 									/>
 									<FormControlLabel
-										value='false'
+										value= {false}
 										control={<Radio />}
 										label='Девочка'
 										{...register('isSex')}
@@ -173,17 +174,17 @@ export default function CreatePetModal({shelterId}:ShelterPageProps) {
 								<RadioGroup
 									className='flex flex-row'
 									aria-labelledby='demo-radio-buttons-group-label'
-									defaultValue='true'
+									defaultValue={true}
 									name='radio-buttons-group'
 								>
 									<FormControlLabel
-										value='true'
+										value= {true}
 										control={<Radio />}
 										label='Активный'
 										{...register('isTemperament')}
 									/>
 									<FormControlLabel
-										value='false'
+										value={false}
 										control={<Radio />}
 										label='Спокойный'
 										{...register('isTemperament')}
@@ -198,7 +199,7 @@ export default function CreatePetModal({shelterId}:ShelterPageProps) {
 										Кастрация
 									</FormLabel>
 									<FormControlLabel
-										value='true'
+										value={true}
 										control={<Checkbox defaultChecked />}
 										label='Да'
 										{...register('isCastration')}
@@ -211,7 +212,7 @@ export default function CreatePetModal({shelterId}:ShelterPageProps) {
 										Чипирование
 									</FormLabel>
 									<FormControlLabel
-										value='true'
+										value={true}
 										control={<Checkbox defaultChecked />}
 										label='Да'
 										{...register('isChipping')}
@@ -226,7 +227,7 @@ export default function CreatePetModal({shelterId}:ShelterPageProps) {
 										Вакцинация
 									</FormLabel>
 									<FormControlLabel
-										value='true'
+										value={true}
 										control={<Checkbox defaultChecked />}
 										label='Да'
 										{...register('isVaccination')}
@@ -239,7 +240,7 @@ export default function CreatePetModal({shelterId}:ShelterPageProps) {
 										Наличие паспорта
 									</FormLabel>
 									<FormControlLabel
-										// value='true'
+										value={true}
 										control={<Checkbox defaultChecked />}
 										label='Да'
 										{...register('isPassport')}

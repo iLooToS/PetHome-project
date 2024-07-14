@@ -25,17 +25,17 @@ export interface IPetImage {
 }
 
 export type PetId = IPet['id']
-export interface IPetCreate{
-	shelterId: number
-	petType: 'Собака' | 'Кошка'
-	petSize: 'Маленькая' | 'Средняя' | 'Большая'
+export interface IPetCreate {
+	shelterId?: number
+	petType: 'Собака' | 'Кошка' | string
+	petSize: 'Маленькая' | 'Средняя' | 'Большая' | string
 	name: string
 	age: number
 	description: string
-	isSex: boolean
-	isTemperament: boolean
-	isCastration: boolean
-	isChipping: boolean
-	isVaccination: boolean
-	isPassport: boolean
+	isSex: boolean | string
+	isTemperament: boolean | string
+	isCastration: boolean | string
+	isChipping: boolean | string
+	isVaccination: boolean | string
+	isPassport: boolean | string
 }

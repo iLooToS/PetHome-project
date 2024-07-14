@@ -21,20 +21,22 @@ const CurrentPetInfo = ({ pet, loading }: CurrentPetInfoProps): JSX.Element => {
 			<div>
 				{loading ? (
 					<Skeleton
-						key={pet?.PetImages[0].id}
+						key={pet?.id}
 						variant='rectangular'
 						// width={210}
 						height={458}
 					/>
 				) : (
-					pet?.PetImages>0 &&
-					<img
-						key={pet?.PetImages[0].id}
-						src={pet?.PetImages[0].url}
-						alt={pet?.PetImages[0].url}
-						// width={210}
-						height={118}
-					/>
+					pet &&
+					pet.PetImages.length > 0 && (
+						<img
+							key={pet?.PetImages[0].id}
+							src={pet?.PetImages[0].url}
+							alt={pet?.PetImages[0].url}
+							// width={210}
+							height={118}
+						/>
+					)
 				)}
 			</div>
 			<div className='animal-description'>
