@@ -6,6 +6,7 @@ import { SITE_NAME } from '@/constants/seo.constants'
 import { Providers } from './providers'
 import Footer from '@/src/widgets/footer/Footer'
 import { ReactNode } from 'react'
+import NavMenu from '@/src/widgets/nav-bar/NavMenu'
 
 const inter = Inter({ subsets: ['greek'] })
 
@@ -18,15 +19,15 @@ export const metadata: Metadata = {
 }
 
 interface RootLayoutProps {
-  children: ReactNode;
+	children: ReactNode
 }
 
-export default function RootLayout({children}: RootLayoutProps) {
+export default function RootLayout({ children }: RootLayoutProps) {
 	return (
 		<html lang='ru'>
 			<body className='min-h-screen'>
 				<Providers>
-					<NavBar />
+					<NavMenu />
 					{children}
 					<Footer />
 				</Providers>
