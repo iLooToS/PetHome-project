@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios'
-import { IPet, PetId } from '../types/PetsTypes'
+import { IPet, IPetCreate, PetId } from '../types/PetsTypes'
 import axiosInstance from '@/src/app/services/axiosInstance'
 
 class PetsApi {
@@ -14,16 +14,29 @@ class PetsApi {
 	}
 
 	static getPetsById = async (id: PetId): Promise<IPet> => {
-    try {
-      const result: AxiosResponse<{
-        message: "success";
-        pet: IPet;
-      }> = await axiosInstance.get(`/pets/${id}`);
-      return result.data.pet
-    } catch (error) {
-      throw new Error("Не получил питомца по id");
-    }
-  }
+		try {
+			const result: AxiosResponse<{
+				message: 'success'
+				pet: IPet
+			}> = await axiosInstance.get(`/pets/${id}`)
+			return result.data.pet
+		} catch (error) {
+			throw new Error('Не получил питомца по id')
+		}
+	}
+	static createPet = async (body: IPetCreate): Promise<IPet> => {
+		try {
+			console.log(body);
+			
+			const result: AxiosResponse<{
+				message: 'success'
+				pet: IPet
+			}> = await axiosInstance.post(`/pets`, body)
+			return result.data.pet
+		} catch (error) {
+			throw new Error('Не получил питомца по id')
+		}
+	}
 }
 
 export default PetsApi

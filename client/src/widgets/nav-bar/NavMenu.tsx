@@ -19,6 +19,7 @@ import { RootState, useAppDispatch } from '@/src/app/store/store'
 import { useRouter } from 'next/navigation'
 import { logoutThunk, refreshUser } from '@/src/entities/users/authSlice'
 import Link from 'next/link'
+import { loadAllPetsThunk } from '@/src/entities/pets/petsSlice'
 
 function NavMenu(): JSX.Element {
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
@@ -31,6 +32,9 @@ function NavMenu(): JSX.Element {
 
 	React.useEffect(() => {
 		void dispatch(refreshUser())
+		void dispatch(loadAllPetsThunk())
+		console.log(user);
+		
 	}, [dispatch])
 
 	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -55,7 +59,7 @@ function NavMenu(): JSX.Element {
 	}
 
 	return (
-		<AppBar position='static'>
+		<AppBar className='bg-sky-600' position='static'>
 			<Container maxWidth='xl'>
 				<Toolbar disableGutters>
 					<PetsIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />

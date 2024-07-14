@@ -4,6 +4,7 @@ import "./styles/ProfilePage.css";
 import { RootState, useAppDispatch } from "@/src/app/store/store";
 import { createShelterThunk } from "@/src/entities/shelters/shelterSlice";
 import { ShelterCreateWithLocation } from "@/src/entities/shelters/type/shelterTypes";
+import CreatePetModal from '@/src/widgets/Modal/CreatePetModal'
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, TextField } from "@mui/material";
 import React, { useState } from "react";
