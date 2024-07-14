@@ -48,11 +48,12 @@ exports.createPet = async (req, res) => {
       isVaccination,
       isPassport,
     } = req.body;
+    console.log(req.body)
     if (!shelterId || !petType || !petSize || !name || !description || !isSex) {
       res.status(400).json({ message: "Необходимые поля не заполнены" });
       return;
     }
-    const newPet = await PetServices.createPet({
+    const pet = await PetServices.createPet({
       shelterId: +shelterId,
       petType,
       petSize,
@@ -66,11 +67,11 @@ exports.createPet = async (req, res) => {
       isVaccination,
       isPassport,
     });
-    if (!newPet) {
+    if (!pet) {
       res.status(400).json({ message: "Ошибка создания питомца" });
       return;
     }
-    res.status(201).json({ message: "success", newPet });
+    res.status(201).json({ message: "success", pet });
   } catch ({ message }) {
     res.json({ error: message });
   }

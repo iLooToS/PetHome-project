@@ -27,6 +27,7 @@ const CurrentPetInfo = ({ pet, loading }: CurrentPetInfoProps): JSX.Element => {
 						height={458}
 					/>
 				) : (
+					pet?.PetImages>0 &&
 					<img
 						key={pet?.PetImages[0].id}
 						src={pet?.PetImages[0].url}
@@ -44,7 +45,7 @@ const CurrentPetInfo = ({ pet, loading }: CurrentPetInfoProps): JSX.Element => {
 			<div className='animal-details'>
 				<ul>
 					<li>
-						<strong>Пол:</strong> {pet?.isSex ? 'Девочка' : 'Мальчик'}
+						<strong>Пол:</strong> {!pet?.isSex ? 'Девочка' : 'Мальчик'}
 					</li>
 					<li>
 						<strong>Возраст:</strong> {pet?.age}{' '}

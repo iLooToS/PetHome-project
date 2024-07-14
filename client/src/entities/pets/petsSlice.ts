@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { IPet, PetId } from './types/PetsTypes'
+import { IPet, IPetCreate, PetId } from './types/PetsTypes'
 import PetsApi from './api/petsApi'
 
 type StateCurrentPets = {
@@ -23,6 +23,7 @@ export const loadPetsByIdThunk = createAsyncThunk(
 	'loadById/pets',
 	(id: PetId) => PetsApi.getPetsById(id)
 )
+export const createPetsThunk = createAsyncThunk('create/pets',(body: IPetCreate) => PetsApi.createPet(body))
 
 const PetSlice = createSlice({
 	name: 'pets',
@@ -50,6 +51,10 @@ const PetSlice = createSlice({
 			})
 			.addCase(loadPetsByIdThunk.rejected, (state, action) => {
 				state.error = action.error.message
+				state.loading = false
+			})
+			.addCase(createPetsThunk.fulfilled, (state, action) => {
+				state.pets.push(action.payload)
 				state.loading = false
 			})
 	},
