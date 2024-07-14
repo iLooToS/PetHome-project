@@ -1,3 +1,5 @@
+import { Shelter } from '../../shelters/type/shelterTypes'
+
 export interface IPet {
 	id: number
 	petType: 'Собака' | 'Кошка'
@@ -7,10 +9,12 @@ export interface IPet {
 	description: string
 	isSex: boolean
 	isTemperament: boolean
+	isCastration: boolean
 	isChipping: boolean
 	isVaccination: boolean
 	isPassport: boolean
 	PetImages: IPetImage[]
+	Shelter: Shelter
 }
 
 export interface IPetImage {

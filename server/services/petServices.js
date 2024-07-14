@@ -1,4 +1,4 @@
-const { Pet, PetImage } = require('../db/models')
+const { Pet, PetImage, Shelter, Location } = require('../db/models')
 
 class PetServices {
 	async getAllPets() {
@@ -6,7 +6,9 @@ class PetServices {
 	}
 
 	async getPetById(id) {
-		return Pet.findByPk(id)
+		return Pet.findByPk(id, {
+			include: [{ model: Shelter, include: Location }, PetImage],
+		})
 	}
 
 	async createPet(data) {

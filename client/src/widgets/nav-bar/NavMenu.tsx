@@ -55,7 +55,7 @@ function NavMenu(): JSX.Element {
 	}
 
 	return (
-		<AppBar position='static'>
+		<AppBar className='bg-sky-600' position='static'>
 			<Container maxWidth='xl'>
 				<Toolbar disableGutters>
 					<PetsIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />

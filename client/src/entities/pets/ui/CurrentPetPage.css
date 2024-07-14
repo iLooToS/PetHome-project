@@ -1,0 +1,58 @@
+.animal-card {
+	border: 1px solid #ccc;
+	padding: 16px;
+	width: 400px;
+	margin: 16px;
+}
+
+.animal-images img {
+	width: 100px;
+	height: 100px;
+	margin-right: 8px;
+}
+
+.animal-description {
+	margin-top: 16px;
+}
+
+.animal-actions {
+	margin-top: 16px;
+}
+
+.animal-actions button {
+	display: block;
+	width: 400px;
+	margin: 16px;
+	padding: 12px;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.adopt-button {
+	background-color: red;
+	color: white;
+}
+
+.contact-button {
+	background-color: lightblue;
+	color: black;
+}
+
+.favorites-button {
+	background-color: lightgray;
+	color: black;
+}
+
+.details-button {
+	background-color: gray;
+	color: white;
+}
+
+.animal-details ul {
+	list-style-type: none;
+	padding: 0;
+}
+
+.animal-details li {
+	margin-bottom: 8px;
+}

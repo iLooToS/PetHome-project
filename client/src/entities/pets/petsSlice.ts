@@ -3,7 +3,7 @@ import { IPet, PetId } from './types/PetsTypes'
 import PetsApi from './api/petsApi'
 
 type StateCurrentPets = {
-	pets: IPet[],
+	pets: IPet[]
 	pet: IPet | undefined
 	error: string | undefined
 	loading: boolean
@@ -13,7 +13,7 @@ const initialState: StateCurrentPets = {
 	pets: [],
 	pet: undefined,
 	error: undefined,
-	loading: false,
+	loading: true,
 }
 
 export const loadAllPetsThunk = createAsyncThunk('load/pets', () =>

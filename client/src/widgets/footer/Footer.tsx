@@ -38,19 +38,19 @@ export default function Footer() {
 				onChange={handleChange}
 			>
 				<BottomNavigationAction
-					label='Home'
+					label='Главная'
 					value='home'
 					icon={<HomeIcon />}
 					onClick={() => router.push('/')}
 				/>
 				<BottomNavigationAction
-					label='Search'
+					label='Поиск'
 					value='search'
 					icon={<SearchIcon />}
 					onClick={() => router.push('/search')}
 				/>
 				<BottomNavigationAction
-					label='Messages'
+					label='Сообщения'
 					value='messages'
 					icon={<ForumIcon />}
 				/>

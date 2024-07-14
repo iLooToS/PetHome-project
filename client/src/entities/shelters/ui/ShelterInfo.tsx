@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 const ShelterInfo = (): JSX.Element => {
 	const router = useRouter()
 	const { currentShelter } = useSelector((state: RootState) => state.shelters)
-  if(!currentShelter) return <Loader/>
+	if (!currentShelter) return <Loader />
 	return (
 		<div className='shelter-content-wrapper'>
 			<div className='shelter-info-wrapper'>
@@ -16,8 +16,8 @@ const ShelterInfo = (): JSX.Element => {
 				<div className='shelter-text-wrapper'>
 					<h2>{currentShelter?.name}</h2>
 					<p>
-						{currentShelter?.location?.city}{' '}
-						{currentShelter?.location?.streetName}
+						{currentShelter?.Location?.city}{' '}
+						{currentShelter?.Location?.streetName}
 					</p>
 					<div className='shelter-button-wrapper'>
 						<button type='button'>Show pets</button>

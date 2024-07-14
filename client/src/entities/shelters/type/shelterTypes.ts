@@ -8,7 +8,7 @@ export interface Shelter {
 	logo?:string,
 	description:string,
 	status:boolean,
-	location?: Location
+	Location?: Location
 }
 
 export interface currentShelter {
