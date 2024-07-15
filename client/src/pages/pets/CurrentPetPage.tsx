@@ -10,6 +10,8 @@ import { useSelector } from 'react-redux'
 import './CurrentPetPage.css'
 import CurrentPetInfo from '../../entities/pets/ui/CurrentPetInfo'
 import { Button } from '@mui/material'
+import UpdatePetModal from '@/src/widgets/Modal/UpdatePetModal'
+
 
 interface ShelterPageProps {
 	petId: number
@@ -38,20 +40,20 @@ const CurrentPetPage = ({ petId }: ShelterPageProps): JSX.Element => {
 					Узнать контакты
 				</Button>
 				{user && pet && user.id === pet?.Shelter.id && (
-					<Button
-						variant='contained'
-						color='error'
-						onClick={() => {
-							dispatch(deletePetThunk(petId))
-							router.push('/search')
-						}}
-					>
-						Удалить
-					</Button>
+					<>
+						<UpdatePetModal currentPet={pet} shelterId={pet?.Shelter.id} />
+						<Button
+							variant='contained'
+							color='error'
+							onClick={() => {
+								dispatch(deletePetThunk(petId))
+								router.push('/search')
+							}}
+						>
+							Удалить карточку
+						</Button>
+					</>
 				)}
-				<Button variant='contained' onClick={() => router.back()}>
-					Назад
-				</Button>
 			</div>
 		</div>
 	)

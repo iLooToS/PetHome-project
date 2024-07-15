@@ -9,6 +9,11 @@ type StateCurrentPets = {
 	loading: boolean
 }
 
+export type UpdatePet = {
+	id: PetId
+	body: IPetCreate
+}
+
 const initialState: StateCurrentPets = {
 	pets: [],
 	pet: undefined,
@@ -23,8 +28,19 @@ export const loadPetsByIdThunk = createAsyncThunk(
 	'loadById/pets',
 	(id: PetId) => PetsApi.getPetsById(id)
 )
-export const createPetsThunk = createAsyncThunk('create/pets',(body: FormData) => PetsApi.createPet(body))
-export const deletePetThunk = createAsyncThunk('delete/pets',(id: PetId) => PetsApi.deletePet(id))
+export const createPetsThunk = createAsyncThunk(
+	'create/pets',
+	(body: FormData) => PetsApi.createPet(body)
+)
+
+export const updatePetThunk = createAsyncThunk(
+	'update/pets',
+	({ id, body }: UpdatePet) => PetsApi.updatePet(id, body)
+)
+
+export const deletePetThunk = createAsyncThunk('delete/pets', (id: PetId) =>
+	PetsApi.deletePet(id)
+)
 
 const PetSlice = createSlice({
 	name: 'pets',
@@ -57,11 +73,22 @@ const PetSlice = createSlice({
 			.addCase(createPetsThunk.fulfilled, (state, action) => {
 				state.pets.push(action.payload)
 				state.loading = false
-			}).addCase(deletePetThunk.fulfilled, (state, action) => {
-				state.pets = state.pets.filter((pet) => pet.id !== +action.payload);
+			})
+			.addCase(deletePetThunk.fulfilled, (state, action) => {
+				state.pets = state.pets.filter(pet => pet.id !== +action.payload)
 				state.loading = false
 			})
 			.addCase(deletePetThunk.pending, state => {
+				state.loading = true
+			})
+			.addCase(updatePetThunk.fulfilled, (state, action) => {
+				state.pets = state.pets.map(pet =>
+					pet.id === action.payload.id ? action.payload : pet
+				)
+				state.pet = action.payload
+				state.loading = false
+			})
+			.addCase(updatePetThunk.pending, state => {
 				state.loading = true
 			})
 	},

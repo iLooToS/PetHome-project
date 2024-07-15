@@ -144,7 +144,8 @@ exports.updatePet = async (req, res) => {
 			res.status(400).json({ message: 'Ошибка редактирования питомца' })
 			return
 		}
-		res.status(200).json({ message: 'success', updatedPet })
+		const newUpdatePet = await PetServices.getPetById(+petId)
+		res.status(200).json({ message: 'success', pet: newUpdatePet })
 	} catch ({ message }) {
 		res.json({ error: message })
 	}

@@ -1,4 +1,4 @@
-import { RootState } from '@/src/app/store/store'
+import { RootState } from '@/src/windows/app/store/store'
 import Loader from '@/src/widgets/Loader/Loader'
 import CreatePetModal from '@/src/widgets/Modal/CreatePetModal'
 import { usePathname, useRouter } from 'next/navigation'
@@ -9,8 +9,8 @@ const ShelterInfo = (): JSX.Element => {
 	const path = usePathname()
 	const { currentShelter } = useSelector((state: RootState) => state.shelters)
 	const { user } = useSelector((state: RootState) => state.auth)
-	console.log(currentShelter);
-	
+	console.log(currentShelter)
+
 	if (!currentShelter) return <Loader />
 	return (
 		<div className='shelter-content-wrapper'>
@@ -25,11 +25,16 @@ const ShelterInfo = (): JSX.Element => {
 						{currentShelter?.Location?.streetName}
 					</p>
 					<div className='shelter-button-wrapper'>
-						<button type='button'onClick={() => router.push(`http://localhost:3001/${path}/pets`)}>Show pets</button>
+						<button
+							type='button'
+							onClick={() => router.push(`http://localhost:3001/${path}/pets`)}
+						>
+							Show pets
+						</button>
 						<button type='button'>Reviews</button>
-						{currentShelter.userId === user?.id &&
-						<CreatePetModal shelterId={currentShelter.id}/>
-						}
+						{currentShelter.userId === user?.id && (
+							<CreatePetModal shelterId={currentShelter.id} />
+						)}
 					</div>
 				</div>
 			</div>

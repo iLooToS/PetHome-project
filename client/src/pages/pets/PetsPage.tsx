@@ -1,5 +1,5 @@
 'use client'
-import { RootState, useAppDispatch } from '@/src/app/store/store'
+import { RootState, useAppDispatch } from '@/src/windows/app/store/store'
 import { loadAllPetsThunk } from '@/src/entities/pets/petsSlice'
 import { IPet } from '@/src/entities/pets/types/PetsTypes'
 import PetCard from '@/src/entities/pets/ui/PetCard'
@@ -25,8 +25,8 @@ const PetsPage: React.FC = () => {
 	const [search, setSearch] = useState('')
 
 	useEffect(() => {
-		void dispatch(loadAllPetsThunk());
-		void dispatch(getAllSheltersThunk());
+		void dispatch(loadAllPetsThunk())
+		void dispatch(getAllSheltersThunk())
 	}, [dispatch])
 
 	useEffect(() => {
