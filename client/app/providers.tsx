@@ -1,6 +1,6 @@
 'use client';
 
-import store from '@/src/app/store/store'
+import store from '@/src/windows/app/store/store'
 import { Provider } from 'react-redux';
 
 
