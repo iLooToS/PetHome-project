@@ -1,5 +1,5 @@
 import { NO_INDEX_PAGE } from '@/constants/seo.constants'
-import RegistrationPage from '@/src/pages/auth/RegistrationPage'
+import RegistrationPage from '@/src/windows/pages/auth/RegistrationPage'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
