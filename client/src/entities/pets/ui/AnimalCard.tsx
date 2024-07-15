@@ -15,17 +15,21 @@ interface PetCardProps {
 export default function AnimalCard({ pet }: PetCardProps) {
 	const router = useRouter()
 	return (
-		<Card sx={{ maxWidth: 375 }}>
+		<Card sx={{ maxWidth: 400 }}>
 			<CardActionArea onClick={() => router.push(`/search/${pet.id}`)}>
 				{pet.PetImages?.length > 0 && (
-					<CardMedia
-						className='object-cover max-h-xs max-w-xs'
-						component='img'
-						// height='200'
-						// width='300'
-						src={pet.PetImages[0].url}
-						alt='green iguana'
-					/>
+					<Image
+					key={pet?.PetImages[0].id}
+					src={pet?.PetImages[0].url}
+					alt={pet?.PetImages[0].url}
+					style={{
+						objectFit: 'fill',
+						height: 350,
+						borderRadius: '5%',
+					}}
+					height={200}
+					width={400}
+				/>
 				)}
 				<CardContent>
 					<Typography gutterBottom variant='h5' component='div'>

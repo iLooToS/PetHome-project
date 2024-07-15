@@ -36,6 +36,15 @@ class PetsApi {
 			throw new Error('Не получил питомца по id')
 		}
 	}
+	static updatePet = async (id: PetId, body: IPetCreate): Promise<IPet> => {
+		try {
+			const result: AxiosResponse<{ message: 'success'; pet: IPet }> =
+				await axiosInstance.put(`/pets/${id}`, body)
+			return result.data.pet
+		} catch (error) {
+			throw new Error('Не обновил карточку питомца')
+		}
+	}
 
 	static deletePet = async (id: PetId): Promise<PetId> => {
 		try {
