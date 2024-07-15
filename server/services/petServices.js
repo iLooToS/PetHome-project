@@ -12,6 +12,7 @@ class PetServices {
 	}
 
 	async createPet(data) {
+		data.petType = data.petType[0].toUpperCase() + data.petType.slice(1);
 		return Pet.create(data)
 	}
 	async updatePet(shelterId, id, body) {

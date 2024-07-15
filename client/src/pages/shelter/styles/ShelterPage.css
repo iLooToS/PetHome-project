@@ -8,6 +8,7 @@
   .shelter-content-wrapper {
     display: flex;
     border-radius: 8px;
+    flex-direction: column;
     flex-wrap: wrap;
     padding: 20px;
     background-color: #eeeeee;
@@ -38,6 +39,8 @@
 
   .shelter-description-wrapper {
     margin-top: 20px;
+    max-width: 100%;
+    word-wrap: break-word;
   }
 
   .shelter-button-wrapper {
@@ -45,6 +48,7 @@
   }
 
   button {
+    margin-bottom: 10px;
     margin-right: 10px;
     padding: 5px 10px;
     background-color: #007bff;
@@ -101,6 +105,7 @@
 
   .shelter-content-wrapper {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     padding: 20px;
     border-radius: 8px;
@@ -132,6 +137,8 @@
 
   .shelter-description-wrapper {
     margin-top: 20px;
+    max-width: 100%;
+    word-wrap: break-word;
   }
 
   .shelter-button-wrapper {
@@ -195,6 +202,7 @@
 
   .shelter-content-wrapper {
     display: flex;
+    flex-direction: column;
     padding: 20px;
     border-radius: 8px;
     background-color: #eeeeee;
@@ -226,6 +234,8 @@
 
   .shelter-description-wrapper {
     margin-top: 20px;
+    max-width: 100%;
+    word-wrap: break-word;
   }
 
   .shelter-button-wrapper {
@@ -295,6 +305,7 @@
 
   .shelter-content-wrapper {
     display: flex;
+    min-width: 1000px;
     border-radius: 8px;
     flex-direction: column;
     gap: 20px;
@@ -307,6 +318,8 @@
 
   .shelter-description-wrapper {
     max-width: 1000px;
+    word-wrap: break-word;
+    margin-top: 20px;
   }
 
   .shelter-image-wrapper img {
@@ -329,10 +342,6 @@
   .shelter-text-wrapper {
     flex: 1;
     text-align: left;
-  }
-
-  .shelter-description-wrapper {
-    margin-top: 20px;
   }
 
   .shelter-button-wrapper {
