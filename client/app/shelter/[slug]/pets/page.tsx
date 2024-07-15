@@ -1,5 +1,5 @@
-import SearchPage from '@/src/windows/pages/search/SearchPage'
-import ShelterPetsPage from '@/src/windows/pages/shelter/ShelterPetsPage'
+import SearchPage from '@/src/pages/search/SearchPage'
+import ShelterPetsPage from '@/src/pages/shelter/ShelterPetsPage'
 
 const page = (): JSX.Element => {
 	return (

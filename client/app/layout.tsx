@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import NavBar from '@/src/windows/widgets/nav-bar/NavBar'
+import NavBar from '@/src/widgets/nav-bar/NavBar'
 import { SITE_NAME } from '@/constants/seo.constants'
 import { Providers } from './providers'
-import Footer from '@/src/windows/widgets/footer/Footer'
+import Footer from '@/src/widgets/footer/Footer'
 import { ReactNode } from 'react'
-import NavMenu from '@/src/windows/widgets/nav-bar/NavMenu'
+import NavMenu from '@/src/widgets/nav-bar/NavMenu'
 
 const inter = Inter({ subsets: ['greek'] })
 

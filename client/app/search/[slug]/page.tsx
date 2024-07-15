@@ -1,4 +1,4 @@
-import CurrentPetPage from '@/src/windows/pages/pets/CurrentPetPage'
+import CurrentPetPage from '@/src/pages/pets/CurrentPetPage'
 import React from 'react'
 
 type pageProps = {}
