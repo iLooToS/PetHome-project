@@ -3,6 +3,7 @@ import { RootState, useAppDispatch } from '@/src/app/store/store'
 import { loadAllPetsThunk } from '@/src/entities/pets/petsSlice'
 import { IPet } from '@/src/entities/pets/types/PetsTypes'
 import PetCard from '@/src/entities/pets/ui/PetCard'
+import { getAllSheltersThunk } from '@/src/entities/shelters/shelterSlice'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
@@ -24,7 +25,8 @@ const PetsPage: React.FC = () => {
 	const [search, setSearch] = useState('')
 
 	useEffect(() => {
-		void dispatch(loadAllPetsThunk())
+		void dispatch(loadAllPetsThunk());
+		void dispatch(getAllSheltersThunk());
 	}, [dispatch])
 
 	useEffect(() => {
