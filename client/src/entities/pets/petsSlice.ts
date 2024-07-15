@@ -23,7 +23,8 @@ export const loadPetsByIdThunk = createAsyncThunk(
 	'loadById/pets',
 	(id: PetId) => PetsApi.getPetsById(id)
 )
-export const createPetsThunk = createAsyncThunk('create/pets',(body: IPetCreate) => PetsApi.createPet(body))
+export const createPetsThunk = createAsyncThunk('create/pets',(body: FormData) => PetsApi.createPet(body))
+export const deletePetThunk = createAsyncThunk('delete/pets',(id: PetId) => PetsApi.deletePet(id))
 
 const PetSlice = createSlice({
 	name: 'pets',
@@ -56,6 +57,12 @@ const PetSlice = createSlice({
 			.addCase(createPetsThunk.fulfilled, (state, action) => {
 				state.pets.push(action.payload)
 				state.loading = false
+			}).addCase(deletePetThunk.fulfilled, (state, action) => {
+				state.pets = state.pets.filter((pet) => pet.id !== +action.payload);
+				state.loading = false
+			})
+			.addCase(deletePetThunk.pending, state => {
+				state.loading = true
 			})
 	},
 })

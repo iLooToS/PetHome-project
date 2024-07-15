@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form'
 import { number, object, string } from 'yup'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import {
 	Checkbox,
@@ -79,8 +78,9 @@ interface ShelterPageProps {
 
 export default function CreatePetModal({ shelterId }: ShelterPageProps) {
 	const dispatch = useAppDispatch()
-	const [open, setOpen] = React.useState(false)
-	const [photo, setPhoto] = React.useState([])
+	const [error, setError] = React.useState<boolean>(false)
+	const [open, setOpen] = React.useState<boolean>(false)
+	const [photo, setPhoto] = React.useState<FileList | null>(null)
 	const handleOpen = () => setOpen(true)
 	const handleClose = () => setOpen(false)
 	const {
@@ -90,15 +90,19 @@ export default function CreatePetModal({ shelterId }: ShelterPageProps) {
 	} = useForm({ resolver: yupResolver(schema) })
 	const onHandleSubmit = async (pet: IPetCreate): Promise<void> => {
 		pet.shelterId = shelterId
-		pet.photo = photo[0]
+		pet.photo = photo && photo[0]
+		console.log(pet)
+
+		if (!pet.photo) {
+			setError(prev => !prev)
+			return
+		}
 		const formData = new FormData()
 		for (const key in pet) {
 			formData.append(key, pet[key])
 		}
 		void dispatch(createPetsThunk(formData))
-		// console.log(pet.photo);
-		// console.log(formData)
-		// handleClose()
+		handleClose()
 	}
 
 	return (
@@ -125,25 +129,6 @@ export default function CreatePetModal({ shelterId }: ShelterPageProps) {
 								{...register('name')}
 							/>
 							{/* <span className="w-40">{errors.name?.message}</span> */}
-
-							<TextField
-								className='w-40'
-								label='Вид'
-								variant='outlined'
-								type='petType'
-								{...register('petType')}
-							/>
-							{/* <span className="w-40">{errors.petType?.message}</span> */}
-
-							<TextField
-								className='w-40'
-								label='Размер'
-								variant='outlined'
-								type='petSize'
-								{...register('petSize')}
-							/>
-							{/* <span className="w-40">{errors.petSize?.message}</span> */}
-
 							<TextField
 								className='w-40'
 								label='Возраст'
@@ -158,7 +143,7 @@ export default function CreatePetModal({ shelterId }: ShelterPageProps) {
 								label='Описание'
 								variant='outlined'
 								multiline
-								rows={3}
+								rows={2}
 								type='description'
 								{...register('description')}
 							/>
@@ -166,6 +151,62 @@ export default function CreatePetModal({ shelterId }: ShelterPageProps) {
 								{errors.description?.message}
 							</span>
 						</div>
+						<label htmlFor='petSize'>
+							<FormControl>
+								<FormLabel id='demo-radio-buttons-group-label'>
+									Размер
+								</FormLabel>
+								<RadioGroup
+									className='flex flex-row'
+									aria-labelledby='demo-radio-buttons-group-label'
+									defaultValue={'Маленький'}
+									name='radio-buttons-group'
+								>
+									<FormControlLabel
+										value={'Маленький'}
+										control={<Radio />}
+										label='Маленький'
+										{...register('petSize')}
+									/>
+									<FormControlLabel
+										value={'Средний'}
+										control={<Radio />}
+										label='Средний'
+										{...register('petSize')}
+									/>
+									<FormControlLabel
+										value={'Большой'}
+										control={<Radio />}
+										label='Большой'
+										{...register('petSize')}
+									/>
+								</RadioGroup>
+							</FormControl>
+						</label>
+						<label htmlFor='petType'>
+							<FormControl>
+								<FormLabel id='demo-radio-buttons-group-label'>Вид</FormLabel>
+								<RadioGroup
+									className='flex flex-row'
+									aria-labelledby='demo-radio-buttons-group-label'
+									defaultValue={'Собака'}
+									name='radio-buttons-group'
+								>
+									<FormControlLabel
+										value={'Собака'}
+										control={<Radio />}
+										label='Собака'
+										{...register('petType')}
+									/>
+									<FormControlLabel
+										value={'Кошка'}
+										control={<Radio />}
+										label='Кошка'
+										{...register('petType')}
+									/>
+								</RadioGroup>
+							</FormControl>
+						</label>
 						<label htmlFor='isSex'>
 							<FormControl>
 								<FormLabel id='demo-radio-buttons-group-label'>Пол</FormLabel>
@@ -278,14 +319,21 @@ export default function CreatePetModal({ shelterId }: ShelterPageProps) {
 								role={undefined}
 								variant='contained'
 								tabIndex={-1}
-								onChange={e => setPhoto(e.target.files)}
+								color={error ? 'error' : 'info'}
+								onChange={(e: React.ChangeEvent<HTMLLabelElement>) =>
+									setPhoto(e.target.files)
+								}
 								startIcon={<CloudUploadIcon />}
 							>
-								{photo[0] ? `${photo[0].name}` : 'Добавить изображение питомца'}
+								{photo && photo[0]
+									? `${photo[0].name}`
+									: error
+									? 'Изображение обязательно'
+									: 'Добавить изображение питомца'}
 
 								<VisuallyHiddenInput type='file' />
 							</Button>
-							<Button variant='contained' type='submit'>
+							<Button variant='contained' type='submit' color='success'>
 								Добавить питомца
 							</Button>
 						</div>

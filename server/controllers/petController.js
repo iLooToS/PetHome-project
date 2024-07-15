@@ -68,7 +68,6 @@ exports.createPet = async (req, res) => {
 			isPassport,
 		})
     const { filename } = req.file
-    console.log(filename)
     const petImage = await PetServices.createPetImage({petId: newPet.id, url: `/img/${filename}`})
 		if (!newPet || !petImage) {
 			res.status(400).json({ message: 'Ошибка создания питомца' })
