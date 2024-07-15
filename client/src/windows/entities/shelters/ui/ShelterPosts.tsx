@@ -4,7 +4,7 @@ const ShelterPosts = (): JSX.Element => {
 	return (
 		<div className='post-feed'>
 			<div className='post'>
-				<Image src='/img/shelterPageLogo.jpg' alt='Post Image' />
+				<Image  src='/img/shelterPageLogo.jpg' alt='Post Image' width={300} height={200} />
 				<div className='post-content'>
 					<h2>Post Name</h2>
 					<p>
@@ -15,7 +15,7 @@ const ShelterPosts = (): JSX.Element => {
 				</div>
 			</div>
 			<div className='post'>
-				<Image src='/img/shelterPageLogo.jpg' alt='Post Image' />
+				<Image src='/img/shelterPageLogo.jpg' alt='Post Image' width={300} height={200} />
 				<div className='post-content'>
 					<h2>Post Name</h2>
 					<p>
