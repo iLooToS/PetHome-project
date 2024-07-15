@@ -1,4 +1,4 @@
-import ProfilePage from '@/src/pages/profile/ProfilePage'
+import ProfilePage from '@/src/windows/pages/profile/ProfilePage'
 
 type pageProps = {}
 const page = (): JSX.Element => {
