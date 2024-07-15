@@ -56,7 +56,7 @@ function RegistrationPage(): JSX.Element {
         <label htmlFor="name">
           <TextField
             id="reg-Name"
-            label="Name"
+            label="Имя"
             variant="outlined"
             type="text"
             {...register("name")}
@@ -66,7 +66,8 @@ function RegistrationPage(): JSX.Element {
         <label htmlFor="lastName">
           <TextField
             id="reg-lastName"
-            label="lastName"
+            label="Фамилия"
+            variant="outlined"
             type="text"
             {...register("lastName")}
           />
@@ -75,7 +76,8 @@ function RegistrationPage(): JSX.Element {
         <label htmlFor="email">
           <TextField
             id="reg-Email"
-            label="Email"
+            label="Электронная почта"
+            variant="outlined"
             type="email"
             {...register("email")}
           />
@@ -84,7 +86,8 @@ function RegistrationPage(): JSX.Element {
         <label htmlFor="password">
           <TextField
             id="reg-Password"
-            label="Password"
+            label="Пароль"
+            variant="outlined"
             type="password"
             {...register("password")}
           />
@@ -93,7 +96,8 @@ function RegistrationPage(): JSX.Element {
         <label htmlFor="cpassword">
           <TextField
             id="reg-cpassword"
-            label="Check password"
+            label="Повторите пароль"
+            variant="outlined"
             type="password"
             {...register("cpassword")}
           />
@@ -101,7 +105,7 @@ function RegistrationPage(): JSX.Element {
         </label>
         <div className="button-container">
           <Button variant="contained" type="submit">
-            Sign up
+            Зарегистрироваться
           </Button>
         </div>
       </form>

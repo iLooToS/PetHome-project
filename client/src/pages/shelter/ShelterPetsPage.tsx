@@ -12,7 +12,7 @@ const ShelterPetsPage = ({}: ShelterPetsPageProps): JSX.Element => {
 	const { currentShelter } = useSelector((state: RootState) => state.shelters)
 	const path = usePathname()
 	const shelterId = path?.split('/')[2]
-	const currentPets = pets.filter(pet => pet.shelterId === +shelterId)
+	const currentPets = shelterId ? pets.filter(pet => pet.shelterId === +shelterId) : [];
 	console.log(currentPets)
 
 	return (

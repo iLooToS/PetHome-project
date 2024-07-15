@@ -1,13 +1,13 @@
-const { Shelter, Location,Pet } = require("../db/models");
+const { Shelter, Location, Pet } = require("../db/models");
 
 class ShelterServices {
   async getAllShelters() {
-    return Shelter.findAll();
+    return Shelter.findAll({ include: [Location] });
   }
 
   async getShelterById(id) {
     return Shelter.findByPk(id, {
-      include: [Location,Pet]
+      include: [Location, Pet],
     });
   }
   async createShelter(body) {
