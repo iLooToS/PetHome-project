@@ -39,7 +39,7 @@ function AuthorizationPage(): JSX.Element {
         <label htmlFor="email">
           <TextField
             id="auth-Email"
-            label="Email"
+            label="Электронная почта"
             variant="outlined"
             type="email"
             {...register("email")}
@@ -49,7 +49,7 @@ function AuthorizationPage(): JSX.Element {
         <label htmlFor="password">
           <TextField
             id="auth-password"
-            label="Password"
+            label="Пароль"
             variant="outlined"
             type="password"
             {...register("password")}
@@ -57,7 +57,7 @@ function AuthorizationPage(): JSX.Element {
           <span>{errors.password?.message}</span>
         </label>
         <div className="button-container">
-          <Button variant="contained" type="submit">Sign in</Button>
+          <Button variant="contained" type="submit">Войти</Button>
         </div>
       </form>
     </div>

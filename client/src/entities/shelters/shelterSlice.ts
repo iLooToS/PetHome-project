@@ -1,28 +1,32 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { Location } from './location/types/locationTypes'
-import { Shelter, ShelterCreateWithLocation } from './type/shelterTypes'
-import ShelterApi from './api/ShelterApi'
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { Location } from "./location/types/locationTypes";
+import { Shelter, ShelterCreateWithLocation } from "./type/shelterTypes";
+import ShelterApi from "./api/ShelterApi";
 
 interface StateCurrentShelter {
-	shelters: Shelter[]
-	currentShelter: Shelter | undefined
-	locationShelter: Location | undefined
-	error: string | undefined
-	loading: boolean
+  shelters: Shelter[];
+  currentShelter: Shelter | undefined;
+  locationShelter: Location | undefined;
+  error: string | undefined;
+  loading: boolean;
 }
 
 const initialState: StateCurrentShelter = {
-	shelters: [],
-	currentShelter: undefined,
-	locationShelter: undefined,
-	error: undefined,
-	loading: false,
-}
+  shelters: [],
+  currentShelter: undefined,
+  locationShelter: undefined,
+  error: undefined,
+  loading: false,
+};
+
+export const getAllSheltersThunk = createAsyncThunk("load/allShelters", () =>
+  ShelterApi.getAllShelter()
+);
 
 export const createShelterThunk = createAsyncThunk(
-	'create/shelter',
-	(body: ShelterCreateWithLocation) => ShelterApi.createShelter(body)
-)
+  "create/shelter",
+  (body: ShelterCreateWithLocation) => ShelterApi.createShelter(body)
+);
 
 export const getShelterByIdThunk = createAsyncThunk(
   "load/shelterById",
@@ -30,24 +34,25 @@ export const getShelterByIdThunk = createAsyncThunk(
 );
 
 const ShelterSlice = createSlice({
-	name: 'shelters',
-	initialState,
-	reducers: {},
-	extraReducers: builder => {
-		builder
-			.addCase(createShelterThunk.fulfilled, (state, action) => {
-				state.shelters = state.shelters.map(shelter =>
-					shelter.id === action.payload.id ? action.payload : shelter
-				)
-				state.loading = false
-			})
-			.addCase(createShelterThunk.pending, state => {
-				state.loading = true
-			})
-			.addCase(createShelterThunk.rejected, (state, action) => {
-				state.error = action.error.message
-				state.loading = false
-			}).addCase(getShelterByIdThunk.fulfilled, (state, action) => {
+  name: "shelters",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(createShelterThunk.fulfilled, (state, action) => {
+        state.shelters = state.shelters.map((shelter) =>
+          shelter.id === action.payload.id ? action.payload : shelter
+        );
+        state.loading = false;
+      })
+      .addCase(createShelterThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createShelterThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+      })
+      .addCase(getShelterByIdThunk.fulfilled, (state, action) => {
         state.currentShelter = action.payload.shelter;
         state.loading = false;
         state.error = undefined;
@@ -58,7 +63,19 @@ const ShelterSlice = createSlice({
       })
       .addCase(getShelterByIdThunk.pending, (state, action) => {
         state.loading = true;
-      });
-	},
-})
-export default ShelterSlice
+      })
+	  .addCase(getAllSheltersThunk.fulfilled, (state, action) => {
+		state.shelters = action.payload.shelters;
+		state.loading = false;
+		state.error = undefined;
+	  })
+	  .addCase(getAllSheltersThunk.rejected, (state, action) => {
+		state.error = action.error.message;
+		state.loading = false;
+	  })
+	  .addCase(getAllSheltersThunk.pending, (state, action) => {
+		state.loading = true;
+	  })
+  },
+});
+export default ShelterSlice;
