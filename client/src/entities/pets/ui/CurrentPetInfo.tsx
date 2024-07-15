@@ -93,7 +93,6 @@ const CurrentPetInfo = ({ pet, loading }: CurrentPetInfoProps): JSX.Element => {
 							<li>
 								<strong>Пол:</strong> {!pet?.isSex ? 'Девочка' : 'Мальчик'}
 							</li>
-
 							<li>
 								<strong>Возраст:</strong> {pet?.age}{' '}
 								{pet && pet.age > 4

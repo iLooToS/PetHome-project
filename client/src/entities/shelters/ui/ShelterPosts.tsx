@@ -1,8 +1,10 @@
+import Image from "next/image"
+
 const ShelterPosts = (): JSX.Element => {
 	return (
 		<div className='post-feed'>
 			<div className='post'>
-				<img src='/img/shelterPageLogo.jpg' alt='Post Image' />
+				<Image src='/img/shelterPageLogo.jpg' alt='Post Image' />
 				<div className='post-content'>
 					<h2>Post Name</h2>
 					<p>
@@ -13,7 +15,7 @@ const ShelterPosts = (): JSX.Element => {
 				</div>
 			</div>
 			<div className='post'>
-				<img src='/img/shelterPageLogo.jpg' alt='Post Image' />
+				<Image src='/img/shelterPageLogo.jpg' alt='Post Image' />
 				<div className='post-content'>
 					<h2>Post Name</h2>
 					<p>

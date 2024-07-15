@@ -45,4 +45,40 @@ const ShelterInfo = (): JSX.Element => {
 	)
 }
 
-export default ShelterInfo
+  if (!currentShelter) return <Loader />;
+  return (
+    <div className="shelter-content-wrapper">
+      <div className="shelter-info-wrapper">
+        <div className="shelter-image-wrapper">
+          {currentShelter?.logo && (
+            <Image src={currentShelter?.logo} alt="Shelter Image" />
+          )}
+        </div>
+        <div className="shelter-text-wrapper">
+          <h2>{currentShelter?.name}</h2>
+          <p>
+            {currentShelter?.Location?.city}{" "}
+            {currentShelter?.Location?.streetName}
+          </p>
+          <div className="shelter-button-wrapper">
+            <button
+              type="button"
+              onClick={() => router.push(`http://87.228.16.34:80/${path}/pets`)}
+            >
+              Show pets
+            </button>
+            <button type="button">Reviews</button>
+            {currentShelter.userId === user?.id && (
+              <CreatePetModal shelterId={currentShelter.id} />
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="shelter-description-wrapper">
+        <p>{currentShelter?.description}</p>
+      </div>
+    </div>
+  );
+};
+
+export default ShelterInfo;

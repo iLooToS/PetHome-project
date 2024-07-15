@@ -31,9 +31,6 @@ const ProfilePage: React.FC = () => {
 	const { shelters } = useSelector((state: RootState) => state.shelters)
 	const [isOpen, setIsOpen] = useState(false)
 	const [isShow, setIsShow] = useState(false)
-
-	console.log(shelters)
-
 	const dispatch = useAppDispatch()
 
 	const {
