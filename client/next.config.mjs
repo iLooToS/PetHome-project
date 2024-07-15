@@ -2,6 +2,9 @@
 const nextConfig = {
   output: `standalone`,
   reactStrictMode: false,
+	images: {
+		domains: ['localhost'],
+	},
   async rewrites() {
     return [
       {
