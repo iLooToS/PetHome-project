@@ -15,6 +15,9 @@ class PetServices {
 		data.petType = data.petType[0].toUpperCase() + data.petType.slice(1);
 		return Pet.create(data)
 	}
+	async createPetImage(data) {
+		return PetImage.create(data)
+	}
 	async updatePet(shelterId, id, body) {
 		const pet = await Pet.findOne({ where: { id, shelterId } })
 		if (pet) {

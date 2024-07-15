@@ -27,11 +27,11 @@ class PetsApi {
 	static createPet = async (body: IPetCreate): Promise<IPet> => {
 		try {
 			console.log(body);
-			
+			const config = { headers: { 'Content-Type': 'multipart/form-data' } }
 			const result: AxiosResponse<{
 				message: 'success'
 				pet: IPet
-			}> = await axiosInstance.post(`/pets`, body)
+			}> = await axiosInstance.post(`/pets`, body,config)
 			return result.data.pet
 		} catch (error) {
 			throw new Error('Не получил питомца по id')
