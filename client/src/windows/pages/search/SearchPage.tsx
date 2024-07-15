@@ -61,7 +61,7 @@ const SearchPage: React.FC = () => {
 					gap: '10px',
 				}}
 			>
-				{filterPets.map(pet => (
+				{filterPets && filterPets.map(pet => (
 					<AnimalCard key={pet.id} pet={pet} />
 				))}
 			</div>
