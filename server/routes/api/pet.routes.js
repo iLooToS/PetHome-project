@@ -1,15 +1,22 @@
-const router = require("express").Router();
-const petController = require("../../controllers/petController");
-const verifyAccessToken = require("../../middleware/verifyAccessToken");
+const router = require('express').Router()
+const petController = require('../../controllers/petController')
+const upload = require('../../middleware/upload')
 
-router.get("/", petController.getAllPets);
+const verifyAccessToken = require('../../middleware/verifyAccessToken')
 
-router.get("/:petId", petController.getPetById);
+router.get('/', petController.getAllPets)
 
-router.post("/", verifyAccessToken, petController.createPet);
+router.get('/:petId', petController.getPetById)
 
-router.put("/:petId", verifyAccessToken, petController.updatePet);
+router.post(
+	'/',
+	verifyAccessToken,
+	upload.single('photo'),
+	petController.createPet
+)
 
-router.delete('/:petId', verifyAccessToken, petController.deletePet);
+router.put('/:petId', verifyAccessToken, petController.updatePet)
 
-module.exports = router;
+router.delete('/:petId', verifyAccessToken, petController.deletePet)
+
+module.exports = router

@@ -38,4 +38,5 @@ export interface IPetCreate {
 	isChipping: boolean | string
 	isVaccination: boolean | string
 	isPassport: boolean | string
+	photo?: File | null
 }

@@ -24,17 +24,38 @@ class PetsApi {
 			throw new Error('Не получил питомца по id')
 		}
 	}
-	static createPet = async (body: IPetCreate): Promise<IPet> => {
+	static createPet = async (body: FormData): Promise<IPet> => {
 		try {
-			console.log(body);
-			
+			const config = { headers: { 'Content-Type': 'multipart/form-data' } }
 			const result: AxiosResponse<{
 				message: 'success'
 				pet: IPet
-			}> = await axiosInstance.post(`/pets`, body)
+			}> = await axiosInstance.post(`/pets`, body, config)
 			return result.data.pet
 		} catch (error) {
 			throw new Error('Не получил питомца по id')
+		}
+	}
+	static updatePet = async (id: PetId, body: IPetCreate): Promise<IPet> => {
+		try {
+			const result: AxiosResponse<{ message: 'success'; pet: IPet }> =
+				await axiosInstance.put(`/pets/${id}`, body)
+			return result.data.pet
+		} catch (error) {
+			throw new Error('Не обновил карточку питомца')
+		}
+	}
+
+	static deletePet = async (id: PetId): Promise<PetId> => {
+		try {
+			const { data }: AxiosResponse<{ message: 'success' }> =
+				await axiosInstance.delete(`/pets/${id}`)
+			if (data.message === 'success') {
+				return id
+			}
+			return data.message
+		} catch (error) {
+			throw new Error('Не удалил питомца')
 		}
 	}
 }
