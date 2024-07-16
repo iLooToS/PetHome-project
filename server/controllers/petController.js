@@ -74,7 +74,7 @@ exports.createPet = async (req, res) => {
 			return
 		}
     const pet = await PetServices.getPetById(newPet.id)
-		res.status(201).json({ message: 'success', pet })
+		res.status(200).json({ message: 'success', pet })
 	} catch ({ message }) {
 		res.json({ error: message })
 	}

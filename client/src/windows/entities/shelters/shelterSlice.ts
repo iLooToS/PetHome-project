@@ -88,6 +88,13 @@ const ShelterSlice = createSlice({
           (shelter) => shelter.id !== action.payload?.id
         );
         state.loading = false;
+      })
+      .addCase(deleteShelterThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteShelterThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
       });
   },
 });

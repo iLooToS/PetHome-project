@@ -2,10 +2,12 @@
 const posts = [
   {
     shelterId: 1,
+    postName: "Очень крутой",
     text: "У нас есть новые собаки!",
   },
   {
     shelterId: 1,
+    postName: "Очень не крутой",
     text: "У нас есть новые коты!",
   },
 ];
