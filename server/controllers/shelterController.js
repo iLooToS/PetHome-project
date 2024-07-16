@@ -136,7 +136,7 @@ exports.deleteShelter = async (req, res) => {
     }
     const deleted = await ShelterServices.deleteShelter(+shelterId);
     if (deleted === true) {
-      res.status(200).json({ message: "success" });
+      res.status(200).json({ message: "success", id: +shelterId });
       return;
     }
     res.status(400).json({ message: "Приют не удален" });
