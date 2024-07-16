@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { IPet } from '../types/PetsTypes'
 import '../../../pages/pets/CurrentPetPage'
@@ -9,10 +10,11 @@ import AspectRatio from '@mui/joy/AspectRatio'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
+
 type CurrentPetInfoProps = {
-	pet: IPet | undefined
-	loading: boolean
-}
+  pet: IPet | undefined;
+  loading: boolean;
+};
 
 const CurrentPetInfo = ({ pet, loading }: CurrentPetInfoProps): JSX.Element => {
 	const router = useRouter()
@@ -151,4 +153,5 @@ const CurrentPetInfo = ({ pet, loading }: CurrentPetInfoProps): JSX.Element => {
 	)
 }
 
-export default CurrentPetInfo
+
+export default CurrentPetInfo;

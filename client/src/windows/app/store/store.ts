@@ -4,12 +4,14 @@ import { Shelter } from '@/src/windows/entities/shelters/type/shelterTypes'
 import authSlice from '@/src/windows/entities/users/authSlice'
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
+import PostSlice from '../../entities/shelters/shelterPosts/postSlice'
 
 const store = configureStore({
 	reducer: {
 		auth: authSlice.reducer,
 		shelters: shelterSlice.reducer,
 		pets: PetSlice.reducer,
+		posts: PostSlice.reducer
 	},
 })
 

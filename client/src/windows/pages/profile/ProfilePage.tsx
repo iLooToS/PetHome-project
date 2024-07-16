@@ -4,6 +4,7 @@ import "./styles/ProfilePage.css";
 import { RootState, useAppDispatch } from "@/src/windows/app/store/store";
 import {
   createShelterThunk,
+  deleteShelterThunk,
   getAllSheltersThunk,
 } from "@/src/windows/entities/shelters/shelterSlice";
 import { ShelterCreateWithLocation } from "@/src/windows/entities/shelters/type/shelterTypes";
@@ -46,6 +47,10 @@ const ProfilePage: React.FC = () => {
     void dispatch(createShelterThunk(createShelter));
     setIsOpen((prev) => !prev);
     reset();
+  };
+
+  const onHandleDelete = async (id: number): Promise<void> => {
+    void dispatch(deleteShelterThunk(id));
   };
 
   useEffect(() => {
@@ -210,6 +215,14 @@ const ProfilePage: React.FC = () => {
                     type="button"
                   >
                     Перейти в приют
+                  </Button>
+                  <Button
+                    color="error"
+                    onClick={() => onHandleDelete(shelter.id)}
+                    variant="contained"
+                    type="button"
+                  >
+                    Удалить приют
                   </Button>
                 </div>
               ))}

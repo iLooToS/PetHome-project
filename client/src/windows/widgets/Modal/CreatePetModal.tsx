@@ -91,7 +91,6 @@ export default function CreatePetModal({ shelterId }: ShelterPageProps) {
   const onHandleSubmit = async (pet: IPetCreate): Promise<void> => {
     pet.shelterId = shelterId;
     pet.photo = photo && photo[0];
-    console.log(pet);
 
     if (!pet.photo) {
       setError((prev) => !prev);

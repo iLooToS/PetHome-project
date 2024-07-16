@@ -1,18 +1,19 @@
-import * as React from 'react'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
-import Typography from '@mui/material/Typography'
-import { CardActionArea } from '@mui/material'
-import { IPet } from '../types/PetsTypes'
-import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import * as React from "react";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { CardActionArea } from "@mui/material";
+import { IPet } from "../types/PetsTypes";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface PetCardProps {
-	pet: IPet
+  pet: IPet;
 }
 
 export default function AnimalCard({ pet }: PetCardProps) {
+
 	const router = useRouter()
 	return (
 		<Card sx={{ maxWidth: 400, borderRadius: "5%" }}>
@@ -46,4 +47,5 @@ export default function AnimalCard({ pet }: PetCardProps) {
 			</CardActionArea>
 		</Card>
 	)
+
 }

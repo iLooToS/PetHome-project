@@ -19,6 +19,10 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
+      postName: {
+        allowNull: false,
+        type: Sequelize.TEXT
+      },
       text: {
         allowNull: false,
         type: Sequelize.TEXT
