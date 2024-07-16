@@ -6,7 +6,7 @@ const nextConfig = {
     domains: ["localhost"],
   },
   env: {
-    API_URL: 'http://backend:3000',
+    API_URL: 'http://localhost:3000',
   },
   async rewrites() {
     return [

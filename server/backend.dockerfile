@@ -2,7 +2,7 @@ FROM node:20
 
 WORKDIR /app
 
-ENV DATABASE_URL=postgres://postgres:postgres@87.228.16.34:5432/PetHome
+ENV DATABASE_URL=postgres://postgres:postgres@db:5432/PetHome
 ENV ACCESS_TOKEN=secretA
 ENV REFRESH_TOKEN=secretR
 ENV PORT=3000
