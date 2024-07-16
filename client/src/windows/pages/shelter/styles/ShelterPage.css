@@ -147,6 +147,7 @@
 
   button {
     margin-right: 10px;
+    margin-bottom: 10px;
     padding: 5px 10px;
     background-color: #007bff;
     color: #fff;
@@ -364,7 +365,7 @@
   }
 
   .post-feed {
-    max-width: 900px;
+    min-width: 900px;
     display: flex;
     flex-direction: column;
     gap: 20px;
