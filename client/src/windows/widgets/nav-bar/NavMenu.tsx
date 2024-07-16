@@ -22,7 +22,12 @@ import {
 	refreshUser,
 } from '@/src/windows/entities/users/authSlice'
 import Link from 'next/link'
+import LightModeIcon from '@mui/icons-material/LightMode'
+import DarkModeIcon from '@mui/icons-material/DarkMode'
+import Brightness4Icon from '@mui/icons-material/Brightness4'
+import Brightness7Icon from '@mui/icons-material/Brightness7'
 import { loadAllPetsThunk } from '@/src/windows/entities/pets/petsSlice'
+import { ThemeContext } from '@/app/ThemeProvider'
 
 function NavMenu(): JSX.Element {
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
@@ -32,6 +37,7 @@ function NavMenu(): JSX.Element {
 	const { user } = useSelector((state: RootState) => state.auth)
 	const dispatch = useAppDispatch()
 	const router = useRouter()
+	const themeContext = React.useContext(ThemeContext)
 
 	React.useEffect(() => {
 		void dispatch(refreshUser())
@@ -60,7 +66,10 @@ function NavMenu(): JSX.Element {
 	}
 
 	return (
-		<AppBar className='bg-sky-600' position='static'>
+		<AppBar
+			//  className='bg-sky-600'
+			position='static'
+		>
 			<Container maxWidth='xl'>
 				<Toolbar disableGutters>
 					<PetsIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -142,6 +151,9 @@ function NavMenu(): JSX.Element {
 					>
 						Pets Home
 					</Typography>
+					<IconButton onClick={themeContext?.toggleTheme} color='inherit'>
+						{themeContext?.toggleTheme ? <LightModeIcon /> : <DarkModeIcon />}
+					</IconButton>
 					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 						<Link href={'/'}>
 							<Button
@@ -195,28 +207,30 @@ function NavMenu(): JSX.Element {
 						>
 							{user
 								? [
-										<Typography key={user.id} textAlign='center'>
-											Привет!
-											<p>{user.name}</p>
-										</Typography>,
-										<Link key='profile' href={'/profile'}>
-											<MenuItem onClick={handleCloseUserMenu}>
+										<>
+											<Typography key={user.id} textAlign='center'>
+												Привет!
+												<p>{user.name}</p>
+											</Typography>
+											<Link key='profile' href={'/profile'}>
+												<MenuItem onClick={handleCloseUserMenu}>
+													<Typography
+														sx={{ alignText: 'center' }}
+														textAlign='center'
+													>
+														Профиль
+													</Typography>
+												</MenuItem>
+											</Link>
+											<MenuItem key='logout' onClick={onHandleLogout}>
 												<Typography
 													sx={{ alignText: 'center' }}
 													textAlign='center'
 												>
-													Профиль
+													Выход
 												</Typography>
 											</MenuItem>
-										</Link>,
-										<MenuItem key='logout' onClick={onHandleLogout}>
-											<Typography
-												sx={{ alignText: 'center' }}
-												textAlign='center'
-											>
-												Выход
-											</Typography>
-										</MenuItem>,
+										</>,
 								  ]
 								: [
 										<Link key='sign-up' href={'/sign-up'}>

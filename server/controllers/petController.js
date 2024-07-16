@@ -3,7 +3,7 @@ const ShelterServices = require('../services/shelterServices')
 
 exports.getAllPets = async (req, res) => {
 	try {
-		const pets = await PetServices.getAllPets()
+		const pets = await PetServices.getAllPets(req.query)
 		if (!pets) {
 			res.status(400).json({ message: 'Питомцев нет' })
 			return
