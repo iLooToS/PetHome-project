@@ -40,6 +40,8 @@ const ShelterSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createShelterThunk.fulfilled, (state, action) => {
+        state.shelters.push(action.payload)
+        
         state.shelters = state.shelters.map((shelter) =>
           shelter.id === action.payload.id ? action.payload : shelter
         );

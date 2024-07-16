@@ -55,6 +55,7 @@ exports.createShelter = async (req, res) => {
           status: true,
         });
         if (createdShelter) {
+          createdShelter.dataValues.Location = location.dataValues
           res.status(201).json({ message: "success", shelter: createdShelter });
           return;
         }
