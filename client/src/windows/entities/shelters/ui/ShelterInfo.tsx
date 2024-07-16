@@ -31,7 +31,7 @@ const ShelterInfo = (): JSX.Element => {
           <div className="shelter-button-wrapper">
             <button
               type="button"
-              onClick={() => router.push(`http://87.228.16.34:80/${path}/pets`)}
+              onClick={() => router.push(`http://localhost:3000/${path}/pets`)}
             >
               Show pets
             </button>
