@@ -15,7 +15,7 @@ interface PetCardProps {
 export default function AnimalCard({ pet }: PetCardProps) {
 	const router = useRouter()
 	return (
-		<Card sx={{ maxWidth: 400 }}>
+		<Card sx={{ maxWidth: 400, borderRadius: "5%" }}>
 			<CardActionArea onClick={() => router.push(`/search/${pet.id}`)}>
 				{pet.PetImages?.length > 0 && (
 					<Image
@@ -24,7 +24,7 @@ export default function AnimalCard({ pet }: PetCardProps) {
 					alt={pet?.PetImages[0].url}
 					style={{
 						objectFit: 'fill',
-						height: 350,
+						height: 380,
 						borderRadius: '5%',
 					}}
 					height={200}

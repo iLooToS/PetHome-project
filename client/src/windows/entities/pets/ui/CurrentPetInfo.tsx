@@ -3,6 +3,9 @@ import { IPet } from '../types/PetsTypes'
 import '../../../pages/pets/CurrentPetPage'
 import { IconButton, Skeleton, Typography } from '@mui/material'
 import { Undo2 } from 'lucide-react'
+import Box from '@mui/joy/Box'
+import Card from '@mui/joy/Card'
+import AspectRatio from '@mui/joy/AspectRatio'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
@@ -41,33 +44,47 @@ const CurrentPetInfo = ({ pet, loading }: CurrentPetInfoProps): JSX.Element => {
 				</IconButton>
 			</div>
 			<div>
-				{loading ? (
-					<Skeleton
-						key={pet?.id}
-						variant='rectangular'
-						style={{
-							objectFit: 'fill',
-							height: 350,
-							borderRadius: '5%',
-						}}
-					/>
-				) : (
-					pet &&
-					pet.PetImages.length > 0 && (
-						<Image
-							key={pet?.PetImages[0].id}
-							src={pet?.PetImages[0].url}
-							alt={pet?.PetImages[0].url}
-							style={{
-								objectFit: 'fill',
-								height: 350,
-								borderRadius: '5%',
-							}}
-							height={200}
-							width={350}
-						/>
-					)
-				)}
+				<Box
+					sx={{
+						display: 'flex',
+						gap: 2,
+						py: 1,
+						overflow: 'auto',
+						width: 380,
+						scrollSnapType: 'x mandatory',
+						'& > *': {
+							scrollSnapAlign: 'center',
+						},
+						'::-webkit-scrollbar': { display: 'none' },
+					}}
+				>
+					{pet &&
+						pet.PetImages.length > 0 &&
+						pet.PetImages.map(image => (
+							<Card
+								orientation='horizontal'
+								size='sm'
+								key={image.id}
+								variant='outlined'
+								style={{borderRadius: '5%',}}
+							>
+								<AspectRatio ratio='1' style={{ borderRadius: '5%', minWidth: 350 }}>
+									<Image
+										style={{
+											objectFit: 'fill',
+											borderRadius: '5%',
+
+										}}
+										// srcSet={`${item.src}?h=120&fit=crop&auto=format&dpr=2 2x`}
+										src={image.url}
+										alt={image.url}
+										width={350}
+										height={300}
+									/>
+								</AspectRatio>
+							</Card>
+						))}
+				</Box>
 			</div>
 			<div className='animal-description'>
 				{loading ? (
@@ -77,7 +94,7 @@ const CurrentPetInfo = ({ pet, loading }: CurrentPetInfoProps): JSX.Element => {
 					/>
 				) : (
 					<Typography variant='body1' gutterBottom>
-						{pet?.description}
+						<strong>Описание:</strong> {pet?.description}
 					</Typography>
 				)}
 			</div>
