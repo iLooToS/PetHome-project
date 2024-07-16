@@ -5,6 +5,9 @@ const nextConfig = {
   images: {
     domains: ["localhost"],
   },
+  // env: {
+  //   API_URL: 'http://localhost:3000',
+  // },
   async rewrites() {
     return [
       {

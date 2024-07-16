@@ -1,0 +1,47 @@
+version: '3.2'
+services:
+  traefik:
+    image: "$REGISTRY/${TRAEFIK_SERVICE}:${TRAEFIK_SERVICE__VERSION}"
+    networks:
+      - proxy
+    deploy:
+      mode: global
+      update_config:
+        parallelism: 1
+        delay: 3s
+      restart_policy:
+        condition: on-failure
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik_acme:/etc/traefik/acme:rw
+networks:
+  proxy:
+volumes:
+  traefik_acme:
+
+  version: '3.2'
+services:
+  app:
+    networks:
+      - proxy
+    healthcheck:
+      test: 'nc -z localhost 80 > /dev/null 2>&1 || exit 1'
+    deploy:
+      mode: replicated
+      labels:
+        traefik.enable: 'true'
+        traefik.docker.network: traefik_proxy
+        traefik.backend: frontend
+        traefik.backend.loadbalancer.method: drr
+        traefik.frontend.entryPoints.http.redirect: https
+        traefik.frontend.rule: "Host: app.example.com"
+        traefik.port: '80'
+      restart_policy:
+        condition: on-failure
+networks:
+  proxy:
+    external:
+      name: traefik_proxy

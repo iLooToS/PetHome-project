@@ -3,7 +3,7 @@ version: '3.9'
 services:
   frontend:
     container_name: frontend
-    image: frontend
+    image: frontend:frontend
     build:
       context: ./client
       dockerfile: frontend.dockerfile
@@ -16,7 +16,7 @@ services:
       - backend
   backend:
     container_name: backend
-    image: backend
+    image: backend:backend
     build:
       context: ./server
       dockerfile: backend.dockerfile
@@ -28,7 +28,7 @@ services:
       - db
   db:
     container_name: db
-    image: postgres:latest
+    image: postgres:16
     restart: always
     environment:
       POSTGRES_USER: postgres
@@ -39,3 +39,4 @@ services:
     volumes:
       # - ./.database/postgres/data:/var/lib/postgresql/data
       - /postgres/data:/var/lib/postgresql/data
+      # - /postgres/pgdata:/var/lib/postgresql/data postgres
