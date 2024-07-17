@@ -3,6 +3,7 @@
 import "./styles/ProfilePage.css";
 import { RootState, useAppDispatch } from "@/src/windows/app/store/store";
 import {
+  confirmShelterThunk,
   createShelterThunk,
   deleteShelterThunk,
   getAllSheltersThunk,
@@ -11,6 +12,7 @@ import { ShelterCreateWithLocation } from "@/src/windows/entities/shelters/type/
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, TextField } from "@mui/material";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -53,6 +55,10 @@ const ProfilePage: React.FC = () => {
     void dispatch(deleteShelterThunk(id));
   };
 
+  const onHandleConfirm = async (id: number): Promise<void> => {
+    void dispatch(confirmShelterThunk(id));
+  };
+
   useEffect(() => {
     dispatch(getAllSheltersThunk());
   }, [dispatch]);
@@ -65,13 +71,59 @@ const ProfilePage: React.FC = () => {
           <div className="profile-name-email-button">
             <h2>{user?.name}</h2>
             <p>{user?.email}</p>
-            <Button variant="contained" type="button">
-              Edit
-            </Button>
+            {user && user.roleId !== 2 && (
+              <Button variant="contained" type="button">
+                Edit
+              </Button>
+            )}
           </div>
         </div>
+        {user && user.roleId === 2 && (
+          <div>
+            <h1>Я админ</h1>
+            <div className="admin-profile-confirm-container">
+              {shelters &&
+                shelters
+                  .filter((shelter) => shelter.status === false)
+                  .map((shelter) => (
+                    <div
+                      key={shelter.id}
+                      className="admin-profile-card-wrapper"
+                    >
+                      {shelter && shelter.logo && (
+                        <Image
+                          src={shelter.logo}
+                          alt="Shelter Image"
+                          style={{ width: "200", height: "200px" }}
+                        />
+                      )}
+                      <h1>Название: {shelter.name}</h1>
+                      <h2>
+                        Владелец: {shelter.User?.name} {shelter.User?.lastName}
+                      </h2>
+                      <p>Описание: {shelter.description}</p>
+                      <Button
+                        onClick={() => onHandleConfirm(shelter.id)}
+                        variant="contained"
+                        type="button"
+                      >
+                        Подтвердить
+                      </Button>
+                      <Button
+                        onClick={() => onHandleDelete(shelter.id)}
+                        variant="contained"
+                        type="button"
+                        color="error"
+                      >
+                        Отклонить
+                      </Button>
+                    </div>
+                  ))}
+            </div>
+          </div>
+        )}
         <div>
-          {!isOpen && (
+          {!isOpen && user && user.roleId !== 2 && (
             <Button
               onClick={() => setIsOpen((prev) => !prev)}
               variant="contained"
@@ -183,7 +235,7 @@ const ProfilePage: React.FC = () => {
         )}
 
         <div className="py-10">
-          {isShow ? (
+          {isShow && shelters.find((shelter) => shelter.userId === user?.id) ? (
             <Button
               onClick={() => setIsShow((prev) => !prev)}
               variant="contained"
@@ -192,13 +244,16 @@ const ProfilePage: React.FC = () => {
               Закрыть
             </Button>
           ) : (
-            <Button
-              onClick={() => setIsShow((prev) => !prev)}
-              variant="contained"
-              type="button"
-            >
-              Показать мои приюты
-            </Button>
+            !isShow &&
+            shelters.find((shelter) => shelter.userId === user?.id) && (
+              <Button
+                onClick={() => setIsShow((prev) => !prev)}
+                variant="contained"
+                type="button"
+              >
+                Показать мои приюты
+              </Button>
+            )
           )}
         </div>
         <div className="py-10">
@@ -207,23 +262,32 @@ const ProfilePage: React.FC = () => {
               .filter((shelter) => shelter.userId === user?.id)
               .map((shelter) => (
                 <div className="shelter-info-wrapper" key={shelter.id}>
-                  <p>{shelter.name}</p>
-                  <p>{shelter.Location?.city}</p>
-                  <Button
-                    href={`/shelter/${shelter.id}`}
-                    variant="contained"
-                    type="button"
-                  >
-                    Перейти в приют
-                  </Button>
-                  <Button
-                    color="error"
-                    onClick={() => onHandleDelete(shelter.id)}
-                    variant="contained"
-                    type="button"
-                  >
-                    Удалить приют
-                  </Button>
+                  {shelter.status === false ? (
+                    <>
+                      <h1>Приют: {shelter.name} проверяется администрацией.</h1>
+                      <h2>С вами свяжутся если понадобиться дополнительная информация.</h2>
+                    </>
+                  ) : (
+                    <>
+                      <p>{shelter.name}</p>
+                      <p>{shelter.Location?.city}</p>
+                      <Button
+                        href={`/shelter/${shelter.id}`}
+                        variant="contained"
+                        type="button"
+                      >
+                        Перейти в приют
+                      </Button>
+                      <Button
+                        color="error"
+                        onClick={() => onHandleDelete(shelter.id)}
+                        variant="contained"
+                        type="button"
+                      >
+                        Удалить приют
+                      </Button>
+                    </>
+                  )}
                 </div>
               ))}
         </div>

@@ -11,6 +11,8 @@ router.post("/", verifyAccessToken, shelterController.createShelter);
 
 router.put("/:shelterId", verifyAccessToken, shelterController.updateShelter);
 
+router.put("/admin/:shelterId", verifyAccessToken, shelterController.updateShelter);
+
 router.delete('/:shelterId', verifyAccessToken, shelterController.deleteShelter);
 
 module.exports = router;

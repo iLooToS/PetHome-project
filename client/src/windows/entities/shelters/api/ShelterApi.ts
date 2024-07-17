@@ -66,6 +66,16 @@ class ShelterApi {
       throw new Error("Не удалось удалить приют");
     }
   };
+
+	static confirmShelter = async (id: number): Promise<Shelter> => {
+		try {
+			const result: AxiosResponse<{ message: 'success'; shelter: Shelter }> =
+				await axiosInstance.put(`/shelters/${id}`, {status: true})
+			return result.data.shelter
+		} catch (error) {
+			throw new Error('Не обновил карточку питомца')
+		}
+	}
 }
 
 export default ShelterApi;

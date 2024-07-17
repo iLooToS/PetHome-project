@@ -19,6 +19,8 @@ const ShelterPage = ({ shelterId }: ShelterPageProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const { posts } = useSelector((state: RootState) => state.posts);
   const shelterPosts = posts.filter((post) => post?.shelterId === shelterId);
+  const { currentShelter } = useSelector((state: RootState) => state.shelters);
+  console.log(currentShelter);
 
   useEffect(() => {
     if (shelterId) {
@@ -29,8 +31,14 @@ const ShelterPage = ({ shelterId }: ShelterPageProps): JSX.Element => {
 
   return (
     <div className="ShelterPage">
-      <ShelterInfo />
-      <ShelterPosts shelterPosts={shelterPosts} ShelterPostImages={[]} />
+      {currentShelter && currentShelter.status === false ? (
+        <h1>Администрация ещё не проверила этот приют!</h1>
+      ) : (
+        <>
+          <ShelterInfo />
+          <ShelterPosts shelterPosts={shelterPosts} ShelterPostImages={[]} />
+        </>
+      )}
     </div>
   );
 };

@@ -17,7 +17,6 @@ exports.getAllShelters = async (req, res) => {
 exports.getShelterById = async (req, res) => {
   try {
     const { shelterId } = req.params;
-    console.log(shelterId);
     if (!shelterId) {
       res.status(400).json({ message: "Параметра нет" });
       return;
@@ -52,10 +51,10 @@ exports.createShelter = async (req, res) => {
           name,
           locationId: location.dataValues.id,
           description,
-          status: true,
+          status: false,
         });
         if (createdShelter) {
-          createdShelter.dataValues.Location = location.dataValues
+          createdShelter.dataValues.Location = location.dataValues;
           res.status(201).json({ message: "success", shelter: createdShelter });
           return;
         }
@@ -74,7 +73,7 @@ exports.updateShelter = async (req, res) => {
   try {
     const user = res.locals.user;
     const { shelterId } = req.params;
-    const { name, description, img } = req.body;
+    const { name, description, img, status } = req.body;
     if (!shelterId) {
       res.status(400).json({ message: "Параметра нет" });
       return;
@@ -83,6 +82,15 @@ exports.updateShelter = async (req, res) => {
     if (!shelter) {
       res.status(400).json({ message: "Такого приюта нет" });
       return;
+    }
+    if (user.roleId === 2) {
+      const updatedShelter = await ShelterServices.confirmShelter(+shelterId, {
+        status,
+      });
+      if (updatedShelter) {
+        res.status(200).json({ message: "success", shelter: updatedShelter });
+        return;
+      }
     }
     if (shelter.dataValues.userId !== user.id) {
       res
@@ -98,7 +106,7 @@ exports.updateShelter = async (req, res) => {
         {
           name,
           description,
-          img
+          img,
         }
       );
       if (updatedShelter) {
@@ -128,10 +136,19 @@ exports.deleteShelter = async (req, res) => {
       res.status(400).json({ message: "Такого приюта нет" });
       return;
     }
-    if (shelter.dataValues.userId!== user.id) {
+    if (user.roleId === 2) {
+      const deleted = await ShelterServices.deleteShelter(+shelterId);
+      if (deleted === true) {
+        res.status(200).json({ message: "success", id: +shelterId });
+        return;
+      }
+      res.status(400).json({ message: "Приют не удален" });
+      return;
+    }
+    if (shelter.dataValues.userId !== user.id) {
       res
-       .status(403)
-       .json({ message: "Недостаточно прав для удаления этого приюта" });
+        .status(403)
+        .json({ message: "Недостаточно прав для удаления этого приюта" });
       return;
     }
     const deleted = await ShelterServices.deleteShelter(+shelterId);
@@ -143,4 +160,4 @@ exports.deleteShelter = async (req, res) => {
   } catch ({ message }) {
     res.json({ error: message });
   }
-}
+};

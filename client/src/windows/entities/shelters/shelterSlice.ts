@@ -33,6 +33,11 @@ export const getShelterByIdThunk = createAsyncThunk(
   (id: Shelter["id"]) => ShelterApi.getShelterById(id)
 );
 
+export const confirmShelterThunk = createAsyncThunk(
+  "confirm/shelter",
+  (id: Shelter["id"]) => ShelterApi.confirmShelter(id)
+);
+
 export const deleteShelterThunk = createAsyncThunk(
   "delete/shelter",
   (id: number) => ShelterApi.deleteShelter(id)
@@ -48,7 +53,7 @@ const ShelterSlice = createSlice({
         state.shelters.push(action.payload);
 
         state.shelters = state.shelters.map((shelter) =>
-          shelter.id === action.payload.id ? action.payload : shelter
+          shelter.id === action.payload?.id ? action.payload : shelter
         );
         state.loading = false;
       })
@@ -95,7 +100,13 @@ const ShelterSlice = createSlice({
       .addCase(deleteShelterThunk.rejected, (state, action) => {
         state.error = action.error.message;
         state.loading = false;
-      });
+      })
+      .addCase(confirmShelterThunk.fulfilled, (state, action) => {
+        state.shelters = state.shelters.map((shelter) =>
+          shelter.id === action.payload?.id ? action.payload : shelter
+        );
+        state.loading = false;
+      })
   },
 });
 export default ShelterSlice;
