@@ -19,6 +19,14 @@ class PostServices {
 	async createPostImage(data) {
 		return ShelterPostImage.create(data)
 	}
+  async deletePost(id) {
+		const post = await ShelterPost.findOne({ where: { id } })
+		if (post) {
+			post.destroy()
+			return true
+		}
+		return false
+	}
 }
 
 module.exports = new PostServices();

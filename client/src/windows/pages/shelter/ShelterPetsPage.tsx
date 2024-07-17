@@ -30,11 +30,11 @@ const ShelterPetsPage = ({}: ShelterPetsPageProps): JSX.Element => {
         </>
       ) : (
         <>
-          <Typography variant="h5" gutterBottom>
+          <Typography style={{textAlign:"center"}} variant="h4" gutterBottom>
             Питомцы {currentShelter?.name}
           </Typography>
           {!currentPets.length && (
-            <Typography variant="h6" gutterBottom>
+            <Typography style={{textAlign:"center"}} variant="h5" gutterBottom>
               Еще пока не добавили
             </Typography>
           )}

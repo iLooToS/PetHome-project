@@ -27,38 +27,41 @@ const CurrentPetPage = ({ petId }: ShelterPageProps): JSX.Element => {
   }, [petId, dispatch]);
   console.log(pet);
 
-  const router = useRouter();
-  return (
-    <div className=" CurrentPetPage">
-      <CurrentPetInfo pet={pet} loading={loading} />
-      <div className="animal-actions">
-        <Button variant="contained" color="success">
-          Взять питомца
-        </Button>
-        <Button
-          variant="contained"
-          color="inherit"
-          onClick={() => router.push(`/shelter/${pet?.Shelter.id}`)}
-        >
-          Узнать контакты
-        </Button>
-        {user && pet && user.id === pet.Shelter.userId && (
-          <>
-            <UpdatePetModal currentPet={pet} shelterId={pet?.Shelter.id} />
-            <Button
-              variant="contained"
-              color="error"
-              onClick={() => {
-                dispatch(deletePetThunk(petId));
-                router.push("/search");
-              }}
-            >
-              Удалить карточку
-            </Button>
-          </>
-        )}
-      </div>
-    </div>
-  );
-};
-export default CurrentPetPage;
+	const router = useRouter()
+	return (
+		<div className=' CurrentPetPage'>
+			<CurrentPetInfo pet={pet} loading={loading} />
+			<div className='animal-actions'>
+				{user &&
+				<Button variant='contained' color='success'>
+					Взять питомца
+				</Button>
+				}
+				<Button
+					variant='contained'
+					color='inherit'
+					onClick={() => router.push(`/shelter/${pet?.Shelter.id}`)}
+				>
+					Узнать контакты
+				</Button>
+				{user && pet && user.id === pet?.Shelter.id && (
+					<>
+						<UpdatePetModal currentPet={pet} shelterId={pet?.Shelter.id} />
+						<Button
+							variant='contained'
+							color='error'
+							onClick={() => {
+								dispatch(deletePetThunk(petId))
+								router.push('/search')
+							}}
+						>
+							Удалить карточку
+						</Button>
+					</>
+				)}
+			</div>
+		</div>
+	)
+}
+export default CurrentPetPage
+

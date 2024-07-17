@@ -40,6 +40,18 @@ class PostsApi {
       throw new Error("Не получил пост по id");
     }
   };
+  static deletePost = async (id: PostId): Promise<PostId> => {
+		try {
+			const { data }: AxiosResponse<{ message: 'success' }> =
+				await axiosInstance.delete(`/posts/${id}`)
+			if (data.message === 'success') {
+				return id
+			}
+			return data.message
+		} catch (error) {
+			throw new Error('Не удалил пост')
+		}
+	}
 }
 
 export default PostsApi;

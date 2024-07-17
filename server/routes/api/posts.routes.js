@@ -15,4 +15,6 @@ router.post(
   postController.createPost
 );
 
+router.delete('/:postId', verifyAccessToken, postController.deletePost)
+
 module.exports = router;
