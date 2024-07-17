@@ -72,6 +72,7 @@ export default function CreatePostModal({ shelterId }: ShelterPageProps) {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({ resolver: yupResolver(schema) });
 
   const onHandleSubmit = async (post: PostCreate): Promise<void> => {
@@ -90,6 +91,7 @@ export default function CreatePostModal({ shelterId }: ShelterPageProps) {
 
     void dispatch(createPostThunk(formData));
     handleClose();
+    reset();
   };
 
   return (

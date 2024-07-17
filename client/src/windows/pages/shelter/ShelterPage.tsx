@@ -16,6 +16,7 @@ interface ShelterPageProps {
 }
 // params из url надо перебрасывать в каждый компонент
 const ShelterPage = ({ shelterId }: ShelterPageProps): JSX.Element => {
+
 	const dispatch = useAppDispatch()
 	const { posts } = useSelector((state: RootState) => state.posts)
 	const currentShelterPosts = posts && posts.filter(post => post?.shelterId === shelterId)

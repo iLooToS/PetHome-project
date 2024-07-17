@@ -33,7 +33,9 @@ interface ShelterPostsProps {
 }
 
 const ShelterPosts = ({
+
 	currentShelterPosts,
+
 }: ShelterPostsProps): JSX.Element => {
 	const [open, setOpen] = useState<boolean>(false)
 	const { user } = useSelector((state: RootState) => state.auth)
@@ -160,4 +162,5 @@ const ShelterPosts = ({
 	)
 }
 
-export default ShelterPosts
+
+export default ShelterPosts;

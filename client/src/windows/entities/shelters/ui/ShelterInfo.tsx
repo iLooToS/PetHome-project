@@ -12,6 +12,7 @@ const ShelterInfo = (): JSX.Element => {
   const { currentShelter } = useSelector((state: RootState) => state.shelters);
   const { user } = useSelector((state: RootState) => state.auth);
 
+
   if (!currentShelter) return <Loader />;
   return (
     <div className="shelter-content-wrapper">
