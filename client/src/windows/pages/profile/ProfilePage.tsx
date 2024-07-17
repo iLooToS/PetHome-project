@@ -80,7 +80,6 @@ const ProfilePage: React.FC = () => {
         </div>
         {user && user.roleId === 2 && (
           <div>
-            <h1>Я админ</h1>
             <div className="admin-profile-confirm-container">
               {shelters &&
                 shelters
@@ -101,6 +100,8 @@ const ProfilePage: React.FC = () => {
                       <h2>
                         Владелец: {shelter.User?.name} {shelter.User?.lastName}
                       </h2>
+                      <p>Город {shelter.Location?.city}</p>
+                      <p>Улица: {shelter.Location?.streetName}</p>
                       <p>Описание: {shelter.description}</p>
                       <Button
                         onClick={() => onHandleConfirm(shelter.id)}

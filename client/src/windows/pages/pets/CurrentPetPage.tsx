@@ -11,7 +11,6 @@ import "./CurrentPetPage.css";
 import CurrentPetInfo from "../../entities/pets/ui/CurrentPetInfo";
 import { Button } from "@mui/material";
 import UpdatePetModal from "@/src/windows/widgets/Modal/UpdatePetModal";
-import { getAllSheltersThunk } from "../../entities/shelters/shelterSlice";
 
 interface ShelterPageProps {
   petId: number;
@@ -19,13 +18,13 @@ interface ShelterPageProps {
 const CurrentPetPage = ({ petId }: ShelterPageProps): JSX.Element => {
   const { pet, loading } = useSelector((state: RootState) => state.pets);
   const { user } = useSelector((state: RootState) => state.auth);
+	
   //   const { shelters } = useSelector((state: RootState) => state.shelters);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(loadPetsByIdThunk(petId));
     // dispatch(getAllSheltersThunk());
   }, [petId, dispatch]);
-  console.log(pet);
 
 	const router = useRouter()
 	return (
@@ -44,7 +43,7 @@ const CurrentPetPage = ({ petId }: ShelterPageProps): JSX.Element => {
 				>
 					Узнать контакты
 				</Button>
-				{user && pet && user.id === pet?.Shelter.id && (
+				{user && pet && user.id === pet?.Shelter.userId && (
 					<>
 						<UpdatePetModal currentPet={pet} shelterId={pet?.Shelter.id} />
 						<Button
