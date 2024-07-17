@@ -38,9 +38,9 @@ const ShelterInfo = (): JSX.Element => {
               type="button"
               onClick={() => router.push(`http://localhost:3001/${path}/pets`)}
             >
-              Show pets
+              Показать питомцев
             </button>
-            <button type="button">Reviews</button>
+            <button type="button">Отзывы</button>
             {currentShelter.userId === user?.id && (
               <div>
                 <CreatePetModal shelterId={currentShelter.id} />
