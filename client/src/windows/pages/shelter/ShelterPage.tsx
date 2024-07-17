@@ -5,9 +5,11 @@ import ShelterPosts from "@/src/windows/entities/shelters/ui/ShelterPosts";
 import { useEffect } from "react";
 import { RootState, useAppDispatch } from "@/src/windows/app/store/store";
 import { getShelterByIdThunk } from "@/src/windows/entities/shelters/shelterSlice";
-import { loadAllPostsThunk, loadPostByIdThunk } from "../../entities/shelters/shelterPosts/postSlice";
+import {
+  loadAllPostsThunk,
+  loadPostByIdThunk,
+} from "../../entities/shelters/shelterPosts/postSlice";
 import { useSelector } from "react-redux";
-
 
 interface ShelterPageProps {
   shelterId?: number;
@@ -15,9 +17,9 @@ interface ShelterPageProps {
 // params из url надо перебрасывать в каждый компонент
 const ShelterPage = ({ shelterId }: ShelterPageProps): JSX.Element => {
   const dispatch = useAppDispatch();
-  const {posts} = useSelector((state: RootState) => state.posts);
+  const { posts } = useSelector((state: RootState) => state.posts);
   const shelterPosts = posts.filter((post) => post?.shelterId === shelterId);
-  
+
   useEffect(() => {
     if (shelterId) {
       dispatch(loadAllPostsThunk());

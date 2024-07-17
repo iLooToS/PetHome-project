@@ -34,7 +34,7 @@ interface ShelterPostsProps {
   shelterPosts?: ShelterPostsProps[];
 }
 
-const ShelterPostsModal = ({
+const ShelterPosts = ({
   shelterPosts,
 }: ShelterPostsProps): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false);
@@ -140,4 +140,4 @@ const ShelterPostsModal = ({
   );
 };
 
-export default ShelterPostsModal;
+export default ShelterPosts;
