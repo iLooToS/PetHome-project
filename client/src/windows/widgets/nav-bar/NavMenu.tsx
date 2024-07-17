@@ -181,7 +181,6 @@ function NavMenu(): JSX.Element {
 								color='inherit'
 							>
 								<AccountCircle />
-								{/* <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' /> */}
 							</IconButton>
 						</Tooltip>
 						<Menu
@@ -207,30 +206,27 @@ function NavMenu(): JSX.Element {
 						>
 							{user
 								? [
-										<>
-											<Typography key={user.id} textAlign='center'>
-												Привет!
-												<p>{user.name}</p>
-											</Typography>
-											<Link key='profile' href={'/profile'}>
-												<MenuItem onClick={handleCloseUserMenu}>
-													<Typography
-														sx={{ alignText: 'center' }}
-														textAlign='center'
-													>
-														Профиль
-													</Typography>
-												</MenuItem>
-											</Link>
-											<MenuItem key='logout' onClick={onHandleLogout}>
+										<Typography key={user.id} textAlign='center'>
+											Привет, {user.name}
+										</Typography>,
+										<Link key='profile' href={'/profile'}>
+											<MenuItem onClick={handleCloseUserMenu}>
 												<Typography
 													sx={{ alignText: 'center' }}
 													textAlign='center'
 												>
-													Выход
+													Профиль
 												</Typography>
 											</MenuItem>
-										</>,
+										</Link>,
+										<MenuItem key='logout' onClick={onHandleLogout}>
+											<Typography
+												sx={{ alignText: 'center' }}
+												textAlign='center'
+											>
+												Выход
+											</Typography>
+										</MenuItem>,
 								  ]
 								: [
 										<Link key='sign-up' href={'/sign-up'}>

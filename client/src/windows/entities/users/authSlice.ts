@@ -52,6 +52,7 @@ const authSlice = createSlice({
 			})
 			.addCase(registrationThunk.pending, state => {
 				state.loading = true
+				state.error = undefined
 			})
 			.addCase(registrationThunk.rejected, (state, action) => {
 				state.error = action.error.message
@@ -70,12 +71,13 @@ const authSlice = createSlice({
 				state.loading = false
 			})
 			.addCase(authorizationThunk.fulfilled, (state, action) => {
+				state.error = undefined
 				state.user = action.payload.user
 				state.accessToken = action.payload.accessToken
 				state.loading = false
-				state.error = undefined
 			})
 			.addCase(authorizationThunk.pending, state => {
+				state.error = undefined
 				state.loading = true
 			})
 			.addCase(authorizationThunk.rejected, (state, action) => {
@@ -86,6 +88,7 @@ const authSlice = createSlice({
 				state.user = undefined
 				state.accessToken = undefined
 				state.loading = false
+				state.error = undefined
 			})
 			.addCase(logoutThunk.pending, state => {
 				state.loading = true
