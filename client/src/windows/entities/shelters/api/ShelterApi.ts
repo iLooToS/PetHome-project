@@ -41,13 +41,17 @@ class ShelterApi {
 
   // создание приюта и его локации без широты долготы
   static createShelter = async (
-    body: ShelterCreateWithLocation
+    body: FormData
   ): Promise<Shelter> => {
     try {
+      const config = { headers: { "Content-Type": "multipart/form-data" } };
+          
       const result: AxiosResponse<{
         message: "success";
         shelter: Shelter;
-      }> = await axiosInstance.post("/shelters/", body);
+      }> = await axiosInstance.post("/shelters/", body, config);
+      console.log(result);
+      
       return result.data.shelter;
     } catch (error) {
       throw new Error("Не создал приют");

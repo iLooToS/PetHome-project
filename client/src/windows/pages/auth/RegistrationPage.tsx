@@ -13,25 +13,25 @@ import { unwrapResult } from '@reduxjs/toolkit'
 import AuthModal from '../../widgets/Modal/AuthModal'
 
 const schema = object().shape({
-	name: string().nullable().trim().required('Обязательно для заполнения'),
-	lastName: string().nullable().trim().required('Обязательно для заполнения'),
-	email: string()
-		.email()
-		.nullable()
-		.trim()
-		.required('Необходимо указать email'),
-	password: string()
-		.trim()
-		.required('Необходимо указать пароль')
-		.min(5, 'пароль жолжен быть не менее 5 символов ')
-		.max(20, 'пароль должен быть не более 20 символов'),
-	cpassword: string()
-		.trim()
-		.required('Необходимо повторить пароль')
-		.min(5, 'пароль жолжен быть не менее 5 символов ')
-		.max(20, 'пароль должен быть не более 20 символов')
-		.oneOf([ref('password')], 'Пароли не совпадают'),
-})
+  name: string().nullable().trim().required("Обязательно для заполнения"),
+  lastName: string().nullable().trim().required("Обязательно для заполнения"),
+  email: string()
+    .email()
+    .nullable()
+    .trim()
+    .required("Необходимо указать email"),
+  password: string()
+    .trim()
+    .required("Необходимо указать пароль")
+    .min(5, "пароль жолжен быть не менее 5 символов ")
+    .max(20, "пароль должен быть не более 20 символов"),
+  cpassword: string()
+    .trim()
+    .required("Необходимо повторить пароль")
+    .min(5, "пароль жолжен быть не менее 5 символов ")
+    .max(20, "пароль должен быть не более 20 символов")
+    .oneOf([ref("password")], "Пароли не совпадают"),
+});
 
 function RegistrationPage(): JSX.Element {
 	const [open, setOpen] = useState(false)
@@ -142,4 +142,4 @@ function RegistrationPage(): JSX.Element {
 	)
 }
 
-export default RegistrationPage
+export default RegistrationPage;

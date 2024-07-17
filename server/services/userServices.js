@@ -16,6 +16,11 @@ class UserService {
     return user;
   }
 
+  async getUserById(id) {
+    const user = await User.findByPk(id);
+    return user;
+  }
+
   async updateUser(id, data) {
     const user = await User.findByPk(id);
     if (user) {

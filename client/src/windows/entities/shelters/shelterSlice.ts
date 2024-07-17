@@ -25,7 +25,7 @@ export const getAllSheltersThunk = createAsyncThunk("load/allShelters", () =>
 
 export const createShelterThunk = createAsyncThunk(
   "create/shelter",
-  (body: ShelterCreateWithLocation) => ShelterApi.createShelter(body)
+  (body: FormData) => ShelterApi.createShelter(body)
 );
 
 export const getShelterByIdThunk = createAsyncThunk(
@@ -50,10 +50,12 @@ const ShelterSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createShelterThunk.fulfilled, (state, action) => {
+        console.log(action.payload);
+        
         state.shelters.push(action.payload);
 
         state.shelters = state.shelters.map((shelter) =>
-          shelter.id === action.payload?.id ? action.payload : shelter
+          shelter?.id === action.payload?.id ? action.payload : shelter
         );
         state.loading = false;
       })
