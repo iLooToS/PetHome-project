@@ -24,6 +24,7 @@ class PetServices {
 	async updatePet(shelterId, id, body) {
 		const pet = await Pet.findOne({ where: { id, shelterId } })
 		if (pet) {
+			console.log(body, 'awdwadwad');
 			return pet.update(body)
 		}
 		return null

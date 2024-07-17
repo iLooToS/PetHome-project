@@ -1,4 +1,5 @@
 import { Location } from "../../locations/type/locationTypes"
+import { User } from "../../users/types/userTypes";
 
 export interface Shelter {
 	id:number,
@@ -8,7 +9,8 @@ export interface Shelter {
 	logo?:string,
 	description:string,
 	status:boolean,
-	Location?: Location
+	Location?: Location,
+	User?: User
 }
 
 export interface currentShelter {
