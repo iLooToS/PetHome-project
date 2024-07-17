@@ -143,3 +143,4 @@ const PetSlice = createSlice({
 });
 export const { returnFilterPets, filterPets } = PetSlice.actions;
 export default PetSlice;
+
