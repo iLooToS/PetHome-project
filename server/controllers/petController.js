@@ -67,13 +67,23 @@ exports.createPet = async (req, res) => {
 			isVaccination,
 			isPassport,
 		})
-    const { filename } = req.file
-    const petImage = await PetServices.createPetImage({petId: newPet.id, url: `/img/${filename}`})
-		if (!newPet || !petImage) {
+		const createdImages = await Promise.all(
+			req.files.map(async (img) => {
+				return await PetServices.createPetImage({
+					url: `/img/${img.filename}`,
+					petId: newPet.id,
+				});
+			})
+		);
+		// const petImage = await PetServices.createPetImage({
+		// 	petId: newPet.id,
+		// 	url: `/img/${filename}`,
+		// })
+		if (!newPet || !createdImages) {
 			res.status(400).json({ message: 'Ошибка создания питомца' })
 			return
 		}
-    const pet = await PetServices.getPetById(newPet.id)
+		const pet = await PetServices.getPetById(newPet.id)
 		res.status(200).json({ message: 'success', pet })
 	} catch ({ message }) {
 		res.json({ error: message })
