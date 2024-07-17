@@ -137,6 +137,8 @@ const ProfilePage: React.FC = () => {
                       <h2>
                         Владелец: {shelter.User?.name} {shelter.User?.lastName}
                       </h2>
+                      <p>Город {shelter.Location?.city}</p>
+                      <p>Улица: {shelter.Location?.streetName}</p>
                       <p>Описание: {shelter.description}</p>
                       <Button
                         onClick={() => onHandleConfirm(shelter.id)}

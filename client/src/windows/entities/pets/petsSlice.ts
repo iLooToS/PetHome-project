@@ -120,7 +120,7 @@ const PetSlice = createSlice({
 				state.loading = false
 			})
 			.addCase(deletePetThunk.fulfilled, (state, action) => {
-				state.pets = state.pets.filter(pet => pet.id !== +action.payload)
+				state.pets = state.pets.filter(pet => pet.id !== action.payload)
 				state.loading = false
 			})
 			.addCase(deletePetThunk.pending, state => {
