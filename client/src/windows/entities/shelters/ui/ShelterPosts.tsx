@@ -30,7 +30,7 @@ interface ShelterPostsProps {
   postName?: string;
   text?: string;
   ShelterPostImages: { url: string }[];
-  comments: Comment[];
+  // comments: Comment[];
   shelterPosts?: ShelterPostsProps[];
 }
 
@@ -57,12 +57,12 @@ const ShelterPostsModal = ({
     setComment(event.target.value);
   };
 
-  const handleCommentSubmit = () => {
-    if (selectedPost) {
-      selectedPost.comments.push({ id: Date.now(), text: comment });
-      setComment("");
-    }
-  };
+  // const handleCommentSubmit = () => {
+  //   if (selectedPost) {
+  //     selectedPost.comments.push({ id: Date.now(), text: comment });
+  //     setComment("");
+  //   }
+  // };
 
   return (
     <div className="post-feed">
@@ -128,7 +128,7 @@ const ShelterPostsModal = ({
             <Button
               variant="contained"
               color="primary"
-              onClick={handleCommentSubmit}
+              // onClick={handleCommentSubmit}
               sx={{ mt: 2 }}
             >
               Отправить
