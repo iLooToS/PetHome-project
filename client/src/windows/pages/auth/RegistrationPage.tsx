@@ -52,6 +52,7 @@ function RegistrationPage(): JSX.Element {
 
 	return (
 		<div className='RegistrationPage-container'>
+			<div className='registration-form-wrapper'>
 			<form onSubmit={handleSubmit(onHadleSubmit)}>
 				<label htmlFor='name'>
 					<TextField
@@ -109,6 +110,7 @@ function RegistrationPage(): JSX.Element {
 					</Button>
 				</div>
 			</form>
+			</div>
 		</div>
 	)
 }
