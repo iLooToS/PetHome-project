@@ -25,11 +25,13 @@ export interface currentShelter {
 }
 
 export interface ShelterCreateWithLocation{
+	[key: string]: any;
 	name:string,
 	city:string,
 	streetName:string,
 	logo?:string,
 	description:string
+	photo?: File | null;
 }
 
 export type ShelterId = Shelter['id'];

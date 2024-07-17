@@ -46,17 +46,29 @@ exports.createShelter = async (req, res) => {
         streetName,
       });
       if (location) {
+        const { filename } = req.file;
         const createdShelter = await ShelterServices.createShelter({
           userId: user.id,
           name,
           locationId: location.dataValues.id,
           description,
           status: false,
+          logo: `/img/${filename}`,
         });
         if (createdShelter) {
-          createdShelter.dataValues.Location = location.dataValues;
-          res.status(201).json({ message: "success", shelter: createdShelter });
-          return;
+          const shelterImage = await ShelterServices.shelterImage({
+            shelterId: createdShelter.id,
+            url: `/img/${filename}`,
+          });
+          if (createdShelter && shelterImage) {
+            const createdShelterDone = await ShelterServices.getShelterById(
+              createdShelter.id
+            );
+            res
+              .status(201)
+              .json({ message: "success", shelter: createdShelterDone });
+            return;
+          }
         }
         res.status(400).json({ message: "Приют не создался" });
         return;

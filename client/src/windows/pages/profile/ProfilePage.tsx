@@ -9,15 +9,28 @@ import {
   getAllSheltersThunk,
 } from "@/src/windows/entities/shelters/shelterSlice";
 import { ShelterCreateWithLocation } from "@/src/windows/entities/shelters/type/shelterTypes";
-
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, TextField } from "@mui/material";
+import { Button, styled, TextField } from "@mui/material";
+import { CloudUploadIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { number, object, ref, string } from "yup";
+import EditProfileModal from "../../widgets/Modal/EditProfileModal";
+
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
 
 const schema = object().shape({
   name: string().nullable().trim().required("Обязательно для заполнения"),
@@ -34,6 +47,8 @@ const ProfilePage: React.FC = () => {
   const { shelters } = useSelector((state: RootState) => state.shelters);
   const [isOpen, setIsOpen] = useState(false);
   const [isShow, setIsShow] = useState(false);
+  const [error, setError] = React.useState<boolean>(false);
+  const [photo, setPhoto] = React.useState<FileList | null>(null);
   const dispatch = useAppDispatch();
 
   const {
@@ -46,7 +61,21 @@ const ProfilePage: React.FC = () => {
   const onHadleSubmit = async (
     createShelter: ShelterCreateWithLocation
   ): Promise<void> => {
-    void dispatch(createShelterThunk(createShelter));
+    console.log("В сабмите");
+
+    createShelter.photo = photo && photo[0];
+
+    if (!createShelter.photo) {
+      setError((prev) => !prev);
+      return;
+    }
+
+    const formData = new FormData();
+    for (const key in createShelter) {
+      formData.append(key, createShelter[key]);
+    }
+
+    void dispatch(createShelterThunk(formData));
     setIsOpen((prev) => !prev);
     reset();
   };
@@ -67,20 +96,25 @@ const ProfilePage: React.FC = () => {
     <div className="profile-page-container">
       <main className="profile-main-wrapper">
         <div className="profile-info-wrapper">
-          <div className="profile-image"></div>
+          <div className="profile-image">
+            {user?.img && (
+              <Image
+              className="profile-image"
+                src={user?.img}
+                alt={user?.img}
+                width={200}
+                height={200}
+              />
+            )}
+          </div>
           <div className="profile-name-email-button">
             <h2>{user?.name}</h2>
             <p>{user?.email}</p>
-            {user && user.roleId !== 2 && (
-              <Button variant="contained" type="button">
-                Edit
-              </Button>
-            )}
+            {user && user.roleId !== 2 && <EditProfileModal user={user} />}
           </div>
         </div>
         {user && user.roleId === 2 && (
           <div>
-            <h1>Я админ</h1>
             <div className="admin-profile-confirm-container">
               {shelters &&
                 shelters
@@ -94,7 +128,9 @@ const ProfilePage: React.FC = () => {
                         <Image
                           src={shelter.logo}
                           alt="Shelter Image"
-                          style={{ width: "200", height: "200px" }}
+                          style={{borderRadius: '5px'}}
+                          width={200}
+                          height={200}
                         />
                       )}
                       <h1>Название: {shelter.name}</h1>
@@ -205,6 +241,25 @@ const ProfilePage: React.FC = () => {
               <span>{errors.name?.message}</span>
             </label>
             <Button
+              component="label"
+              role={undefined}
+              variant="contained"
+              tabIndex={-1}
+              color={error ? "error" : "info"}
+              onChange={(e: React.MouseEvent<HTMLLabelElement>) => {
+                const target = e.target as HTMLInputElement;
+                setPhoto(target.files);
+              }}
+              startIcon={<CloudUploadIcon />}
+            >
+              {photo && photo[0]
+                ? `${photo[0].name}`
+                : error
+                ? "Логотип обязателен"
+                : "Добавить логотип"}
+              <VisuallyHiddenInput type="file" />
+            </Button>
+            <Button
               variant="contained"
               type="submit"
               // style={{
@@ -258,6 +313,7 @@ const ProfilePage: React.FC = () => {
         </div>
         <div className="py-10">
           {isShow &&
+            shelters &&
             shelters
               .filter((shelter) => shelter.userId === user?.id)
               .map((shelter) => (
@@ -265,7 +321,10 @@ const ProfilePage: React.FC = () => {
                   {shelter.status === false ? (
                     <>
                       <h1>Приют: {shelter.name} проверяется администрацией.</h1>
-                      <h2>С вами свяжутся если понадобиться дополнительная информация.</h2>
+                      <h2>
+                        С вами свяжутся если понадобиться дополнительная
+                        информация.
+                      </h2>
                     </>
                   ) : (
                     <>

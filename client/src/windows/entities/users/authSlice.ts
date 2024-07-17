@@ -38,6 +38,8 @@ export const logoutThunk = createAsyncThunk('logout/user', () =>
 	AuthApi.logout()
 )
 
+export const updateUserThunk = createAsyncThunk('update/user', (body: FormData) => AuthApi.updateUser(body))
+
 const authSlice = createSlice({
 	name: 'auth',
 	initialState,
@@ -94,6 +96,13 @@ const authSlice = createSlice({
 				state.error = action.error.message
 				state.loading = false
 			})
+			.addCase(updateUserThunk.fulfilled, (state, action) => {		
+                state.user = action.payload
+				console.log(state.user);
+				
+                state.loading = false
+                state.error = undefined
+            })
 	},
 })
 

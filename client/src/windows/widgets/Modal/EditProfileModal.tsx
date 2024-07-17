@@ -20,8 +20,8 @@ import { IPetCreate } from "@/src/windows/entities/pets/types/PetsTypes";
 import { useAppDispatch } from "@/src/windows/app/store/store";
 import { createPetsThunk } from "@/src/windows/entities/pets/petsSlice";
 import { CloudUploadIcon } from "lucide-react";
-import { PostCreate } from "../../entities/shelters/shelterPosts/types/postTypes";
-import { createPostThunk } from "../../entities/shelters/shelterPosts/postSlice";
+import { User, UserEdit } from "../../entities/users/types/userTypes";
+import { updateUserThunk } from "../../entities/users/authSlice";
 
 const style = {
   position: "absolute" as "absolute",
@@ -49,53 +49,45 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 const schema = object().shape({
-  postName: string().nullable().trim().required("Обязательно для заполнения"),
-  text: string()
-    .nullable()
-    .trim()
-    .required("Все поля обязательны для заполнения"),
+  name: string().nullable().trim().required("Новое имя"),
+  lastName: string().nullable().trim().required("Новая фамилия"),
 });
 
-interface ShelterPageProps {
-  shelterId: number;
-}
-
-export default function CreatePostModal({ shelterId }: ShelterPageProps) {
+export default function EditProfileModal({
+  user,
+}: {
+  user: User;
+}): JSX.Element {
   const dispatch = useAppDispatch();
   const [error, setError] = React.useState<boolean>(false);
   const [open, setOpen] = React.useState<boolean>(false);
   const [photo, setPhoto] = React.useState<FileList | null>(null);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm({ resolver: yupResolver(schema) });
+  const onHandleSubmit = async (user: UserEdit): Promise<void> => {
+    user.photo = photo && photo[0];
 
-  const onHandleSubmit = async (post: PostCreate): Promise<void> => {
-    post.shelterId = shelterId;
-    post.photo = photo && photo[0];
-    
-    if (!post.photo) {
-      setError((prev) => !prev);
-      return;
-    }
     const formData = new FormData();
-    for (const key in post) {
-      formData.append(key, post[key]);
+    for (const key in user) {
+      formData.append(key, user[key]);
     }
 
-    void dispatch(createPostThunk(formData));
+    void dispatch(updateUserThunk(formData));
     handleClose();
     reset();
   };
 
   return (
     <div>
-      <button onClick={handleOpen}>Добавить пост</button>
+      <Button onClick={handleOpen} variant="contained" type="button">
+        Редактировать
+      </Button>
       <Modal
         className="p-3.5"
         open={open}
@@ -110,22 +102,21 @@ export default function CreatePostModal({ shelterId }: ShelterPageProps) {
           >
             <div className="flex flex-row flex-wrap gap-2 ">
               <TextField
-                className="w-80"
-                label="Название поста"
+                className="w-40"
+                label="Имя"
                 variant="outlined"
-                type="postName"
-                {...register("postName")}
+                type="name"
+                defaultValue={user.name}
+                {...register("name")}
               />
               <TextField
-                className="w-80"
-                label="Текст"
+                className="w-40"
+                label="Фамилия"
                 variant="outlined"
-                multiline
-                rows={5}
-                type="text"
-                {...register("text")}
+                type="lastName"
+                defaultValue={user.lastName}
+                {...register("lastName")}
               />
-              <span className="w-80 text-red-600">{errors.text?.message}</span>
             </div>
             <div className="flex flex-row flex-wrap gap-2">
               <Button
@@ -140,15 +131,20 @@ export default function CreatePostModal({ shelterId }: ShelterPageProps) {
                 }}
                 startIcon={<CloudUploadIcon />}
               >
-                {photo && photo[0]
-                  ? `${photo[0].name}`
-                  : error
-                  ? "Изображение обязательно"
-                  : "Добавить изображение"}
+                {photo && photo[0] ? `${photo[0].name}` : "Загрузить аватар"}
+
                 <VisuallyHiddenInput type="file" />
               </Button>
               <Button variant="contained" type="submit" color="success">
-                Опубликовать пост
+                Применить
+              </Button>
+              <Button
+                variant="contained"
+                type="submit"
+                color="error"
+                onClick={handleClose}
+              >
+                Отменить
               </Button>
             </div>
           </form>
