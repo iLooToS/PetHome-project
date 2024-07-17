@@ -29,9 +29,11 @@ const CurrentPetPage = ({ petId }: ShelterPageProps): JSX.Element => {
 		<div className=' CurrentPetPage'>
 			<CurrentPetInfo pet={pet} loading={loading} />
 			<div className='animal-actions'>
+				{user &&
 				<Button variant='contained' color='success'>
 					Взять питомца
 				</Button>
+				}
 				<Button
 					variant='contained'
 					color='inherit'

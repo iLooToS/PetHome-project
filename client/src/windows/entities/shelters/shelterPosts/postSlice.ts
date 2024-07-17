@@ -24,6 +24,9 @@ const initialState: StateCurrentPosts = {
 export const loadAllPostsThunk = createAsyncThunk('load/posts', () =>
 	PostsApi.getAllPosts()
 )
+export const deletePostThunk = createAsyncThunk('delete/posts', (id: PostId) =>
+	PostsApi.deletePost(id)
+)
 
 export const loadPostByIdThunk = createAsyncThunk(
 	'loadById/post',
@@ -64,13 +67,17 @@ const PostSlice = createSlice({
 				state.loading = false
 			})
 			.addCase(createPostThunk.fulfilled, (state, action) => {
-                console.log(action);
-                
-                
 				state.posts.push(action.payload)
 				state.loading = false
+			})
+			.addCase(deletePostThunk.fulfilled, (state, action) => {
+				state.posts = state.posts.filter(post => post.id !== +action.payload)
+				state.loading = false
+			})
+			.addCase(deletePostThunk.pending, state => {
+				state.loading = true
 			})
 	},
 })
 
-export default PostSlice;
+export default PostSlice

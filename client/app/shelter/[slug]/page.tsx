@@ -8,6 +8,10 @@ export const metadata: Metadata = {
 }
 
 const page = ({ params }: { params: { slug: string } }): JSX.Element => {
-	return <ShelterPage shelterId={+params.slug} />
+	return (
+		<div className='min-h-screen'>
+			<ShelterPage shelterId={+params.slug} />
+		</div>
+	)
 }
 export default page
