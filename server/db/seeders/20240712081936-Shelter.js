@@ -6,6 +6,7 @@ const shelters = [
     name: "John Shelter",
     logo: "/img/johnShelter.jpg",
     description: "A family-friendly shelter for dogs.",
+    phone: "+7 (900) 000-00-00",
     status: true,
   },
 ];

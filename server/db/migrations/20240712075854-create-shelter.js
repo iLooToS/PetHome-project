@@ -38,6 +38,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT
       },
+      phone: {
+        allowNull: false,
+        type: Sequelize.TEXT
+      },
       status: {
         allowNull: false,
         type: Sequelize.BOOLEAN
