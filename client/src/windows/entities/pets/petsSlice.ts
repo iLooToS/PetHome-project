@@ -63,9 +63,9 @@ const PetSlice = createSlice({
               case "petSize":
                 if (pet.petSize !== value) return false;
                 break;
-			  case "city":
-				if (pet.Shelter.Location?.city !== value) return false;
-				break;
+              case "city":
+                if (pet.Shelter.Location?.city !== value) return false;
+                break;
               case "isSex":
                 if (pet.isSex.toString() !== value) return false;
                 break;
