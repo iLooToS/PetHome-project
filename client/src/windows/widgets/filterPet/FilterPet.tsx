@@ -16,8 +16,9 @@ import {
 	Radio,
 	Checkbox,
 } from '@mui/material'
-import FilterListIcon from '@mui/icons-material/FilterList'
+
 import { Filter } from 'lucide-react'
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import { returnFilterPets, filterPets } from '../../entities/pets/petsSlice'
 import { useAppDispatch } from '../../app/store/store'
 
@@ -89,14 +90,9 @@ const FilterPet: React.FC = () => {
 						<Typography variant='h6' gutterBottom>
 							Фильтрация
 						</Typography>
-						<IconButton
-							size='large'
-							onClick={returnFilter}
-							color='warning'
-							aria-label='add to shopping cart'
-						>
-							<Filter fontSize='large' />
-						</IconButton>
+						<Button onClick={returnFilter}>
+							<FilterAltOffIcon fontSize='large' />
+						</Button>
 					</div>
 					<FormControl>
 						<FormLabel id='demo-row-radio-buttons-group-label'>

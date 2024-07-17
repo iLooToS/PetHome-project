@@ -3,6 +3,7 @@ export interface Post {
   shelterId: number;
   postName: string;
   text: string;
+  createdAt: string
   ShelterPostImages: IPetImage[]
 }
 
