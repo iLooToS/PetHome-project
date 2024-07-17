@@ -33,6 +33,7 @@ const ShelterInfo = (): JSX.Element => {
             {currentShelter?.Location?.city}{" "}
             {currentShelter?.Location?.streetName}
           </p>
+          <p>{currentShelter.phone}</p>
           <div className="shelter-button-wrapper">
             <button
               type="button"

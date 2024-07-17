@@ -45,9 +45,18 @@ exports.createPost = async (req, res) => {
       postName,
       text,
     });
+    if (!newPost) {
+      res.status(400).json({ message: "Ошибка создания поста" });
+      return;
+    }
+    if (newPost && !req.file) {
+      const post = await PostServices.getPostById(newPost.id);
+      res.status(200).json({ message: "success", post: post.dataValues });
+      return;
+    }
     const { filename } = req.file;
     const postImage = await PostServices.createPostImage({
-    shelterPostId: newPost.id,
+      shelterPostId: newPost.id,
       url: `/img/${filename}`,
     });
     if (!newPost || !postImage) {
@@ -62,40 +71,39 @@ exports.createPost = async (req, res) => {
 };
 
 exports.deletePost = async (req, res) => {
-	try {
-		const user = res.locals.user
-		const { postId } = req.params
-		if (!postId) {
-			res.status(400).json({ message: 'Параметра нет' })
-			return
-		}
-		const post = await PostServices.getPostById(+postId)
-		if (!post) {
-			res.status(400).json({ message: 'Такого поста нет' })
-			return
-		}
-		const shelter = await ShelterServices.getShelterById(post.shelterId)
-		if (!shelter) {
-			res.status(400).json({ message: 'Такого приюта нет' })
-			return
-		}
-		if (
-			shelter.dataValues.id !== post.dataValues.shelterId ||
-			shelter.dataValues.userId !== user.id
-		) {
-			res.status(403).json({
-				message: 'Недостаточно прав для редактирования этого питомца',
-			})
-			return
-		}
-		const deleted = await PostServices.deletePost(+postId)
-		if (deleted === true) {
-			res.status(200).json({ message: 'success' })
-			return
-		}
-		res.status(400).json({ message: 'Пост не удален' })
-	} catch ({ message }) {
-		res.json({ error: message })
-	}
-}
-
+  try {
+    const user = res.locals.user;
+    const { postId } = req.params;
+    if (!postId) {
+      res.status(400).json({ message: "Параметра нет" });
+      return;
+    }
+    const post = await PostServices.getPostById(+postId);
+    if (!post) {
+      res.status(400).json({ message: "Такого поста нет" });
+      return;
+    }
+    const shelter = await ShelterServices.getShelterById(post.shelterId);
+    if (!shelter) {
+      res.status(400).json({ message: "Такого приюта нет" });
+      return;
+    }
+    if (
+      shelter.dataValues.id !== post.dataValues.shelterId ||
+      shelter.dataValues.userId !== user.id
+    ) {
+      res.status(403).json({
+        message: "Недостаточно прав для редактирования этого питомца",
+      });
+      return;
+    }
+    const deleted = await PostServices.deletePost(+postId);
+    if (deleted === true) {
+      res.status(200).json({ message: "success" });
+      return;
+    }
+    res.status(400).json({ message: "Пост не удален" });
+  } catch ({ message }) {
+    res.json({ error: message });
+  }
+};

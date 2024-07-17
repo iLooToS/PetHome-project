@@ -79,10 +79,10 @@ export default function CreatePostModal({ shelterId }: ShelterPageProps) {
     post.shelterId = shelterId;
     post.photo = photo && photo[0];
     
-    if (!post.photo) {
-      setError((prev) => !prev);
-      return;
-    }
+    // if (!post.photo) {
+    //   setError((prev) => !prev);
+    //   return;
+    // }
     const formData = new FormData();
     for (const key in post) {
       formData.append(key, post[key]);
@@ -143,7 +143,7 @@ export default function CreatePostModal({ shelterId }: ShelterPageProps) {
                 {photo && photo[0]
                   ? `${photo[0].name}`
                   : error
-                  ? "Изображение обязательно"
+                  ? "Изображение не обязательно"
                   : "Добавить изображение"}
                 <VisuallyHiddenInput type="file" />
               </Button>

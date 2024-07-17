@@ -35,7 +35,7 @@ exports.getShelterById = async (req, res) => {
 exports.createShelter = async (req, res) => {
   try {
     const user = res.locals.user;
-    const { name, description, city, streetName } = req.body;
+    const { name, description, city, streetName, phone } = req.body;
     if (!name || !city || !description || !streetName) {
       res.status(400).json({ message: "Необходимо заполнить все поля" });
       return;
@@ -52,6 +52,7 @@ exports.createShelter = async (req, res) => {
           name,
           locationId: location.dataValues.id,
           description,
+          phone,
           status: false,
           logo: `/img/${filename}`,
         });
