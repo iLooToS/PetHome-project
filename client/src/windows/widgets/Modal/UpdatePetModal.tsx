@@ -25,6 +25,7 @@ import {
 import { CloudUploadIcon } from "lucide-react";
 
 const style = {
+  borderRadius: "5px",
   position: "absolute" as "absolute",
   top: "50%",
   left: "50%",

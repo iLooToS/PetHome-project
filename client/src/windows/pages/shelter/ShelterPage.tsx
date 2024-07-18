@@ -21,7 +21,6 @@ const ShelterPage = ({ shelterId }: ShelterPageProps): JSX.Element => {
   const currentShelterPosts =
     posts && posts.filter((post) => post?.shelterId === shelterId);
   const { currentShelter } = useSelector((state: RootState) => state.shelters);
-  console.log(currentShelter);
 
   useEffect(() => {
     if (shelterId) {

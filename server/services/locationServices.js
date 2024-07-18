@@ -11,6 +11,15 @@ class LocationServices {
   async createLocation(data) {
     return Location.create(data);
   }
+
+  async updateLocation(id,data) {
+    const location = await Location.findByPk(id);
+    if (location) {
+      return location.update(data);
+    }
+    return null;
+  }
+
 }
 
 module.exports = new LocationServices();

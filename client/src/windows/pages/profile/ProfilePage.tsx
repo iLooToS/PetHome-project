@@ -19,6 +19,7 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { number, object, ref, string } from "yup";
 import EditProfileModal from "../../widgets/Modal/EditProfileModal";
+import EditShelterModal from "../../widgets/Modal/EditShelterModal";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -343,7 +344,7 @@ const ProfilePage: React.FC = () => {
                         <Image
                           src={shelter.logo}
                           alt="Shelter Image"
-                          style={{ borderRadius: "5px", alignSelf: "center"}}
+                          style={{ borderRadius: "5px", alignSelf: "center" }}
                           width={200}
                           height={200}
                         />
@@ -368,6 +369,7 @@ const ProfilePage: React.FC = () => {
                       >
                         Перейти в приют
                       </Button>
+                      <EditShelterModal shelter={shelter} />
                       <Button
                         color="error"
                         onClick={() => onHandleDelete(shelter.id)}
