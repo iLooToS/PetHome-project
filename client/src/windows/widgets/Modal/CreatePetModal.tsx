@@ -20,6 +20,7 @@ import { IPetCreate } from "@/src/windows/entities/pets/types/PetsTypes";
 import { useAppDispatch } from "@/src/windows/app/store/store";
 import { createPetsThunk } from "@/src/windows/entities/pets/petsSlice";
 import { CloudUploadIcon } from "lucide-react";
+import { ChangeEvent } from "react";
 
 const style = {
   borderRadius: "5px",
@@ -342,7 +343,6 @@ export default function CreatePetModal({ shelterId }: ShelterPageProps) {
                   : error
                   ? "Изображение обязательно"
                   : "Добавить изображение питомца"}
-
                 <VisuallyHiddenInput type="file" multiple />
               </Button>
               <Button variant="contained" type="submit" color="success">
