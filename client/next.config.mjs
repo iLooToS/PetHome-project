@@ -12,11 +12,11 @@ const nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "http://backend:3000/api/:path*",
+        destination: "http://87.228.16.34:3000/api/:path*",
       },
       {
         source: "/img/:path*",
-        destination: "http://backend:3000/img/:path*",
+        destination: "http://87.228.16.34:3000/img/:path*",
       },
     ];
   },
