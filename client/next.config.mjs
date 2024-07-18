@@ -1,22 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // output: `standalone`,
+  output: `standalone`,
   reactStrictMode: false,
   images: {
-    domains: ["localhost"],
+    domains: ["87.228.16.34"],
   },
   // env: {
-  //   API_URL: 'http://localhost:3000',
+  //   API_URL: "http://localhost:3001",
   // },
   async rewrites() {
     return [
       {
         source: "/api/:path*",
-        destination: "http://backend:4000/api/:path*",
+        destination: "http://87.228.16.34:3000/api/:path*",
       },
       {
         source: "/img/:path*",
-        destination: "http://backend:4000/img/:path*",
+        destination: "http://87.228.16.34:3000/img/:path*",
       },
     ];
   },

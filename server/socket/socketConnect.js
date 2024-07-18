@@ -2,7 +2,7 @@ const { Server } = require('socket.io')
 const { Chat, ChatMessage, ChatUser, User } = require('../db/models')
 const initializeSocket = server => {
 	const io = new Server(server, {
-		cors: { origin: 'http://localhost:3001' },
+		cors: { origin: 'http://87.228.16.34:3001' },
 	})
 
 	io.on('connection', socket => {

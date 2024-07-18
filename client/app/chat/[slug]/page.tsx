@@ -1,5 +1,5 @@
-import ChatDetail from '@/src/windows/pages/chat/CurrentChatPage'
-import React from 'react'
+import ChatDetail from "@/src/windows/pages/chat/CurrentChatPage";
+import React from "react";
 
 type pageProps = {}
 const page = ({ params }: { params: { slug: string } }): JSX.Element => {

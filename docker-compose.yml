@@ -8,9 +8,9 @@ services:
       context: ./client
       dockerfile: frontend.dockerfile
     ports:
-      - 3000:3000
+      - 3001:3001
     environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:3000
+      - NEXT_PUBLIC_API_URL=http://localhost:3001
     restart: always
     depends_on:
       - backend
@@ -21,7 +21,7 @@ services:
       context: ./server
       dockerfile: backend.dockerfile
     ports:
-      - 4000:4000
+      - 3000:3000
     environment:
       - DATABASE_URL=postgres://postgres:postgres@db:5432/PetHome
     depends_on:
