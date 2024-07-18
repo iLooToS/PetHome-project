@@ -5,7 +5,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 const serverConfig = (app) => {
-  app.use(cors({ credentials: true, origin: ['http://frontend:3001'] }));
+  app.use(cors({ credentials: true, origin: ['http://87.228.16.34:3001'] }));
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
   app.use(removeHeaders);

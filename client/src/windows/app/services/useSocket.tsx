@@ -17,7 +17,7 @@ export const SocketProvider = ({ children }:SocketLayoutProps): JSX.Element => {
   const [socket, setSocket] = useState<Socket | null>(null);
 
   useEffect(() => {
-    const newSocket = io('http://backend:3000');
+    const newSocket = io('http://87.228.16.34:3000');
     setSocket(newSocket);
 
     return () => {
