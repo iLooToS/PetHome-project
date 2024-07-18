@@ -13,6 +13,16 @@ type ResForAuth = {
 };
 
 class AuthApi {
+  static getAllUsers = async (): Promise<User[]> => {
+    try {
+      const response: AxiosResponse<{ message: string; users: User[] }> =
+        await axiosInstance.get("/users/");
+      return response.data.users;
+    } catch (error) {
+      throw new Error("Не получил все посты");
+    }
+  };
+
   static registration = async (
     body: UserWithoutIdwithPassword
   ): Promise<ResForAuth> => {
