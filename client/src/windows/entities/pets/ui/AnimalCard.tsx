@@ -13,39 +13,37 @@ interface PetCardProps {
 }
 
 export default function AnimalCard({ pet }: PetCardProps) {
-
-	const router = useRouter()
-	return (
-		<Card sx={{ maxWidth: 400, borderRadius: "5%" }}>
-			<CardActionArea onClick={() => router.push(`/search/${pet.id}`)}>
-				{pet.PetImages?.length > 0 && (
-					<Image
-					key={pet?.PetImages[0].id}
-					src={pet?.PetImages[0].url}
-					alt={pet?.PetImages[0].url}
-					style={{
-						objectFit: 'fill',
-						height: 380,
-						borderRadius: '5%',
-					}}
-					height={200}
-					width={400}
-				/>
-				)}
-				<CardContent>
-					<Typography gutterBottom variant='h5' component='div'>
-						{pet.name}
-					</Typography>
-					<Typography variant='body2' color='text.secondary'>
-						{pet?.petType === 'Кошка'
-							? pet.isSex
-								? 'Кот'
-								: 'Кошка'
-							: 'Собака'}{' '}
-					</Typography>
-				</CardContent>
-			</CardActionArea>
-		</Card>
-	)
-
+  const router = useRouter();
+  return (
+    <Card sx={{ maxWidth: 400, borderRadius: "5%", marginBottom: "5px" }}>
+      <CardActionArea onClick={() => router.push(`/search/${pet.id}`)}>
+        {pet.PetImages?.length > 0 && (
+          <Image
+            key={pet?.PetImages[0].id}
+            src={pet?.PetImages[0].url}
+            alt={pet?.PetImages[0].url}
+            style={{
+              objectFit: "fill",
+              height: 380,
+              borderRadius: "5%",
+            }}
+            height={200}
+            width={400}
+          />
+        )}
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {pet.name}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {pet?.petType === "Кошка"
+              ? pet.isSex
+                ? "Кот"
+                : "Кошка"
+              : "Собака"}{" "}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  );
 }

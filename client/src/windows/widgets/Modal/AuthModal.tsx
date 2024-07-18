@@ -4,6 +4,7 @@ import { Modal, Box, Typography, Button } from '@mui/material'
 
 // Стили для модального окна
 const style = {
+	borderRadius: "5px",
 	position: 'absolute',
 	top: '50%',
 	left: '50%',

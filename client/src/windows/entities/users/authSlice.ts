@@ -100,9 +100,7 @@ const authSlice = createSlice({
 				state.loading = false
 			})
 			.addCase(updateUserThunk.fulfilled, (state, action) => {		
-                state.user = action.payload
-				console.log(state.user);
-				
+                state.user = action.payload				
                 state.loading = false
                 state.error = undefined
             })

@@ -24,6 +24,7 @@ import { PostCreate } from "../../entities/shelters/shelterPosts/types/postTypes
 import { createPostThunk } from "../../entities/shelters/shelterPosts/postSlice";
 
 const style = {
+  borderRadius: "5px",
   position: "absolute" as "absolute",
   top: "50%",
   left: "50%",

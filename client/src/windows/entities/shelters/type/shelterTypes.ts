@@ -37,4 +37,15 @@ export interface ShelterCreateWithLocation {
   photo?: File | null;
 }
 
+export interface ShelterUpdate {
+  [key: string]: any;
+  name: string;
+  city: string;
+  streetName: string;
+  logo?: string;
+  description: string;
+  phone: string;
+  photo?: File | null;
+}
+
 export type ShelterId = Shelter["id"];

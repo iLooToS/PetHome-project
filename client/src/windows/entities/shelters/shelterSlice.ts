@@ -43,6 +43,11 @@ export const deleteShelterThunk = createAsyncThunk(
   (id: number) => ShelterApi.deleteShelter(id)
 );
 
+export const updateShelterThunk = createAsyncThunk(
+  "update/shelter",
+  (body: FormData) => ShelterApi.updateShelter(body)
+);
+
 const ShelterSlice = createSlice({
   name: "shelters",
   initialState,
@@ -51,7 +56,7 @@ const ShelterSlice = createSlice({
     builder
       .addCase(createShelterThunk.fulfilled, (state, action) => {
         console.log(action.payload);
-        
+
         state.shelters.push(action.payload);
 
         state.shelters = state.shelters.map((shelter) =>
@@ -108,6 +113,13 @@ const ShelterSlice = createSlice({
           shelter.id === action.payload?.id ? action.payload : shelter
         );
         state.loading = false;
+      })
+      .addCase(updateShelterThunk.fulfilled, (state, action) => {
+        state.shelters = state.shelters.map((shelter) =>
+          shelter.id === action.payload.id? action.payload : shelter
+        );
+        state.loading = false;
+        state.error = undefined;
       })
   },
 });

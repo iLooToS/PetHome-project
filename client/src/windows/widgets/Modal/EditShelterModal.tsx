@@ -22,15 +22,20 @@ import { createPetsThunk } from "@/src/windows/entities/pets/petsSlice";
 import { CloudUploadIcon } from "lucide-react";
 import { User, UserEdit } from "../../entities/users/types/userTypes";
 import { updateUserThunk } from "../../entities/users/authSlice";
+import {
+  Shelter,
+  ShelterUpdate,
+} from "../../entities/shelters/type/shelterTypes";
+import { updateShelterThunk } from "../../entities/shelters/shelterSlice";
 
 const style = {
-  borderRadius: '5px',
+  borderRadius: "5px",
   position: "absolute" as "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
-  height: 220,
+  height: 650,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -50,14 +55,20 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 const schema = object().shape({
-  name: string().nullable().trim().required("Новое имя"),
-  lastName: string().nullable().trim().required("Новая фамилия"),
+  name: string().nullable().trim().required("Обязательно для заполнения"),
+  city: string().nullable().trim().required("Обязательно для заполнения"),
+  streetName: string().nullable().trim().required("Обязательно для заполнения"),
+  description: string()
+    .nullable()
+    .trim()
+    .required("Обязательно для заполнения"),
+  phone: string().nullable().trim().required("Обязательно для заполнения"),
 });
 
-export default function EditProfileModal({
-  user,
+export default function EditShelterModal({
+  shelter,
 }: {
-  user: User;
+  shelter: Shelter;
 }): JSX.Element {
   const dispatch = useAppDispatch();
   const [error, setError] = React.useState<boolean>(false);
@@ -65,28 +76,38 @@ export default function EditProfileModal({
   const [photo, setPhoto] = React.useState<FileList | null>(null);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  let currentShelter = shelter;
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm({ resolver: yupResolver(schema) });
-  const onHandleSubmit = async (user: UserEdit): Promise<void> => {
-    user.photo = photo && photo[0];
+  const onHandleSubmit = async (shelter: ShelterUpdate): Promise<void> => {
+    shelter.photo = photo && photo[0];
+    console.log(currentShelter);
 
+    shelter.shelterId = currentShelter.id;
+    console.log(shelter);
     const formData = new FormData();
-    for (const key in user) {
-      formData.append(key, user[key]);
+    for (const key in shelter) {
+      formData.append(key, shelter[key]);
     }
 
-    void dispatch(updateUserThunk(formData));
+    void dispatch(updateShelterThunk(formData));
     handleClose();
     reset();
   };
 
   return (
     <div>
-      <Button onClick={handleOpen} variant="contained" type="button">
+      <Button
+        className="w-full"
+        onClick={handleOpen}
+        variant="contained"
+        type="button"
+        color="warning"
+      >
         Редактировать
       </Button>
       <Modal
@@ -98,25 +119,51 @@ export default function EditProfileModal({
       >
         <Box sx={style}>
           <form
-            className="flex flex-col items-center"
+            className="flex flex-col"
             onSubmit={handleSubmit(onHandleSubmit)}
           >
-            <div className="flex flex-row flex-wrap gap-2 my-5">
+            <div className="flex flex-row flex-wrap gap-2 justify-center margin-bottom 10px my-5 ">
               <TextField
-                className="w-40"
-                label="Имя"
+                className="w-80"
+                label="Название"
                 variant="outlined"
                 type="name"
-                defaultValue={user.name}
+                defaultValue={shelter.name}
                 {...register("name")}
               />
               <TextField
-                className="w-40"
-                label="Фамилия"
+                className="w-80"
+                label="Описание"
                 variant="outlined"
-                type="lastName"
-                defaultValue={user.lastName}
-                {...register("lastName")}
+                multiline
+                rows={5}
+                type="text"
+                defaultValue={shelter.description}
+                {...register("description")}
+              />
+              <TextField
+                className="w-80"
+                label="Город"
+                variant="outlined"
+                type="text"
+                defaultValue={shelter.Location?.city}
+                {...register("city")}
+              />
+              <TextField
+                className="w-80"
+                label="Улица"
+                variant="outlined"
+                type="text"
+                defaultValue={shelter.Location?.streetName}
+                {...register("streetName")}
+              />
+              <TextField
+                className="w-80"
+                label="Телефон"
+                variant="outlined"
+                type="text"
+                defaultValue={shelter.phone}
+                {...register("phone")}
               />
             </div>
             <div className="flex flex-row flex-wrap gap-2">
@@ -132,7 +179,7 @@ export default function EditProfileModal({
                 }}
                 startIcon={<CloudUploadIcon />}
               >
-                {photo && photo[0] ? `${photo[0].name}` : "Загрузить аватар"}
+                {photo && photo[0] ? `${photo[0].name}` : "Загрузить логотип"}
 
                 <VisuallyHiddenInput type="file" />
               </Button>
