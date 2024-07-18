@@ -1,3 +1,21 @@
 .posts-modal-window {
-    background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
 }
+
+/* .user-comment-wrapper {
+  display: flex;
+  margin-bottom: 5px;
+  justify-content: space-around;
+}
+
+.user-comment-wrapper img {
+  border-radius: 50%;
+  background-color: #c4c4c4;
+  margin: 0 auto;
+  margin-right: 5px;
+}
+
+.user-comment-wrapper-text {
+    display: flex;
+
+} */

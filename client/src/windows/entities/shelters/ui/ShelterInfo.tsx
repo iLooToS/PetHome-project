@@ -33,14 +33,15 @@ const ShelterInfo = (): JSX.Element => {
             {currentShelter?.Location?.city}{" "}
             {currentShelter?.Location?.streetName}
           </p>
+          <p>{currentShelter.phone}</p>
           <div className="shelter-button-wrapper">
             <button
               type="button"
               onClick={() => router.push(`http://localhost:3001/${path}/pets`)}
             >
-              Show pets
+              Показать питомцев
             </button>
-            <button type="button">Reviews</button>
+            <button type="button">Отзывы</button>
             {currentShelter.userId === user?.id && (
               <div>
                 <CreatePetModal shelterId={currentShelter.id} />

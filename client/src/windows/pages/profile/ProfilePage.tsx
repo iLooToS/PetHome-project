@@ -19,6 +19,7 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { number, object, ref, string } from "yup";
 import EditProfileModal from "../../widgets/Modal/EditProfileModal";
+import EditShelterModal from "../../widgets/Modal/EditShelterModal";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -40,6 +41,7 @@ const schema = object().shape({
     .nullable()
     .trim()
     .required("Обязательно для заполнения"),
+  phone: string().nullable().trim().required("Обязательно для заполнения"),
 });
 
 const ProfilePage: React.FC = () => {
@@ -61,8 +63,6 @@ const ProfilePage: React.FC = () => {
   const onHadleSubmit = async (
     createShelter: ShelterCreateWithLocation
   ): Promise<void> => {
-    console.log("В сабмите");
-
     createShelter.photo = photo && photo[0];
 
     if (!createShelter.photo) {
@@ -99,7 +99,7 @@ const ProfilePage: React.FC = () => {
           <div className="profile-image">
             {user?.img && (
               <Image
-              className="profile-image"
+                className="profile-image"
                 src={user?.img}
                 alt={user?.img}
                 width={200}
@@ -128,7 +128,7 @@ const ProfilePage: React.FC = () => {
                         <Image
                           src={shelter.logo}
                           alt="Shelter Image"
-                          style={{borderRadius: '5px'}}
+                          style={{ borderRadius: "5px" }}
                           width={200}
                           height={200}
                         />
@@ -137,6 +137,7 @@ const ProfilePage: React.FC = () => {
                       <h2>
                         Владелец: {shelter.User?.name} {shelter.User?.lastName}
                       </h2>
+                      <p>Телефон: {shelter.phone}</p>
                       <p>Город {shelter.Location?.city}</p>
                       <p>Улица: {shelter.Location?.streetName}</p>
                       <p>Описание: {shelter.description}</p>
@@ -242,6 +243,23 @@ const ProfilePage: React.FC = () => {
             /> */}
               <span>{errors.name?.message}</span>
             </label>
+            <label htmlFor="phone">
+              <TextField
+                id="profile-shelter-phone"
+                label="Телефон"
+                variant="outlined"
+                type="text"
+                defaultValue="+7 "
+                {...register("phone")}
+              />
+              {/* <input
+              type="text"
+              {...register("streetName")}
+              placeholder="Street Name"
+              style={{ margin: "10px 0", padding: "10px", width: "100%" }}
+            /> */}
+              <span>{errors.name?.message}</span>
+            </label>
             <Button
               component="label"
               role={undefined}
@@ -322,7 +340,19 @@ const ProfilePage: React.FC = () => {
                 <div className="shelter-info-wrapper" key={shelter.id}>
                   {shelter.status === false ? (
                     <>
-                      <h1>Приют: {shelter.name} проверяется администрацией.</h1>
+                      {shelter.logo && (
+                        <Image
+                          src={shelter.logo}
+                          alt="Shelter Image"
+                          style={{ borderRadius: "5px", alignSelf: "center" }}
+                          width={200}
+                          height={200}
+                        />
+                      )}
+                      <h1>
+                        Приют: &quot;{shelter.name}&quot; проверяется
+                        администрацией.
+                      </h1>
                       <h2>
                         С вами свяжутся если понадобиться дополнительная
                         информация.
@@ -339,6 +369,7 @@ const ProfilePage: React.FC = () => {
                       >
                         Перейти в приют
                       </Button>
+                      <EditShelterModal shelter={shelter} />
                       <Button
                         color="error"
                         onClick={() => onHandleDelete(shelter.id)}
