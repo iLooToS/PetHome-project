@@ -28,9 +28,11 @@ const style = {
   position: "absolute" as "absolute",
   top: "50%",
   left: "50%",
+  display: "flex",
+  alignItems: "center",
   transform: "translate(-50%, -50%)",
   width: 400,
-  height: 650,
+  height: 380,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -79,7 +81,7 @@ export default function CreatePostModal({ shelterId }: ShelterPageProps) {
   const onHandleSubmit = async (post: PostCreate): Promise<void> => {
     post.shelterId = shelterId;
     post.photo = photo && photo[0];
-    
+
     // if (!post.photo) {
     //   setError((prev) => !prev);
     //   return;
@@ -109,7 +111,7 @@ export default function CreatePostModal({ shelterId }: ShelterPageProps) {
             className="flex flex-col"
             onSubmit={handleSubmit(onHandleSubmit)}
           >
-            <div className="flex flex-row flex-wrap gap-2 ">
+            <div className="flex flex-row flex-wrap gap-2 justify-center ">
               <TextField
                 className="w-80"
                 label="Название поста"
@@ -128,7 +130,7 @@ export default function CreatePostModal({ shelterId }: ShelterPageProps) {
               />
               <span className="w-80 text-red-600">{errors.text?.message}</span>
             </div>
-            <div className="flex flex-row flex-wrap gap-2">
+            <div className="flex flex-row flex-wrap gap-2 justify-center">
               <Button
                 component="label"
                 role={undefined}
