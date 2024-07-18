@@ -8,7 +8,6 @@ import Typography from '@mui/material/Typography'
 import Menu from '@mui/material/Menu'
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
-import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
@@ -24,10 +23,10 @@ import {
 import Link from 'next/link'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
-import Brightness4Icon from '@mui/icons-material/Brightness4'
-import Brightness7Icon from '@mui/icons-material/Brightness7'
 import { loadAllPetsThunk } from '@/src/windows/entities/pets/petsSlice'
 import { ThemeContext } from '@/app/ThemeProvider'
+import { loadAllChatsThunk } from '../../entities/chat/chatSlise'
+import { useSocket } from '../../app/services/useSocket'
 
 function NavMenu(): JSX.Element {
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
@@ -38,11 +37,27 @@ function NavMenu(): JSX.Element {
 	const dispatch = useAppDispatch()
 	const router = useRouter()
 	const themeContext = React.useContext(ThemeContext)
+	const { socket } = useSocket()
 
 	React.useEffect(() => {
 		void dispatch(refreshUser())
 		void dispatch(loadAllPetsThunk())
+		void dispatch(loadAllChatsThunk())
 	}, [dispatch])
+
+	React.useEffect(() => {
+		if (socket && user) {
+			// Обрабатываем подключение
+			socket.on('connected', () => {
+				console.log('Подключены к серверу')
+			})
+			// Очищаем обработчики при размонтировании компонента
+			return () => {
+				socket.off('connected')
+				socket.off('message')
+			}
+		}
+	}, [socket, dispatch, user])
 
 	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorElNav(event.currentTarget)

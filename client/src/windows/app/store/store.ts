@@ -5,13 +5,15 @@ import authSlice from '@/src/windows/entities/users/authSlice'
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
 import PostSlice from '../../entities/shelters/shelterPosts/postSlice'
+import ChatSlice from '../../entities/chat/chatSlise'
 
 const store = configureStore({
 	reducer: {
 		auth: authSlice.reducer,
 		shelters: shelterSlice.reducer,
 		pets: PetSlice.reducer,
-		posts: PostSlice.reducer
+		posts: PostSlice.reducer,
+		chats: ChatSlice.reducer,
 	},
 })
 
