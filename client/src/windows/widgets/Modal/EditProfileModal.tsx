@@ -87,7 +87,7 @@ export default function EditProfileModal({
   return (
     <div>
       <Button onClick={handleOpen} variant="contained" type="button">
-        Редактировать
+        Редактировать профиль
       </Button>
       <Modal
         className="p-3.5"

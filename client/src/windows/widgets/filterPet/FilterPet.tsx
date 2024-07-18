@@ -102,6 +102,7 @@ const FilterPet: React.FC = () => {
 			const data = getUniqueCities(cityFilter as unknown as Pet[])
 			setAllCity(data)
 		}
+		
 	}, [cityFilter])
 
 	const toggleFilter = () => {
@@ -154,6 +155,7 @@ const FilterPet: React.FC = () => {
 							<FilterAltOffIcon fontSize='large' />
 						</Button>
 					</div>
+					<div className='flex gap-20 '>
 					<FormControl>
 						<FormLabel id='demo-row-radio-buttons-group-label'>
 							Наличие паспорта
@@ -184,6 +186,8 @@ const FilterPet: React.FC = () => {
 							<FormControlLabel value={true} control={<Radio />} label='Да' />
 						</RadioGroup>
 					</FormControl>
+					</div>
+					<div className='flex gap-20 '>
 					<FormControl>
 						<FormLabel id='demo-row-radio-buttons-group-label'>
 							Вакцинация
@@ -214,6 +218,7 @@ const FilterPet: React.FC = () => {
 							<FormControlLabel value={true} control={<Radio />} label='Да' />
 						</RadioGroup>
 					</FormControl>
+					</div>
 					<FormControl>
 						<FormLabel id='demo-row-radio-buttons-group-label'>
 							Темперамент

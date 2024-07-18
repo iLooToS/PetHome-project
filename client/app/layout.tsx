@@ -34,7 +34,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 			>
 				<Providers>
 					{/* <ThemeProviderComponent> */}
-					{/* <CssBaseline /> */}
+					<CssBaseline />
 					<SocketProvider>
 						<NavMenu />
 						{children}

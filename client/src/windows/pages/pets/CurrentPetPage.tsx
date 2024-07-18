@@ -5,7 +5,7 @@ import {
 	loadPetsByIdThunk,
 } from '@/src/windows/entities/pets/petsSlice'
 import { useRouter } from 'next/navigation'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import './CurrentPetPage.css'
 import CurrentPetInfo from '../../entities/pets/ui/CurrentPetInfo'
@@ -16,31 +16,39 @@ import { createNewChatThunk } from '../../entities/chat/chatSlise'
 interface ShelterPageProps {
 	petId: number
 }
+
 const CurrentPetPage = ({ petId }: ShelterPageProps): JSX.Element => {
 	const { pet, loading } = useSelector((state: RootState) => state.pets)
 	const { user } = useSelector((state: RootState) => state.auth)
-	const router = useRouter()
-	//   const { shelters } = useSelector((state: RootState) => state.shelters);
+	const { chat } = useSelector((state: RootState) => state.chats)
 	const dispatch = useAppDispatch()
+	const router = useRouter()
+	const chatInitialized = useRef(false)
+
 	useEffect(() => {
 		dispatch(loadPetsByIdThunk(petId))
-		// dispatch(getAllSheltersThunk());
 	}, [petId, dispatch])
+
+	useEffect(() => {
+		if (chatInitialized.current && chat) {
+			router.push(`/chat/${chat.id}`)
+		}
+	}, [chat, router])
 
 	const handleChat = () => {
 		if (pet) {
+			chatInitialized.current = true
 			void dispatch(
-				createNewChatThunk({ petName: pet?.name, shelterId: pet?.shelterId })
+				createNewChatThunk({ petName: pet.name, shelterId: pet.shelterId })
 			)
 		}
-		console.log(pet?.name)
 	}
 
 	return (
 		<div className=' CurrentPetPage'>
 			<CurrentPetInfo pet={pet} loading={loading} />
 			<div className='animal-actions'>
-				{user && (
+				{user && user.id !== pet?.Shelter.userId && (
 					<Button variant='contained' color='success' onClick={handleChat}>
 						Написать приюту
 					</Button>
@@ -71,4 +79,5 @@ const CurrentPetPage = ({ petId }: ShelterPageProps): JSX.Element => {
 		</div>
 	)
 }
+
 export default CurrentPetPage
