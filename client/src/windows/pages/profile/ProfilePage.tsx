@@ -101,7 +101,7 @@ const ProfilePage: React.FC = () => {
               <Image
                 className="profile-image"
                 src={user?.img}
-                alt={user?.img}
+                alt=""
                 width={200}
                 height={200}
               />
