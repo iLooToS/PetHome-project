@@ -54,7 +54,7 @@ const style = {
 export interface PostComment {
   id: number;
   text: string;
-  shelterPostId: string;
+  shelterPostId: number;
   userId: string;
 }
 
@@ -114,7 +114,7 @@ const ShelterPosts = ({
   //     .scrollTo({ top: 0, behavior: "smooth" });
   // };
 
-  const commentsContainerRef = useRef(null);
+  const commentsContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (commentsContainerRef.current) {

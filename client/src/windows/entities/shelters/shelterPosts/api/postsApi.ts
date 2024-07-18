@@ -54,8 +54,10 @@ class PostsApi {
 
   static createPostComment = async (body: PostData): Promise<PostComment> => {
     try {
-      const result: AxiosResponse<{ message: string; shelterPostComment: PostComment }> =
-        await axiosInstance.post(`/comments`, body);
+      const result: AxiosResponse<{
+        message: "success";
+        shelterPostComment: PostComment;
+      }> = await axiosInstance.post(`/comments`, body);
       return result.data.shelterPostComment;
     } catch (error) {
       throw new Error("Не получил коментарий");
