@@ -47,6 +47,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.TEXT
       },
+      phone: {
+        allowNull: false,
+        type: DataTypes.TEXT
+      },
       status: {
         allowNull: false,
         type: DataTypes.BOOLEAN,

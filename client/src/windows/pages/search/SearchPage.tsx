@@ -5,47 +5,53 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import './styles/SearchPage.css'
 import AnimalCard from '@/src/windows/entities/pets/ui/AnimalCard'
+import FilterPet from '../../widgets/filterPet/FilterPet'
+import { TextField, Typography } from '@mui/material'
+import { getAllSheltersThunk } from '../../entities/shelters/shelterSlice'
 
 const filterPetsFunc = (searchText: string, listOfPets: IPet[]) => {
 	if (!searchText) {
 		return listOfPets
 	}
-	return listOfPets.filter(
-		({ petSize, petType }) =>
-			petType.toLowerCase().includes(searchText.toLowerCase()) ||
-			petSize.toLowerCase().includes(searchText.toLowerCase())
+
+	return listOfPets.filter(({ name }) =>
+		name.toLowerCase().includes(searchText.toLowerCase())
 	)
 }
 
 const SearchPage: React.FC = () => {
 	const dispatch = useAppDispatch()
-	const { pets } = useSelector((state: RootState) => state.pets)
-	const [filterPets, setFilterPets] = useState(pets)
+	const { pets, filterPets } = useSelector((state: RootState) => state.pets)
+	const [filterByNamePets, setFilterByNamePets] = useState(pets)
 	const [search, setSearch] = useState('')
 
 	useEffect(() => {
+		void dispatch(getAllSheltersThunk())
+	}, [dispatch])
+
+	useEffect(() => {
 		const Debounce = setTimeout(() => {
-			const filteredPets = filterPetsFunc(search, pets)
-			setFilterPets(filteredPets)
+			const filteredPets = filterPetsFunc(search, filterPets)
+			setFilterByNamePets(filteredPets)
 		}, 100)
 		return () => clearTimeout(Debounce)
-	}, [search, pets, filterPets])
+	}, [search, filterPets])
 
 	return (
 		<div className='min-h-screen' style={{ padding: '20px' }}>
-			<div className='search-container'>
-				<label htmlFor='search-input'>Умный Поиск</label>
-				<input
-					id='search-input'
+			<div className='flex justify-between '>
+				<FilterPet />
+				<TextField
 					value={search}
-					autoFocus
-					type='text'
-					autoComplete='off'
-					placeholder='Введите название...'
 					onChange={e => setSearch(e.target.value)}
+					id='filled-basic'
+					label='Поиск по кличке'
+					variant='filled'
+					color='warning'
+					size='small'
 				/>
 			</div>
-			<h1>Крутые питомцы</h1>
+			<Typography variant='h3'>Крутые питомцы</Typography>
 			<div
 				style={{
 					display: 'flex',
@@ -61,9 +67,11 @@ const SearchPage: React.FC = () => {
 					gap: '10px',
 				}}
 			>
-				{filterPets && filterPets.map(pet => (
-					<AnimalCard key={pet.id} pet={pet} />
-				))}
+				{filterByNamePets.length > 0 ? (
+					filterByNamePets.map(pet => <AnimalCard key={pet.id} pet={pet} />)
+				) : (
+					<Typography variant='h4'>Не найдено</Typography>
+				)}
 			</div>
 		</div>
 	)

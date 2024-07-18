@@ -10,8 +10,11 @@ async function verifyRefreshToken(req, res, next) {
     //   attributes: ['id', 'name', 'email'],
     // });
     
+    user = await User.findOne({
+      where: { id: user.id },
+    });
+
     res.locals.user = user;
-    
 
     next();
   } catch (error) {

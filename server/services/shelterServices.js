@@ -1,18 +1,30 @@
-const { Shelter, Location, Pet } = require("../db/models");
+const { Shelter, Location, Pet, User, ShelterImage } = require("../db/models");
 
 class ShelterServices {
   async getAllShelters() {
-    return Shelter.findAll({ include: [Location] });
+    return Shelter.findAll({ include: [Location, Pet, User, ShelterImage] });
   }
 
   async getShelterById(id) {
     return Shelter.findByPk(id, {
-      include: [Location, Pet],
+      include: [Location, Pet, User, ShelterImage],
     });
   }
   async createShelter(body) {
     return Shelter.create(body);
   }
+
+  async confirmShelter(id, body) {
+    const shelter = await Shelter.findByPk(id);
+    if (shelter) {
+      return shelter.update(body);
+    }
+    return null;
+  }
+
+	async shelterImage(data) {
+		return ShelterImage.create(data)
+	}
 
   async updateShelter(id, userId, body) {
     const shelter = await Shelter.findOne({ where: { id, userId } });

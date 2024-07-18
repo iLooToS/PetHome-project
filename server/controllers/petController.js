@@ -3,7 +3,7 @@ const ShelterServices = require('../services/shelterServices')
 
 exports.getAllPets = async (req, res) => {
 	try {
-		const pets = await PetServices.getAllPets()
+		const pets = await PetServices.getAllPets(req.query)
 		if (!pets) {
 			res.status(400).json({ message: 'Питомцев нет' })
 			return
@@ -67,14 +67,24 @@ exports.createPet = async (req, res) => {
 			isVaccination,
 			isPassport,
 		})
-    const { filename } = req.file
-    const petImage = await PetServices.createPetImage({petId: newPet.id, url: `/img/${filename}`})
-		if (!newPet || !petImage) {
+		const createdImages = await Promise.all(
+			req.files.map(async (img) => {
+				return await PetServices.createPetImage({
+					url: `/img/${img.filename}`,
+					petId: newPet.id,
+				});
+			})
+		);
+		// const petImage = await PetServices.createPetImage({
+		// 	petId: newPet.id,
+		// 	url: `/img/${filename}`,
+		// })
+		if (!newPet || !createdImages) {
 			res.status(400).json({ message: 'Ошибка создания питомца' })
 			return
 		}
-    const pet = await PetServices.getPetById(newPet.id)
-		res.status(201).json({ message: 'success', pet })
+		const pet = await PetServices.getPetById(newPet.id)
+		res.status(200).json({ message: 'success', pet })
 	} catch ({ message }) {
 		res.json({ error: message })
 	}

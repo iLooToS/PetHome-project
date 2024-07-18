@@ -11,7 +11,7 @@ router.get('/:petId', petController.getPetById)
 router.post(
 	'/',
 	verifyAccessToken,
-	upload.single('photo'),
+	upload.array('photo'),
 	petController.createPet
 )
 

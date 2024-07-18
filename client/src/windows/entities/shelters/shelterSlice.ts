@@ -25,12 +25,27 @@ export const getAllSheltersThunk = createAsyncThunk("load/allShelters", () =>
 
 export const createShelterThunk = createAsyncThunk(
   "create/shelter",
-  (body: ShelterCreateWithLocation) => ShelterApi.createShelter(body)
+  (body: FormData) => ShelterApi.createShelter(body)
 );
 
 export const getShelterByIdThunk = createAsyncThunk(
   "load/shelterById",
   (id: Shelter["id"]) => ShelterApi.getShelterById(id)
+);
+
+export const confirmShelterThunk = createAsyncThunk(
+  "confirm/shelter",
+  (id: Shelter["id"]) => ShelterApi.confirmShelter(id)
+);
+
+export const deleteShelterThunk = createAsyncThunk(
+  "delete/shelter",
+  (id: number) => ShelterApi.deleteShelter(id)
+);
+
+export const updateShelterThunk = createAsyncThunk(
+  "update/shelter",
+  (body: FormData) => ShelterApi.updateShelter(body)
 );
 
 const ShelterSlice = createSlice({
@@ -40,8 +55,11 @@ const ShelterSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createShelterThunk.fulfilled, (state, action) => {
+
+        state.shelters.push(action.payload);
+
         state.shelters = state.shelters.map((shelter) =>
-          shelter.id === action.payload.id ? action.payload : shelter
+          shelter?.id === action.payload?.id ? action.payload : shelter
         );
         state.loading = false;
       })
@@ -64,18 +82,44 @@ const ShelterSlice = createSlice({
       .addCase(getShelterByIdThunk.pending, (state, action) => {
         state.loading = true;
       })
-	  .addCase(getAllSheltersThunk.fulfilled, (state, action) => {
-		state.shelters = action.payload.shelters;
-		state.loading = false;
-		state.error = undefined;
-	  })
-	  .addCase(getAllSheltersThunk.rejected, (state, action) => {
-		state.error = action.error.message;
-		state.loading = false;
-	  })
-	  .addCase(getAllSheltersThunk.pending, (state, action) => {
-		state.loading = true;
-	  })
+      .addCase(getAllSheltersThunk.fulfilled, (state, action) => {
+        state.shelters = action.payload.shelters;
+        state.loading = false;
+        state.error = undefined;
+      })
+      .addCase(getAllSheltersThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+      })
+      .addCase(getAllSheltersThunk.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(deleteShelterThunk.fulfilled, (state, action) => {
+        state.shelters = state.shelters.filter(
+          (shelter) => shelter.id !== action.payload?.id
+        );
+        state.loading = false;
+      })
+      .addCase(deleteShelterThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteShelterThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+      })
+      .addCase(confirmShelterThunk.fulfilled, (state, action) => {
+        state.shelters = state.shelters.map((shelter) =>
+          shelter.id === action.payload?.id ? action.payload : shelter
+        );
+        state.loading = false;
+      })
+      .addCase(updateShelterThunk.fulfilled, (state, action) => {
+        state.shelters = state.shelters.map((shelter) =>
+          shelter.id === action.payload.id? action.payload : shelter
+        );
+        state.loading = false;
+        state.error = undefined;
+      })
   },
 });
 export default ShelterSlice;

@@ -23,12 +23,13 @@ import { CloudUploadIcon } from "lucide-react";
 import { ChangeEvent } from "react";
 
 const style = {
+  borderRadius: "5px",
   position: "absolute" as "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
-  height: 650,
+  height: 670,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -73,10 +74,6 @@ const schema = object().shape({
     .required("Все поля обязательны для заполнения"),
 });
 
-interface HTMLInputEvent extends Event {
-  target: HTMLInputElement & EventTarget;
-}
-
 interface ShelterPageProps {
   shelterId: number;
 }
@@ -92,22 +89,26 @@ export default function CreatePetModal({ shelterId }: ShelterPageProps) {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({ resolver: yupResolver(schema) });
   const onHandleSubmit = async (pet: IPetCreate): Promise<void> => {
     pet.shelterId = shelterId;
-    pet.photo = photo && photo[0];
-    console.log(pet);
-
-    if (!pet.photo) {
+    if (!photo) {
       setError((prev) => !prev);
       return;
     }
+
     const formData = new FormData();
     for (const key in pet) {
       formData.append(key, pet[key]);
     }
+    for (let key in photo) {
+      formData.append("photo", photo[+key]);
+    }
+
     void dispatch(createPetsThunk(formData));
     handleClose();
+    reset();
   };
 
   return (
@@ -318,23 +319,17 @@ export default function CreatePetModal({ shelterId }: ShelterPageProps) {
                 </FormControl>
               </label>
             </div>
-            <label className="flex flex-row flex-wrap gap-2">
+            <div className="flex flex-row flex-wrap gap-2">
               <Button
                 component="label"
                 role={undefined}
                 variant="contained"
                 tabIndex={-1}
                 color={error ? "error" : "info"}
-                // onClick={(e: React.MouseEvent<HTMLLabelElement>) => {
-                //   e.preventDefault();
-                //   const fileInput = document.getElementById(
-                //     "fileInput"
-                //   ) as HTMLInputElement;
-                //   fileInput.click();
-                // }}
                 // onChange={(e: React.ChangeEvent<HTMLLabelElement>) =>
                 // 	setPhoto(e.target.files)
                 // }
+
                 onChange={(e: React.MouseEvent<HTMLLabelElement>) => {
                   const target = e.target as HTMLInputElement;
                   setPhoto(target.files);
@@ -342,17 +337,18 @@ export default function CreatePetModal({ shelterId }: ShelterPageProps) {
                 startIcon={<CloudUploadIcon />}
               >
                 {photo && photo[0]
-                  ? `${photo[0].name}`
+                  ? `${photo[0] !== undefined ? photo[0].name : ""}/
+                   ${photo[1] !== undefined ? photo[1].name : ""}/
+                   ${photo[2] !== undefined ? photo[2].name : ""}`
                   : error
                   ? "Изображение обязательно"
                   : "Добавить изображение питомца"}
-
-                <VisuallyHiddenInput type="file" />
+                <VisuallyHiddenInput type="file" multiple />
               </Button>
               <Button variant="contained" type="submit" color="success">
                 Добавить питомца
               </Button>
-            </label>
+            </div>
           </form>
         </Box>
       </Modal>

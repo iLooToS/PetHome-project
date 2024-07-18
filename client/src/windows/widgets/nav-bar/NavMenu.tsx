@@ -8,7 +8,6 @@ import Typography from '@mui/material/Typography'
 import Menu from '@mui/material/Menu'
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
-import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
@@ -22,7 +21,12 @@ import {
 	refreshUser,
 } from '@/src/windows/entities/users/authSlice'
 import Link from 'next/link'
+import LightModeIcon from '@mui/icons-material/LightMode'
+import DarkModeIcon from '@mui/icons-material/DarkMode'
 import { loadAllPetsThunk } from '@/src/windows/entities/pets/petsSlice'
+import { ThemeContext } from '@/app/ThemeProvider'
+import { loadAllChatsThunk } from '../../entities/chat/chatSlise'
+import { useSocket } from '../../app/services/useSocket'
 
 function NavMenu(): JSX.Element {
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
@@ -32,11 +36,28 @@ function NavMenu(): JSX.Element {
 	const { user } = useSelector((state: RootState) => state.auth)
 	const dispatch = useAppDispatch()
 	const router = useRouter()
+	const themeContext = React.useContext(ThemeContext)
+	const { socket } = useSocket()
 
 	React.useEffect(() => {
 		void dispatch(refreshUser())
 		void dispatch(loadAllPetsThunk())
+		void dispatch(loadAllChatsThunk())
 	}, [dispatch])
+
+	React.useEffect(() => {
+		if (socket && user) {
+			// Обрабатываем подключение
+			socket.on('connected', () => {
+				console.log('Подключены к серверу')
+			})
+			// Очищаем обработчики при размонтировании компонента
+			return () => {
+				socket.off('connected')
+				socket.off('message')
+			}
+		}
+	}, [socket, dispatch, user])
 
 	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorElNav(event.currentTarget)
@@ -60,7 +81,10 @@ function NavMenu(): JSX.Element {
 	}
 
 	return (
-		<AppBar className='bg-sky-600' position='static'>
+		<AppBar
+			//  className='bg-sky-600'
+			position='static'
+		>
 			<Container maxWidth='xl'>
 				<Toolbar disableGutters>
 					<PetsIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -142,6 +166,9 @@ function NavMenu(): JSX.Element {
 					>
 						Pets Home
 					</Typography>
+					<IconButton onClick={themeContext?.toggleTheme} color='inherit'>
+						{themeContext?.toggleTheme ? <LightModeIcon /> : <DarkModeIcon />}
+					</IconButton>
 					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 						<Link href={'/'}>
 							<Button
@@ -169,7 +196,6 @@ function NavMenu(): JSX.Element {
 								color='inherit'
 							>
 								<AccountCircle />
-								{/* <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' /> */}
 							</IconButton>
 						</Tooltip>
 						<Menu
@@ -196,8 +222,7 @@ function NavMenu(): JSX.Element {
 							{user
 								? [
 										<Typography key={user.id} textAlign='center'>
-											Привет!
-											<p>{user.name}</p>
+											Привет, {user.name}
 										</Typography>,
 										<Link key='profile' href={'/profile'}>
 											<MenuItem onClick={handleCloseUserMenu}>

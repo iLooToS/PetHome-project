@@ -15,6 +15,19 @@ class UserService {
     delete user.dataValues.password;
     return user;
   }
+
+  async getUserById(id) {
+    const user = await User.findByPk(id);
+    return user;
+  }
+
+  async updateUser(id, data) {
+    const user = await User.findByPk(id);
+    if (user) {
+      return user.update(data);
+    }
+    return null;
+  }
 }
 
 module.exports = new UserService();

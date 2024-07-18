@@ -5,16 +5,52 @@ const postImages = [
     url: "/img/postImage11.jpg",
   },
   {
-    shelterPostId: 1,
-    url: "/img/postImage12.jpg",
-  },
-  {
     shelterPostId: 2,
     url: "/img/postImage22.jpg",
   },
   {
-    shelterPostId: 2,
-    url: "/img/postImage22.jpg",
+    shelterPostId: 3,
+    url: "/img/post2pr1.jpg",
+  },
+  {
+    shelterPostId: 5,
+    url: "/img/post1pr2.jpg",
+  },
+  {
+    shelterPostId: 8,
+    url: "/img/postpr3.jpg",
+  },
+  {
+    shelterPostId: 9,
+    url: "/img/post1pr5.jpg",
+  },
+  {
+    shelterPostId: 10,
+    url: "/img/post2pr5.jpg",
+  },
+  {
+    shelterPostId: 11,
+    url: "/img/post1pr6.jpg",
+  },
+  {
+    shelterPostId: 12,
+    url: "/img/post2pr6.jpg",
+  },
+  {
+    shelterPostId: 13,
+    url: "/img/post1pr7.jpg",
+  },
+  {
+    shelterPostId: 14,
+    url: "/img/post2pr7.jpg",
+  },
+  {
+    shelterPostId: 17,
+    url: "/img/post1pr9.jpg",
+  },
+  {
+    shelterPostId: 18,
+    url: "/img/post2pr9.jpg",
   },
 ];
 
