@@ -1,3 +1,4 @@
 .shelter-pets-page-info-navigate {
     display: flex;
+    justify-content: space-between;
   }

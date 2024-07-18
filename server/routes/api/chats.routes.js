@@ -17,12 +17,17 @@ router.get('/', async (req, res) => {
 				},
 				{
 					model: ChatMessage,
-					separate: true, 
+					include: [
+						{
+							model: User,
+						},
+					],
+					separate: true,
 					order: [['createdAt', 'ASC']], // Сортировка сообщений
 				},
 			],
 			order: [['id', 'ASC']], // Сортировка чатов
-		});
+		})
 		res.status(200).json({ message: 'success', chats })
 	} catch ({ message }) {
 		res.status(500).json({ error: message })
@@ -34,7 +39,21 @@ router.get('/:chatId', async (req, res) => {
 		const { chatId } = req.params
 		const chat = await Chat.findOne({
 			where: { id: chatId },
-			include: [ChatUser, ChatMessage],
+			include: [
+				{
+					model: ChatUser,
+				},
+				{
+					model: ChatMessage,
+					include: [
+						{
+							model: User,
+						},
+					],
+					separate: true,
+					order: [['createdAt', 'ASC']], // Сортировка сообщений
+				},
+			],
 		})
 		res.status(200).json({ message: 'success', chat })
 	} catch ({ message }) {
@@ -56,34 +75,91 @@ router.post('/', verifyAccessToken, async (req, res) => {
 		if (!shelter) {
 			return res.status(404).json({ message: 'Приют не найден' })
 		}
+
 		const userShelter = await User.findOne({ where: { id: shelter.userId } })
 		if (!userShelter) {
 			return res.status(404).json({ message: 'Пользователь приюта не найден' })
 		}
-		const newChat = await Chat.create({
-			name: shelter.name,
-			createUserId: userShelter.id,
-		})
-		const createChatUsers = await Promise.all([
-			ChatUser.create({
-				userId: res.locals.user.id,
-				chatId: newChat.id,
-			}),
-			ChatUser.create({
-				userId: userShelter.id,
-				chatId: newChat.id,
-			}),
-		])
-		const chatMessage = await ChatMessage.create({
-			text: `Здравствуйте, хотел обратиться по поводу питомца ${petName}`,
-			chatId: newChat.id,
-			sendUserId: res.locals.user?.id || 1, // используем res.locals.user.id, если доступен
-		})
-		const chat = await Chat.findOne({
-			where: { id: newChat.id },
+
+		// Находим существующий чат между пользователем и приютом
+		const existingChat = await Chat.findOne({
+			where: { name: shelter.name, createUserId: res.locals.user.id },
 			include: [ChatUser, ChatMessage],
 		})
-		return res.status(200).json({ message: 'success', chat })
+
+		if (existingChat) {
+			// Если чат существует, добавляем сообщение в существующий чат
+			const chatMessage = await ChatMessage.create({
+				text: `Здравствуйте, хотел обратиться по поводу питомца ${petName}`,
+				chatId: existingChat.id,
+				sendUserId: res.locals.user.id,
+			})
+			if (chatMessage) {
+				const updatedChat = await Chat.findOne({
+					where: { id: existingChat.id },
+					include: [
+						{
+							model: ChatUser,
+						},
+						{
+							model: ChatMessage,
+							include: [
+								{
+									model: User,
+								},
+							],
+							separate: true,
+							order: [['createdAt', 'ASC']], // Сортировка сообщений
+						},
+					],
+				})
+				return res.status(200).json({ message: 'chat find', chat: updatedChat })
+			}
+		} else {
+			// Если чат не существует, создаем новый чат и добавляем сообщение
+			const newChat = await Chat.create({
+				name: shelter.name,
+				createUserId: res.locals.user.id,
+			})
+
+			const createChatUsers = await Promise.all([
+				ChatUser.create({
+					userId: res.locals.user.id,
+					chatId: newChat.id,
+				}),
+				ChatUser.create({
+					userId: userShelter.id,
+					chatId: newChat.id,
+				}),
+			])
+
+			const chatMessage = await ChatMessage.create({
+				text: `Здравствуйте, хотел обратиться по поводу питомца ${petName}`,
+				chatId: newChat.id,
+				sendUserId: res.locals.user.id,
+			})
+
+			const chat = await Chat.findOne({
+				where: { id: newChat.id },
+				include: [
+					{
+						model: ChatUser,
+					},
+					{
+						model: ChatMessage,
+						include: [
+							{
+								model: User,
+							},
+						],
+						separate: true,
+						order: [['createdAt', 'ASC']], // Сортировка сообщений
+					},
+				],
+			})
+
+			return res.status(200).json({ message: 'success', chat })
+		}
 	} catch (error) {
 		console.error(error)
 		return res.status(500).json({ error: error.message })
@@ -101,7 +177,21 @@ router.post('/:chatId/messages', verifyAccessToken, async (req, res) => {
 		if (newChat) {
 			const chat = await Chat.findOne({
 				where: { id: newChat.id },
-				include: [ChatUser, ChatMessage],
+				include: [
+					{
+						model: ChatUser,
+					},
+					{
+						model: ChatMessage,
+						include: [
+							{
+								model: User,
+							},
+						],
+						separate: true,
+						order: [['createdAt', 'ASC']], // Сортировка сообщений
+					},
+				],
 			})
 			res.status(200).json({ message: 'success', chat })
 		} else {
@@ -121,7 +211,21 @@ router.delete('/:chatId/messages/:messageId', async (req, res) => {
 		if (deleteMessage > 0) {
 			const chat = await Chat.findOne({
 				where: { id: chatId },
-				include: [ChatUser, ChatMessage],
+				include: [
+					{
+						model: ChatUser,
+					},
+					{
+						model: ChatMessage,
+						include: [
+							{
+								model: User,
+							},
+						],
+						separate: true,
+						order: [['createdAt', 'ASC']], // Сортировка сообщений
+					},
+				],
 			})
 			res.status(200).json({ message: 'success', chat })
 		} else {

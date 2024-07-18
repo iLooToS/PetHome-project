@@ -1,6 +1,14 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import { Typography, Box, TextField, Button, IconButton } from '@mui/material'
+import React, { useEffect, useRef, useState } from 'react'
+import {
+	Typography,
+	Box,
+	TextField,
+	Button,
+	IconButton,
+	Paper,
+	DialogContent,
+} from '@mui/material'
 import { useRouter } from 'next/navigation'
 import { RootState, useAppDispatch } from '../../app/store/store'
 import { useSelector } from 'react-redux'
@@ -9,6 +17,7 @@ import { getChat, refreshChat } from '../../entities/chat/chatSlise'
 import { useSocket } from '../../app/services/useSocket'
 import { DeleteIcon } from 'lucide-react'
 import { MessageId } from '../../entities/chat/types/chatTypes'
+import './styles/CurrentChatPage.css'
 
 interface ChatDetailProps {
 	chatId: number
@@ -19,7 +28,9 @@ const ChatDetail: React.FC<ChatDetailProps> = ({ chatId }) => {
 	const [message, setMessage] = useState('')
 	const dispatch = useAppDispatch()
 	const { user } = useSelector((state: RootState) => state.auth)
-	const { chats, chat } = useSelector((state: RootState) => state.chats)
+	const { chats, chat, loading } = useSelector(
+		(state: RootState) => state.chats
+	)
 	const { socket } = useSocket()
 
 	// Обрабатываем получение нового сообщения от сервера
@@ -41,6 +52,7 @@ const ChatDetail: React.FC<ChatDetailProps> = ({ chatId }) => {
 			setMessage('')
 		}
 	}
+
 	const handleDeleteMessage = (id: MessageId) => {
 		if (socket) {
 			const msg = {
@@ -55,18 +67,29 @@ const ChatDetail: React.FC<ChatDetailProps> = ({ chatId }) => {
 		}
 	}
 
-	if (!chat) {
-		return <Typography>Чат не найден</Typography>
-	}
+	const commentsContainerRef = useRef<HTMLDivElement>(null)
+
+	useEffect(() => {
+		if (commentsContainerRef.current) {
+			commentsContainerRef.current.scrollIntoView({
+				behavior: 'smooth',
+				block: 'end',
+			})
+		}
+	}, [chat])
+
+	// if (!chat) {
+	// 	return <Typography>Чат не найден</Typography>
+	// }
 
 	return (
-		<Box style={{ padding: '16px' }}>
+		<Paper className='chat-container'>
 			<div className='flex justify-between'>
 				<Typography variant='h4' gutterBottom>
-					{chat.name}
+					{chat && chat.name}
 				</Typography>
 				<Button
-					style={{ textAlign: 'center' }}
+					style={{ textAlign: 'center', height: '40px' }}
 					variant='contained'
 					onClick={() => router.back()}
 					color='success'
@@ -74,53 +97,58 @@ const ChatDetail: React.FC<ChatDetailProps> = ({ chatId }) => {
 					Назад
 				</Button>
 			</div>
-			<Box
-				style={{ maxHeight: '400px', overflowY: 'auto', marginBottom: '16px' }}
+			<DialogContent
+				sx={{ padding: '0', minHeight: '150px', width: '100%' }}
+				dividers
 			>
-				{chat.ChatMessages.map((msg, index) => (
-					<Box key={index} style={{ marginBottom: '8px' }}>
-						<div className='flex justify-between '>
-							<Typography variant='subtitle2' color='textSecondary'>
-								User : {msg.sendUserId}
-							</Typography>
-							<Typography variant='subtitle2' color='textSecondary'>
-								{new Date(msg.createdAt).toLocaleString('ru-RU', {
-									hour: '2-digit',
-									minute: '2-digit',
-									year: 'numeric',
-									month: '2-digit',
-									day: '2-digit',
-								})}
-							</Typography>
-						</div>
-						<div className='flex justify-between '>
-							<Typography variant='body1'>{msg.text}</Typography>
-							{user && user.id === msg.sendUserId && (
-								<Button
-									type='button'
-									onClick={() => handleDeleteMessage(msg.id)}
-									aria-label='delete'
-								>
-									<DeleteIcon />
-								</Button>
-							)}
-						</div>
-					</Box>
-				))}
-			</Box>
-			<Box display='flex'>
+				<Box ref={commentsContainerRef} className='chat-messages'>
+					{chat &&
+						chat.ChatMessages &&
+						chat.ChatMessages.map((msg, index) => (
+							<Paper key={index} className='message-item'>
+								<div className='flex justify-between'>
+									<Typography variant='subtitle2' color='textSecondary'>
+									{msg.User.name}
+									</Typography>
+									<Typography variant='subtitle2' color='textSecondary'>
+										{new Date(msg.createdAt).toLocaleString('ru-RU', {
+											hour: '2-digit',
+											minute: '2-digit',
+											year: 'numeric',
+											month: '2-digit',
+											day: '2-digit',
+										})}
+									</Typography>
+								</div>
+								<div className='flex justify-between'>
+									<Typography variant='body1'>{msg.text}</Typography>
+									{user && user.id === msg.sendUserId && (
+										<IconButton
+											onClick={() => handleDeleteMessage(msg.id)}
+											aria-label='delete'
+										>
+											<DeleteIcon />
+										</IconButton>
+									)}
+								</div>
+							</Paper>
+						))}
+				</Box>
+			</DialogContent>
+			<Box className='chat-input'>
 				<TextField
 					value={message}
 					onChange={e => setMessage(e.target.value)}
 					variant='outlined'
+					size='small'
 					fullWidth
 					placeholder='Введите сообщение...'
-				/>
+				></TextField>
 				<Button variant='contained' color='primary' onClick={handleSendMessage}>
 					Отправить
 				</Button>
 			</Box>
-		</Box>
+		</Paper>
 	)
 }
 

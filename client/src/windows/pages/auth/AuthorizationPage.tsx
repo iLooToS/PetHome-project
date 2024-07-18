@@ -8,9 +8,17 @@ import { authorizationThunk } from '@/src/windows/entities/users/authSlice'
 import { UserForLoga } from '@/src/windows/entities/users/types/userTypes'
 import { useAppDispatch } from '@/src/windows/app/store/store'
 import { useRouter } from 'next/navigation'
-import { Button, TextField } from '@mui/material'
+import {
+	Avatar,
+	Button,
+	Grid,
+	Link,
+	TextField,
+	Typography,
+} from '@mui/material'
 import AuthModal from '../../widgets/Modal/AuthModal'
 import { unwrapResult } from '@reduxjs/toolkit'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 
 const schema = object().shape({
 	email: string()
@@ -65,8 +73,18 @@ function AuthorizationPage(): JSX.Element {
 		<div className='AuthorizationPage-container'>
 			<div className='authorization-form-wrapper'>
 				<form onSubmit={handleSubmit(onHadleSubmit)}>
+					<Avatar
+						sx={{ m: 1, bgcolor: 'gray', width: 52, height: 52 }}
+						// src='../../../../public/img/monkeyAuth.svg'
+					>
+						<LockOutlinedIcon />
+					</Avatar>
+					<Typography component='h1' variant='h5'>
+						Авторизация
+					</Typography>
 					<label htmlFor='email'>
 						<TextField
+							className='w-60'
 							id='auth-Email'
 							label='Электронная почта'
 							variant='outlined'
@@ -77,6 +95,7 @@ function AuthorizationPage(): JSX.Element {
 					</label>
 					<label htmlFor='password'>
 						<TextField
+							className='w-60'
 							id='auth-password'
 							label='Пароль'
 							variant='outlined'
@@ -85,6 +104,13 @@ function AuthorizationPage(): JSX.Element {
 						/>
 						<span>{errors.password?.message}</span>
 					</label>
+					<Grid container>
+						<Grid item>
+							<Link href='/sign-up' variant='body2'>
+								{'Нет аккаунта? Зарегистрируйся'}
+							</Link>
+						</Grid>
+					</Grid>
 					<div className='button-container'>
 						<Button variant='contained' type='submit'>
 							Войти
