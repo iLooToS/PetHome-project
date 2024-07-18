@@ -55,7 +55,6 @@ const ShelterSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createShelterThunk.fulfilled, (state, action) => {
-        console.log(action.payload);
 
         state.shelters.push(action.payload);
 

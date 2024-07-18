@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { ChatId, IChat } from './types/chatTypes'
 import ChatApi from './api/chatApi'
 import { Socket } from 'socket.io-client'
+import { ShelterId } from '../shelters/type/shelterTypes'
 
 interface StateCurrentPets {
 	chats: IChat[]
@@ -23,6 +24,11 @@ export const loadAllChatsThunk = createAsyncThunk('load/chats', () =>
 export const loadChatByIdThunk = createAsyncThunk(
 	'loadById/chat',
 	(id: ChatId) => ChatApi.getChatById(id)
+)
+export const createNewChatThunk = createAsyncThunk(
+	'create/chat',
+	(body: { shelterId: ShelterId; petName: string }) =>
+		ChatApi.createChat(body)
 )
 
 const ChatSlice = createSlice({
@@ -57,6 +63,18 @@ const ChatSlice = createSlice({
 				state.loading = true
 			})
 			.addCase(loadChatByIdThunk.rejected, (state, action) => {
+				state.error = action.error.message
+				state.loading = false
+			})
+			.addCase(createNewChatThunk.fulfilled, (state, action) => {
+				state.chats.push(action.payload)
+				state.chat = action.payload
+				state.loading = false
+			})
+			.addCase(createNewChatThunk.pending, state => {
+				state.loading = true
+			})
+			.addCase(createNewChatThunk.rejected, (state, action) => {
 				state.error = action.error.message
 				state.loading = false
 			})

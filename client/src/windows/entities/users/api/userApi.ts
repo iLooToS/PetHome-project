@@ -74,7 +74,6 @@ class AuthApi {
     body: FormData
   ): Promise<User> => {
     try {
-      console.log(body);
       const result: AxiosResponse<User> = await axiosInstance.put(
         "/auth/update",
         body

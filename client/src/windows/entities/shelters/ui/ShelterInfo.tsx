@@ -41,7 +41,6 @@ const ShelterInfo = (): JSX.Element => {
             >
               Показать питомцев
             </button>
-            <button type="button">Отзывы</button>
             {currentShelter.userId === user?.id && (
               <div>
                 <CreatePetModal shelterId={currentShelter.id} />

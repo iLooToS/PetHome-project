@@ -48,7 +48,6 @@ class ShelterApi {
         message: "success";
         shelter: Shelter;
       }> = await axiosInstance.post("/shelters/", body, config);
-      console.log(result);
 
       return result.data.shelter;
     } catch (error) {
