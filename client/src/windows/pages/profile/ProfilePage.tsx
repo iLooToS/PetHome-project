@@ -319,7 +319,7 @@ const ProfilePage: React.FC = () => {
               Закрыть
             </Button>
           ) : (
-            !isShow &&
+            !isShow && shelters && 
             shelters.find((shelter) => shelter.userId === user?.id) && (
               <Button
                 onClick={() => setIsShow((prev) => !prev)}
@@ -331,7 +331,7 @@ const ProfilePage: React.FC = () => {
             )
           )}
         </div>
-        <div className="py-10">
+        <div className="py-1">
           {isShow &&
             shelters &&
             shelters

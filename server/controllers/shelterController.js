@@ -180,12 +180,13 @@ exports.updateInfoShelter = async (req, res) => {
   try {
     const { user } = res.locals;
     const { name, description, streetName, city, phone, shelterId } = req.body;
+    
     if (!name || !description || !streetName || !city || !phone) {
       res.status(400).json({ message: "Необходимо заполнить все поля" });
       return;
     }
     const currentShelter = await Shelter.findOne({
-      where: { userId: user.id, id: shelterId },
+      where: { userId: user.id, id: +shelterId },
     });
     if (currentShelter) {
       const currentLocation = await LocationServices.getLocationById(
@@ -220,8 +221,8 @@ exports.updateInfoShelter = async (req, res) => {
     }
     if (currentShelter) {
       const updatedShelter = await ShelterServices.updateShelter(
-        user.id,
         currentShelter.id,
+        user.id,
         {
           name,
           description,
