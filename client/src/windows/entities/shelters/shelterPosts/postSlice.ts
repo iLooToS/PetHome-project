@@ -85,11 +85,10 @@ const PostSlice = createSlice({
         state.loading = true;
       })
       .addCase(createPostCommentThunk.fulfilled, (state, action) => {
-        console.log(action);
         const post = state.posts.find(
           (post) => post.id === action.payload.shelterPostId
         );
-        if (post) {
+        if (post && post.ShelterPostComments) {
           post.ShelterPostComments.push(action.payload);
         }
         state.loading = false;
