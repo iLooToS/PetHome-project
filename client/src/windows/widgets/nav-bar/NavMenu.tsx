@@ -166,9 +166,9 @@ function NavMenu(): JSX.Element {
 					>
 						Pets Home
 					</Typography>
-					<IconButton onClick={themeContext?.toggleTheme} color='inherit'>
+					{/* <IconButton onClick={themeContext?.toggleTheme} color='inherit'>
 						{themeContext?.toggleTheme ? <LightModeIcon /> : <DarkModeIcon />}
-					</IconButton>
+					</IconButton> */}
 					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 						<Link href={'/'}>
 							<Button

@@ -1,3 +1,5 @@
+import { User } from '../../users/types/userTypes'
+
 export interface IChat {
 	id: number
 	name: string
@@ -19,6 +21,7 @@ export interface IChatMessage {
 	sendUserId: number
 	chatId: number
 	createdAt: string
+	User: User
 }
 export type MessageId = IChatMessage['id']
 export type ChatId = IChat['id']

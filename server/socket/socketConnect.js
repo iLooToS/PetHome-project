@@ -1,5 +1,5 @@
 const { Server } = require('socket.io')
-const { Chat, ChatMessage, ChatUser } = require('../db/models')
+const { Chat, ChatMessage, ChatUser, User } = require('../db/models')
 const initializeSocket = server => {
 	const io = new Server(server, {
 		cors: { origin: 'http://87.228.16.34:3001' },
@@ -25,11 +25,18 @@ const initializeSocket = server => {
 					let chat = await Chat.findOne({
 						where: { id: chatId },
 						include: [
-							{ model: ChatUser },
+							{
+								model: ChatUser,
+							},
 							{
 								model: ChatMessage,
+								include: [
+									{
+										model: User,
+									},
+								],
 								separate: true,
-								order: [['createdAt', 'ASC']],
+								order: [['createdAt', 'ASC']], // Сортировка сообщений
 							},
 						],
 					})
@@ -43,11 +50,18 @@ const initializeSocket = server => {
 					const newChat = await Chat.findOne({
 						where: { id: chatId },
 						include: [
-							{ model: ChatUser },
+							{
+								model: ChatUser,
+							},
 							{
 								model: ChatMessage,
+								include: [
+									{
+										model: User,
+									},
+								],
 								separate: true,
-								order: [['createdAt', 'ASC']],
+								order: [['createdAt', 'ASC']], // Сортировка сообщений
 							},
 						],
 					})

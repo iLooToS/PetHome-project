@@ -27,8 +27,7 @@ export const loadChatByIdThunk = createAsyncThunk(
 )
 export const createNewChatThunk = createAsyncThunk(
 	'create/chat',
-	(body: { shelterId: ShelterId; petName: string }) =>
-		ChatApi.createChat(body)
+	(body: { shelterId: ShelterId; petName: string }) => ChatApi.createChat(body)
 )
 
 const ChatSlice = createSlice({
@@ -67,9 +66,18 @@ const ChatSlice = createSlice({
 				state.loading = false
 			})
 			.addCase(createNewChatThunk.fulfilled, (state, action) => {
-				state.chats.push(action.payload)
-				state.chat = action.payload
-				state.loading = false
+				if (action.payload.message === 'success') {
+					state.chats.push(action.payload.chat)
+					state.chat = action.payload.chat
+					state.loading = false
+				}
+				if (action.payload.message === 'chat find') {
+					state.chats = state.chats.map(chat =>
+						chat.id === action.payload.chat.id ? action.payload.chat : chat
+					)
+					state.chat = action.payload.chat
+					state.loading = false
+				}
 			})
 			.addCase(createNewChatThunk.pending, state => {
 				state.loading = true

@@ -68,15 +68,12 @@ class ChatApi {
 		shelterId: number
 	}) => {
 		try {
-			const { data }: AxiosResponse<{ message: 'success'; chat: IChat }> =
+			const { data }: AxiosResponse<{ message: string; chat: IChat }> =
 				await axiosInstance.post(`/chats/`, {
 					shelterId,
 					petName,
 				})
-			if (data.message === 'success') {
-				return data.chat
-			}
-			return data.message
+			return data
 		} catch (error) {
 			throw new Error('Не создал сообщение')
 		}
