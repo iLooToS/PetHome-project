@@ -1,19 +1,20 @@
-require("dotenv").config();
-const express = require("express");
-const path = require("path");
+require('dotenv').config()
+const express = require('express')
+const http = require('http')
+const app = express()
 
-const app = express();
+const PORT = process.env.PORT || 3000
 
-const PORT = process.env.PORT;
+const indexRouter = require('./routes/index.routes')
+const serverConfig = require('./config/serverConfig')
+const initializeSocket = require('./socket/socketConnect')
+serverConfig(app)
 
-const indexRouter = require("./routes/index.routes");
-const serverConfig = require("./config/serverConfig");
+app.use('/api', indexRouter)
 
-serverConfig(app);
+const server = http.createServer(app)
+initializeSocket(server)
 
-app.use("/api", indexRouter);
-
-app.listen(PORT, () => {
-  console.log(`http://localhost:${PORT}`);
-});
-
+server.listen(PORT, () => {
+	console.log(`http://localhost:${PORT}`)
+})

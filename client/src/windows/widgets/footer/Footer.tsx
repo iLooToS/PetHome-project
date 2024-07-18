@@ -25,6 +25,9 @@ export default function Footer() {
 			case '/search':
 				setValue('search')
 				break
+			case '/chat':
+				setValue('messages')
+				break
 			default:
 				setValue('recents')
 				break
@@ -53,6 +56,7 @@ export default function Footer() {
 					label='Сообщения'
 					value='messages'
 					icon={<ForumIcon />}
+					onClick={() => router.push('/chat')}
 				/>
 			</BottomNavigation>
 		</div>

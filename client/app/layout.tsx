@@ -8,6 +8,7 @@ import { ReactNode } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import NavMenu from '@/src/windows/widgets/nav-bar/NavMenu'
 import ThemeProviderComponent from './ThemeProvider'
+import { SocketProvider } from '@/src/windows/app/services/useSocket'
 
 const inter = Inter({ subsets: ['greek'] })
 
@@ -34,9 +35,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
 				<Providers>
 					{/* <ThemeProviderComponent> */}
 					{/* <CssBaseline /> */}
-					<NavMenu />
-					{children}
-					<Footer />
+					<SocketProvider>
+						<NavMenu />
+						{children}
+						<Footer />
+					</SocketProvider>
 					{/* </ThemeProviderComponent> */}
 				</Providers>
 			</body>
