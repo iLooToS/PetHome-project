@@ -19,6 +19,48 @@ const locations = [
     latitude: null,
     longitude: null,
   },
+  {
+    //4
+    city: "Санкт-Петербург",
+    streetName: "Автовская, д. 31 , лит. И",
+    latitude: null,
+    longitude: null,
+  },
+  {
+    //5
+    city: "Мурманск",
+    streetName: "Автопарковый проезд, 20",
+    latitude: null,
+    longitude: null,
+  },
+  {
+    //6
+    city: "Новокузнецк",
+    streetName: "село Сосновка, Новокузнецкий район",
+    latitude: null,
+    longitude: null,
+  },
+  {
+    //7
+    city: "Омск",
+    streetName: "1 Казахстанская 3 стр 2",
+    latitude: null,
+    longitude: null,
+  },
+  {
+    //8
+    city: "Казань",
+    streetName: "Московский просрект 5",
+    latitude: null,
+    longitude: null,
+  },
+  {
+    //9
+    city: "Ставрополь",
+    streetName: "проспект Кулакова, 9в к1",
+    latitude: null,
+    longitude: null,
+  },
 ];
 
 /** @type {import('sequelize-cli').Migration} */
