@@ -10,7 +10,7 @@ export const injectStore = (_store: StoreType): void => {
 }
 
 const axiosInstance = axios.create({
-	baseURL: 'http://87.228.16.34:3000/api',
+	baseURL: 'http://backend:3000/api',
 	withCredentials: true,
 })
 
