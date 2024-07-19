@@ -6,6 +6,7 @@ import {
 	Button,
 	DialogContent,
 	Modal,
+	Skeleton,
 	TextField,
 	Typography,
 } from '@mui/material'
@@ -127,10 +128,8 @@ const ShelterPosts = ({
 
 	return (
 		<div className='post-feed'>
-						{/* <Typography className='text-center' variant='h6' component='h2'>
-							Новости приюта
-						</Typography> */}
-			{currentShelterPosts &&
+			{currentShelter ? (
+				currentShelterPosts &&
 				currentShelterPosts
 					.sort((a, b) => (b.id ?? 0) - (a.id ?? 0))
 					.map(shelterPost => (
@@ -180,7 +179,18 @@ const ShelterPosts = ({
 								</Button>
 							)}
 						</div>
-					))}
+					))
+			) : (
+				<Skeleton
+					variant='text'
+					sx={{
+						fontSize: '3rem',
+						width: '370px',
+						height: '200px',
+						borderRadius: 2,
+					}}
+				/>
+			)}
 			{selectedPost && (
 				<Modal
 					className='p-3.5'
