@@ -38,7 +38,7 @@ const SearchPage: React.FC = () => {
 	}, [search, filterPets])
 
 	return (
-		<div className='min-h-screen' style={{ padding: '20px' }}>
+		<div className='min-h-screen' style={{ padding: '10px' }}>
 			<div className='flex justify-between '>
 				<FilterPet />
 				<TextField
