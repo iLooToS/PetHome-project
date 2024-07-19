@@ -85,7 +85,6 @@ export default function EditShelterModal({
   } = useForm({ resolver: yupResolver(schema) });
   const onHandleSubmit = async (shelter: ShelterUpdate): Promise<void> => {
     shelter.photo = photo && photo[0];
-    console.log(currentShelter);
 
     shelter.shelterId = currentShelter.id;
     console.log(shelter);
@@ -93,7 +92,7 @@ export default function EditShelterModal({
     for (const key in shelter) {
       formData.append(key, shelter[key]);
     }
-
+    
     void dispatch(updateShelterThunk(formData));
     handleClose();
     reset();

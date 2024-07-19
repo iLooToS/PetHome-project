@@ -180,7 +180,7 @@ exports.updateInfoShelter = async (req, res) => {
   try {
     const { user } = res.locals;
     const { name, description, streetName, city, phone, shelterId } = req.body;
-    
+
     if (!name || !description || !streetName || !city || !phone) {
       res.status(400).json({ message: "Необходимо заполнить все поля" });
       return;
@@ -202,8 +202,8 @@ exports.updateInfoShelter = async (req, res) => {
     if (req.file && currentShelter) {
       const { filename } = req.file;
       const updatedShelter = await ShelterServices.updateShelter(
-        user.id,
         currentShelter.id,
+        user.id,
         {
           name,
           description,
