@@ -238,7 +238,7 @@ const ShelterPosts = ({
 																}}
 															>
 																{currentUser.img && currentUser.img ? (
-																	<Box sx={{ mr: 2 }}>
+																	<Box sx={{ mr: 1 }}>
 																		<Avatar>
 																			<Image
 																				src={currentUser.img}
@@ -249,7 +249,9 @@ const ShelterPosts = ({
 																		</Avatar>
 																	</Box>
 																) : (
-																	<Avatar>{currentUser.name}</Avatar>
+																	<Box sx={{ mr: 1 }}>
+																		<Avatar></Avatar>
+																	</Box>
 																)}
 																<Box sx={{ flexGrow: 1 }}>
 																	<Typography
