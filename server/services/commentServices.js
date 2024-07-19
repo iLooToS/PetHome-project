@@ -9,6 +9,7 @@ class CommentServices {
       include: {
         model: ShelterPost,
       },
+      
     });
   }
 

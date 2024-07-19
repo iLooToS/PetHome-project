@@ -6,7 +6,7 @@ export interface Shelter {
   name: string;
   userId: number;
   locationId: number;
-  logo?: string;
+  logo: string;
   description: string;
   phone: string;
   status: boolean;

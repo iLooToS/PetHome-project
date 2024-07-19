@@ -8,6 +8,7 @@ import {
 	IconButton,
 	Paper,
 	DialogContent,
+	Avatar,
 } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import { RootState, useAppDispatch } from '../../app/store/store'
@@ -18,6 +19,7 @@ import { useSocket } from '../../app/services/useSocket'
 import { DeleteIcon } from 'lucide-react'
 import { MessageId } from '../../entities/chat/types/chatTypes'
 import './styles/CurrentChatPage.css'
+import Image from 'next/image'
 
 interface ChatDetailProps {
 	chatId: number
@@ -107,9 +109,30 @@ const ChatDetail: React.FC<ChatDetailProps> = ({ chatId }) => {
 						chat.ChatMessages.map((msg, index) => (
 							<Paper key={index} className='message-item'>
 								<div className='flex justify-between'>
-									<Typography variant='subtitle2' color='textSecondary'>
-									{msg.User.name}
-									</Typography>
+									{msg && msg.User.img ? (
+										<Box sx={{ mr: 1 }}>
+											<Avatar>
+												<Image
+													src={msg.User.img}
+													alt='User Image'
+													width={200}
+													height={200}
+												/>
+											</Avatar>
+										</Box>
+									) : (
+										<Box sx={{ mr: 1 }}>
+											<Avatar></Avatar>
+										</Box>
+									)}
+									<Box sx={{ flexGrow: 1 }}>
+										<Typography
+											sx={{ mt: 1 }}
+											className='user-comment-wrapper-text'
+										>
+											{msg.User.name}
+										</Typography>
+									</Box>
 									<Typography variant='subtitle2' color='textSecondary'>
 										{new Date(msg.createdAt).toLocaleString('ru-RU', {
 											hour: '2-digit',
@@ -121,7 +144,9 @@ const ChatDetail: React.FC<ChatDetailProps> = ({ chatId }) => {
 									</Typography>
 								</div>
 								<div className='flex justify-between'>
-									<Typography variant='body1'>{msg.text}</Typography>
+									<Typography variant='body1' style={{ marginTop: '15px' }}>
+										{msg.text}
+									</Typography>
 									{user && user.id === msg.sendUserId && (
 										<IconButton
 											onClick={() => handleDeleteMessage(msg.id)}
