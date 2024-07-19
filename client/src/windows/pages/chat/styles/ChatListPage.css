@@ -1,0 +1,26 @@
+.chat-list-wrapper {
+	padding: 8px;
+	margin: 10px;
+	background-color: #c4c2c2;
+	min-height: 80vh;
+	border-radius: 8px; /* Скругленные углы для всего контейнера */
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Легкая тень для выделения */
+}
+
+.chat-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.chat-item {
+	margin-bottom: 8px;
+	padding: 8px;
+	border-radius: 8px;
+	background-color: rgb(102, 149, 230);
+	transition: background-color 0.3s ease;
+}
+
+.chat-item:hover {
+	background-color: #e0e0e0; /* Цвет при наведении */
+}

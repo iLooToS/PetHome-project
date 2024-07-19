@@ -1,0 +1,23 @@
+:root {
+  --font-family-main: consolas, 'Times New Roman', serif;
+  --font-size-m: 16px;
+  --font-line-m: 24px;
+
+  --font-m: var(--font-size-m) / var(--font-line-m) var(--font-family-main);
+  --font-size-l: 24px;
+  --font-line-l: 32px;
+  --font-l: var(--font-size-l) / var(--font-line-l) var(--font-family-main);
+  --navbar-height: 60px;
+
+  --sidebar-width: 300px;
+  --sidebar-width-collapsed: 100px;
+}
+
+.app {
+  --bg-color: #e8e8ea;
+  --inverted-bg-color: #090949;
+  --primary-color: #041c65;
+  --secondary-color: #0449e0;
+  --inverted-primary-color: #049604;
+  --inverted-secondary-color: #04ff04;
+}
