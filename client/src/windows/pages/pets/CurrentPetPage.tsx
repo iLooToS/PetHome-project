@@ -55,7 +55,7 @@ const CurrentPetPage = ({ petId }: ShelterPageProps): JSX.Element => {
 				)}
 				<Button
 					variant='contained'
-					color='inherit'
+					color='primary'
 					onClick={() => router.push(`/shelter/${pet?.Shelter.id}`)}
 				>
 					О приюте питомца
