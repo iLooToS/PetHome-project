@@ -14,7 +14,7 @@ const petImages = [
   },
   {
     petId: 2,
-    url: "/img/petImage22.jpg",
+    url: "/img/wdawda22.jpg",
   },
   {
     petId: 3,
@@ -22,7 +22,7 @@ const petImages = [
   },
   {
     petId: 3,
-    url: "/img/petImage33.jpg",
+    url: "/img/wadawdawd.jpg",
   },
   {
     petId: 4,
