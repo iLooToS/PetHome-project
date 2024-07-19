@@ -127,6 +127,9 @@ const ShelterPosts = ({
 
 	return (
 		<div className='post-feed'>
+						{/* <Typography className='text-center' variant='h6' component='h2'>
+							Новости приюта
+						</Typography> */}
 			{currentShelterPosts &&
 				currentShelterPosts
 					.sort((a, b) => (b.id ?? 0) - (a.id ?? 0))
