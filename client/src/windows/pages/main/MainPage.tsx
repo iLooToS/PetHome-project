@@ -1,47 +1,43 @@
-"use client";
-import React, { useEffect } from "react";
-import { Container, Typography, Box, Button } from "@mui/material";
-import { styled } from "@mui/system";
-import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "../../app/store/store";
-import { getAllSheltersThunk } from "../../entities/shelters/shelterSlice";
+'use client'
+import React, { useEffect } from 'react'
+import { Container, Typography, Box, Button } from '@mui/material'
 
-const Image = styled("img")({
-  width: "100%",
-  height: "auto",
-  borderRadius: "10px",
-  marginBottom: "20px",
-});
+import { useSelector } from 'react-redux'
+import { RootState, useAppDispatch } from '../../app/store/store'
+import { getAllSheltersThunk } from '../../entities/shelters/shelterSlice'
+import Image from 'next/image'
+
+
 
 const MainPage: React.FC = () => {
-  const { shelters } = useSelector((state: RootState) => state.shelters);
-  const dispatch = useAppDispatch();
-console.log(shelters);
+	const { shelters } = useSelector((state: RootState) => state.shelters)
+	const dispatch = useAppDispatch()
+	console.log(shelters)
 
-  useEffect(() => {
-    dispatch(getAllSheltersThunk());
-  }, [dispatch]);
+	useEffect(() => {
+		dispatch(getAllSheltersThunk())
+	}, [dispatch])
 
-  return (
-    <Container maxWidth="md" sx={{ textAlign: "center", marginTop: "50px" }}>
-      <Image src="https://example.com/your-image.jpg" alt="Pet Home" />
-      <Typography variant="h3" component="h1" gutterBottom>
-        Pet Home
-      </Typography>
-      <Typography variant="h5" component="h2" gutterBottom>
-        Платформа для поиска домашних животных
-      </Typography>
-      <Box mt={4}>
-        <Button variant="contained" color="primary" href="/about">
-          Узнать больше
-        </Button>
-        <Typography variant="h5" component="h2" gutterBottom>
-          Приюты
-        </Typography>
-        <Box></Box>
-      </Box>
-    </Container>
-  );
-};
+	return (
+		<Container maxWidth='md' sx={{ textAlign: 'center', marginTop: '5px' }}>
+			<Image src='/img/logoPetHome.jpg' alt='Pet Home' height={300} width={300} />
+			<Typography variant='h3' component='h1' gutterBottom>
+				Pet Home
+			</Typography>
+			<Typography variant='h5' component='h2' gutterBottom>
+				Платформа для поиска домашних животных
+			</Typography>
+			<Box >
+				<Button variant='contained' color='primary' href='/about'>
+					Узнать больше
+				</Button>
+				<Typography variant='h5' component='h2' gutterBottom>
+					Приюты
+				</Typography>
+				<Box></Box>
+			</Box>
+		</Container>
+	)
+}
 
-export default MainPage;
+export default MainPage
