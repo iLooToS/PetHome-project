@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { IPet } from '../types/PetsTypes'
-import '../../../pages/pets/CurrentPetPage'
+import '../../../pages/pets/CurrentPetPage.css'
 import { IconButton, Skeleton, Typography, Button } from '@mui/material'
 import { Undo2 } from 'lucide-react'
 import Box from '@mui/joy/Box'
@@ -8,6 +8,7 @@ import Card from '@mui/joy/Card'
 import AspectRatio from '@mui/joy/AspectRatio'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import PetCarousel from './PetImageCarousel'
 
 type CurrentPetInfoProps = {
 	pet: IPet | undefined
@@ -38,7 +39,7 @@ const CurrentPetInfo = ({ pet, loading }: CurrentPetInfoProps): JSX.Element => {
 						variant='text'
 						sx={{
 							fontSize: '2rem',
-							width: '400px',
+							width: '370px',
 							height: '400px',
 							borderRadius: 2,
 						}}
@@ -63,49 +64,7 @@ const CurrentPetInfo = ({ pet, loading }: CurrentPetInfoProps): JSX.Element => {
 				</IconButton>
 			</div>
 			<div>
-				<Box
-					sx={{
-						display: 'flex',
-						gap: 2,
-						py: 1,
-						overflow: 'auto',
-						width: 380,
-						scrollSnapType: 'x mandatory',
-						'& > *': {
-							scrollSnapAlign: 'center',
-						},
-						'::-webkit-scrollbar': { display: 'none' },
-					}}
-				>
-					{pet &&
-						pet.PetImages.length > 0 &&
-						pet.PetImages.map(image => (
-							<Card
-								orientation='horizontal'
-								size='sm'
-								key={image.id}
-								variant='outlined'
-								style={{ borderRadius: '5%' }}
-							>
-								<AspectRatio
-									ratio='1'
-									style={{ borderRadius: '5%', minWidth: 350 }}
-								>
-									<Image
-										style={{
-											objectFit: 'fill',
-											borderRadius: '5%',
-										}}
-										// srcSet={`${item.src}?h=120&fit=crop&auto=format&dpr=2 2x`}
-										src={image.url}
-										alt={image.url}
-										width={350}
-										height={300}
-									/>
-								</AspectRatio>
-							</Card>
-						))}
-				</Box>
+				<PetCarousel pet={pet} />
 			</div>
 			<div className='animal-description'>
 				{loading ? (

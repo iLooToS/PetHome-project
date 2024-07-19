@@ -7,9 +7,9 @@
 
 .animal-card {
 	border: 1px solid #ccc;
-	padding: 16px;
-	width: 400px;
-	margin: 12px;
+	padding: 10px;
+	width: 370px;
+	margin: 10px;
 	background-color: white;
 }
 
@@ -29,9 +29,9 @@
 
 .animal-actions button {
 	display: block;
-	width: 400px;
-	margin: 12px;
-	padding: 12px;
+	width: 370px;
+	margin: 10px;
+	padding: 10px;
 	font-size: 16px;
 	cursor: pointer;
 }

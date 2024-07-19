@@ -27,6 +27,9 @@ import { loadAllPetsThunk } from '@/src/windows/entities/pets/petsSlice'
 import { ThemeContext } from '@/app/ThemeProvider'
 import { loadAllChatsThunk } from '../../entities/chat/chatSlise'
 import { useSocket } from '../../app/services/useSocket'
+import HomeIcon from '@mui/icons-material/Home'
+import SearchIcon from '@mui/icons-material/Search'
+import ForumIcon from '@mui/icons-material/Forum'
 
 function NavMenu(): JSX.Element {
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
@@ -137,12 +140,29 @@ function NavMenu(): JSX.Element {
 						>
 							<MenuItem onClick={handleCloseNavMenu}>
 								<Link href='/'>
-									<Typography textAlign='center'>Главная</Typography>
+									<Typography textAlign='center'>
+										<HomeIcon />
+										{'  '}
+										Главная
+									</Typography>
 								</Link>
 							</MenuItem>
 							<MenuItem onClick={handleCloseNavMenu}>
 								<Link href='/search'>
-									<Typography textAlign='center'>Поиск</Typography>
+									<Typography textAlign='center'>
+										<SearchIcon />
+										{'      '}
+										Поиск
+									</Typography>
+								</Link>
+							</MenuItem>
+							<MenuItem onClick={handleCloseNavMenu}>
+								<Link href='/chat'>
+									<Typography textAlign='center'>
+										<ForumIcon />
+										{'  '}
+										Сообщения
+									</Typography>
 								</Link>
 							</MenuItem>
 						</Menu>
@@ -176,6 +196,14 @@ function NavMenu(): JSX.Element {
 								sx={{ my: 2, color: 'white', display: 'block' }}
 							>
 								Главная
+							</Button>
+						</Link>
+						<Link href={'/chat'}>
+							<Button
+								onClick={handleCloseNavMenu}
+								sx={{ my: 2, color: 'white', display: 'block' }}
+							>
+								Сообщения
 							</Button>
 						</Link>
 						<Link href={'/search'}>
