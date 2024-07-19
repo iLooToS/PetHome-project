@@ -2,11 +2,11 @@
 const postImages = [
   {
     shelterPostId: 1,
-    url: "/img/postImage11.jpg",
+    url: "/img/postnew1.jpeg",
   },
   {
     shelterPostId: 2,
-    url: "/img/postImage22.jpg",
+    url: "/img/wdawdawdawd.jpg",
   },
   {
     shelterPostId: 3,

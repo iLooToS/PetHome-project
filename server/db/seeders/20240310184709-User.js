@@ -13,7 +13,7 @@ module.exports = {
           lastName: "Владикович",
           email: "vladik@vladik",
           password: await bcrypt.hash("12345", 10),
-          img: "/img/userPhoto.jpg",
+          img: "/img/rttrrtrt.jpg",
         },
         {
           roleId: 2,
@@ -21,7 +21,7 @@ module.exports = {
           lastName: "Админович",
           email: "admin@admin",
           password: await bcrypt.hash("12345", 10),
-          img: "/img/userPhoto.jpg",
+          img: "",
         },
         {
           roleId: 3,
@@ -29,7 +29,7 @@ module.exports = {
           lastName: "Кискович",
           email: "kot@kot",
           password: await bcrypt.hash("12345", 10),
-          img: "/img/userPhoto.jpg",
+          img: "/img/wild1_700.jpg",
         },
         {
           roleId: 1,
@@ -37,7 +37,7 @@ module.exports = {
           lastName: "Васильева",
           email: "VasIra@mail.ru",
           password: await bcrypt.hash("12345", 10),
-          img: "",
+          img: "/img/szczsczsc.jpg",
         },
         {
           // 5
@@ -46,7 +46,7 @@ module.exports = {
           lastName: "Таран",
           email: "homa666@mail.ru",
           password: await bcrypt.hash("12345", 10),
-          img: "",
+          img: "/img/awdwadd.jfif",
         },
         {
           //6
@@ -55,7 +55,7 @@ module.exports = {
           lastName: "Авлвсевич",
           email: "NataAva@mail.ru",
           password: await bcrypt.hash("12345", 10),
-          img: "",
+          img: "/img/argerg.jpg",
         },
         {
           //7
@@ -64,7 +64,7 @@ module.exports = {
           lastName: "Романова",
           email: "lromanova@gmail.com",
           password: await bcrypt.hash("12345", 10),
-          img: "",
+          img: "/img/wafwafawfawf.jpg",
         },
         {
           //8
@@ -73,7 +73,7 @@ module.exports = {
           lastName: "Сибирская",
           email: "SibaTanya@mail.ru",
           password: await bcrypt.hash("12345", 10),
-          img: "",
+          img: "/img/adwdwd.jpg",
         },
         {
           //9
@@ -89,9 +89,9 @@ module.exports = {
           roleId: 1,
           name: "Люся",
           lastName: "Домашняя",
-          email: "kot@mail/ru",
+          email: "kot@mail.ru",
           password: await bcrypt.hash("12345", 10),
-          img: "",
+          img: "/img/mirrow.jpg",
         },
         {
           //11
@@ -100,7 +100,7 @@ module.exports = {
           lastName: "Кот",
           email: "valyacat@mail.ru",
           password: await bcrypt.hash("12345", 10),
-          img: "",
+          img: "/img/998044806.jpg",
         },
       ],
       {}
