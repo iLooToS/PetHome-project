@@ -183,6 +183,20 @@ const ProfilePage: React.FC = () => {
             className="profile-shelter-form"
             onSubmit={handleSubmit(onHadleSubmit)}
           >
+            <Button
+              variant="contained"
+              type="button"
+              onClick={() => setIsOpen((prev) => !prev)}
+              // style={{
+              //   padding: "10px 20px",
+              //   backgroundColor: "black",
+              //   color: "white",
+              //   border: "none",
+              //   borderRadius: "5px",
+              // }}
+            >
+              Закрыть
+            </Button>
             <label htmlFor="name">
               <TextField
                 className="w-80"
@@ -279,20 +293,7 @@ const ProfilePage: React.FC = () => {
             >
               Зарегистрировать приют
             </Button>
-            <Button
-              variant="contained"
-              type="button"
-              onClick={() => setIsOpen((prev) => !prev)}
-              // style={{
-              //   padding: "10px 20px",
-              //   backgroundColor: "black",
-              //   color: "white",
-              //   border: "none",
-              //   borderRadius: "5px",
-              // }}
-            >
-              Закрыть
-            </Button>
+            
           </form>
         )}
         <div className="py-10">
