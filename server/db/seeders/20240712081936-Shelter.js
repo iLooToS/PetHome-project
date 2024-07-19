@@ -3,10 +3,10 @@ const shelters = [
   {
     userId: 1,
     locationId: 1,
-    name: "John Shelter",
-    logo: "/img/johnShelter.jpg",
-    description: "A family-friendly shelter for dogs.",
-    phone: "+7 (900) 000-00-00",
+    name: "«ДРУГ» приют для собак",
+    logo: "/img/logo11.jpg",
+    description: `Некоммерческая организация Благотворительный Фонд «ДРУГ» зарегистрирована 21 апреля 2008 года. Основной деятельностью Фонда является помощь бездомных собакам, проживающим на территории приюта временно или постоянно.`,
+    phone: "+7 (901) 040-01-02",
     status: true,
   },
   {

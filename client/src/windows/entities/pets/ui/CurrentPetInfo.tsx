@@ -11,26 +11,26 @@ import Image from 'next/image'
 import PetCarousel from './PetImageCarousel'
 
 type CurrentPetInfoProps = {
-	pet: IPet | undefined
-	loading: boolean
-}
+  pet: IPet | undefined;
+  loading: boolean;
+};
 
 const CurrentPetInfo = ({ pet, loading }: CurrentPetInfoProps): JSX.Element => {
-	const router = useRouter()
-	const [showFullDescription, setShowFullDescription] = useState(false)
+  const router = useRouter();
+  const [showFullDescription, setShowFullDescription] = useState(false);
 
-	const toggleDescription = () => {
-		setShowFullDescription(!showFullDescription)
-	}
+  const toggleDescription = () => {
+    setShowFullDescription(!showFullDescription);
+  };
 
-	const getDescription = () => {
-		if (!pet?.description) return ''
-		if (showFullDescription) return pet.description
-		return pet.description.length > 100
-			? pet.description.slice(0, 100) + '...'
-			: pet.description
-	}
-
+  const getDescription = () => {
+    if (!pet?.description) return "";
+    if (showFullDescription) return pet.description;
+    return pet.description.length > 100
+      ? pet.description.slice(0, 100) + "..."
+      : pet.description;
+  };
+  
 	return (
 		<div className='animal-card'>
 			<div className='flex justify-between'>
@@ -125,7 +125,11 @@ const CurrentPetInfo = ({ pet, loading }: CurrentPetInfoProps): JSX.Element => {
 								<strong>Паспорт:</strong> {pet?.isPassport ? 'Да' : 'Нет'}
 							</li>
 							<li>
-								<strong>Приучен к лотку:</strong> Да
+                {pet?.petType === "Кошка" && (
+                  <>
+                    <strong>Приучен к лотку:</strong> Да
+                  </>
+                )}
 							</li>
 							<li>
 								<strong>Приют:</strong> {pet?.Shelter.name}
@@ -141,4 +145,4 @@ const CurrentPetInfo = ({ pet, loading }: CurrentPetInfoProps): JSX.Element => {
 	)
 }
 
-export default CurrentPetInfo
+export default CurrentPetInfo;

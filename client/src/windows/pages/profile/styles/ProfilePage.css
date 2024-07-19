@@ -36,11 +36,11 @@
     border-radius: 15px;
 }
 
-.profile-shelter-form label {
+/* .profile-shelter-form label {
     display: flex;
     flex-direction: column;
     width: 100%;
-}
+} */
 
 .profile-shelter-form label span {
     font-size: 12px;
