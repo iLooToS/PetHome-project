@@ -295,7 +295,6 @@ const ProfilePage: React.FC = () => {
             </Button>
           </form>
         )}
-
         <div className="py-10">
           {isShow && shelters.find((shelter) => shelter.userId === user?.id) ? (
             <Button
@@ -342,7 +341,7 @@ const ProfilePage: React.FC = () => {
                         администрацией.
                       </h1>
                       <h2>
-                        С вами свяжутся если понадобиться дополнительная
+                        С вами свяжутся если понадобится дополнительная
                         информация.
                       </h2>
                     </>
